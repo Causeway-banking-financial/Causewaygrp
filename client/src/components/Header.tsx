@@ -219,7 +219,7 @@ export default function Header() {
 
         {/* Mobile Menu - Full screen overlay */}
         {isMobileMenuOpen && (
-          <div className="lg:hidden fixed inset-0 top-[60px] bg-causeway-forest z-[60] overflow-y-auto">
+          <div className="lg:hidden fixed left-0 right-0 bottom-0 bg-causeway-forest z-[9999] overflow-y-auto" style={{ top: '60px' }}>
             <div className="container py-6">
               <div className="flex flex-col gap-2">
                 <Link 
