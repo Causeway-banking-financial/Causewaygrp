@@ -8,6 +8,7 @@ import { ArrowRight, Server, CheckCircle, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import SEO from '@/components/SEO';
 
 const services = [
   'System Selection & Evaluation',
@@ -23,6 +24,11 @@ const services = [
 export default function CoreBanking() {
   return (
     <div className="min-h-screen">
+      <SEO 
+        title="Core Banking Systems"
+        description="System selection, digital transformation, integration services, and legacy modernization for banks in Yemen and MENA."
+        keywords="Core Banking, Digital Transformation, Banking Systems, Integration, Legacy Modernization, Yemen"
+      />
       <Header />
       
       <section className="relative pt-32 pb-20 bg-causeway-forest">

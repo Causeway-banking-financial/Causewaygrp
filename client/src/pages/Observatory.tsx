@@ -158,43 +158,14 @@ export default function Observatory() {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="hidden lg:block"
             >
-              <div className="bg-causeway-forest-light/50 backdrop-blur-sm rounded-lg p-8 border border-causeway-teal/20">
-                <div className="flex items-center gap-3 mb-6">
-                  <div className="w-12 h-12 bg-causeway-gold/20 rounded-lg flex items-center justify-center">
-                    <BarChart3 className="w-6 h-6 text-causeway-gold" />
-                  </div>
-                  <div>
-                    <h3 className="text-causeway-cream font-semibold">YETO Platform</h3>
-                    <p className="text-causeway-cream/60 text-sm">Preview</p>
-                  </div>
-                </div>
-                
-                {/* Mock Dashboard Preview */}
-                <div className="space-y-4">
-                  <div className="bg-causeway-forest/50 rounded p-4">
-                    <div className="flex justify-between items-center mb-2">
-                      <span className="text-causeway-cream/60 text-sm">Exchange Rate (YER/USD)</span>
-                      <span className="text-causeway-gold text-sm">Live</span>
-                    </div>
-                    <div className="text-2xl font-semibold text-causeway-cream">1,890.50</div>
-                    <div className="text-causeway-sage text-sm">+0.3% from yesterday</div>
-                  </div>
-                  
-                  <div className="grid grid-cols-2 gap-4">
-                    <div className="bg-causeway-forest/50 rounded p-4">
-                      <span className="text-causeway-cream/60 text-xs">Inflation Rate</span>
-                      <div className="text-xl font-semibold text-causeway-cream mt-1">18.2%</div>
-                    </div>
-                    <div className="bg-causeway-forest/50 rounded p-4">
-                      <span className="text-causeway-cream/60 text-xs">GDP Growth</span>
-                      <div className="text-xl font-semibold text-causeway-cream mt-1">2.1%</div>
-                    </div>
-                  </div>
-                  
-                  <div className="text-center text-causeway-cream/40 text-xs pt-2">
-                    Sample data for illustration purposes
-                  </div>
-                </div>
+              {/* YETO Teaser Image - Yemen Map */}
+              <div className="relative rounded-lg overflow-hidden shadow-2xl">
+                <img 
+                  src="/images/yeto-teaser.png" 
+                  alt="YETO - Yemen Economic Transparency Observatory - For a decade, decisions have been made in the dark. Something is about to change."
+                  className="w-full h-auto rounded-lg"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-causeway-forest/30 to-transparent" />
               </div>
             </motion.div>
           </div>

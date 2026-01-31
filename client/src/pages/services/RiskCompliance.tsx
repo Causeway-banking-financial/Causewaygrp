@@ -17,6 +17,7 @@ import {
 import { Button } from '@/components/ui/button';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import SEO from '@/components/SEO';
 
 const services = [
   'AML/CFT Framework Development',
@@ -39,6 +40,11 @@ const frameworks = [
 export default function RiskCompliance() {
   return (
     <div className="min-h-screen">
+      <SEO 
+        title="Risk & Compliance Services"
+        description="AML/CFT frameworks, regulatory compliance, internal audit, and risk assessment services for financial institutions in Yemen."
+        keywords="AML/CFT, Risk Management, Compliance, FATF, Basel III, Internal Audit, Yemen"
+      />
       <Header />
       
       {/* Hero Section */}

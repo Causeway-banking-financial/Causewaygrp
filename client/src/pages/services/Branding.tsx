@@ -8,6 +8,7 @@ import { ArrowRight, Palette, CheckCircle, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import SEO from '@/components/SEO';
 
 const services = [
   'Financial Sector Branding',
@@ -23,6 +24,11 @@ const services = [
 export default function Branding() {
   return (
     <div className="min-h-screen">
+      <SEO 
+        title="Branding & Identity"
+        description="Financial sector branding, corporate identity, marketing strategy, and digital presence for banks in Yemen."
+        keywords="Branding, Corporate Identity, Marketing Strategy, Digital Presence, Financial Sector, Yemen"
+      />
       <Header />
       
       <section className="relative pt-32 pb-20 bg-causeway-forest">

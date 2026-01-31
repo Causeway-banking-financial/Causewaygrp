@@ -455,8 +455,16 @@ export default function Home() {
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}
+              className="hidden md:block"
             >
-              <YetoBanner variant="inline" />
+              {/* YETO Teaser Image - Yemen Map */}
+              <div className="relative rounded-lg overflow-hidden shadow-2xl">
+                <img 
+                  src="/images/yeto-teaser.png" 
+                  alt="YETO - Yemen Economic Transparency Observatory - For a decade, decisions have been made in the dark. Something is about to change."
+                  className="w-full h-auto rounded-lg"
+                />
+              </div>
             </motion.div>
           </div>
         </div>

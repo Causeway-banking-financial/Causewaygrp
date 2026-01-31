@@ -8,6 +8,7 @@ import { ArrowRight, Users, CheckCircle, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import SEO from '@/components/SEO';
 
 const services = [
   'MFI Establishment Support',
@@ -23,6 +24,11 @@ const services = [
 export default function Microfinance() {
   return (
     <div className="min-h-screen">
+      <SEO 
+        title="Microfinance Development"
+        description="MFI establishment, capacity building, product development, and regulatory licensing for microfinance institutions in Yemen."
+        keywords="Microfinance, MFI, Financial Inclusion, Capacity Building, Yemen, Social Performance"
+      />
       <Header />
       
       <section className="relative pt-32 pb-20 bg-causeway-forest">

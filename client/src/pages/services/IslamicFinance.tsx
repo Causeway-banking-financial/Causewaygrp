@@ -18,6 +18,7 @@ import {
 import { Button } from '@/components/ui/button';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import SEO from '@/components/SEO';
 
 const deliverables = [
   { icon: FileText, title: 'Product Manuals & SOPs', desc: 'Comprehensive documentation for all Islamic products' },
@@ -48,6 +49,11 @@ const process = [
 export default function IslamicFinance() {
   return (
     <div className="min-h-screen">
+      <SEO 
+        title="Islamic Finance Engineering"
+        description="Sharia-compliant product development, Sukuk structuring, and Islamic banking transformation services in Yemen and MENA region."
+        keywords="Islamic Finance, Sharia Compliance, Sukuk, Murabaha, Islamic Banking, Yemen"
+      />
       <Header />
       
       {/* Hero Section */}

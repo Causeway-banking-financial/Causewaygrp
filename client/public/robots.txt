@@ -1,0 +1,25 @@
+# CauseWay Consultancies - robots.txt
+# https://causewaygrp.com
+
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://causewaygrp.com/sitemap.xml
+
+# Disallow admin and private paths (if any)
+Disallow: /api/
+Disallow: /admin/
+
+# Allow all major search engines
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Yandex
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /

@@ -8,6 +8,7 @@ import { ArrowRight, GraduationCap, CheckCircle, ChevronRight } from 'lucide-rea
 import { Button } from '@/components/ui/button';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import SEO from '@/components/SEO';
 
 const services = [
   'Board Training & Governance',
@@ -30,6 +31,11 @@ const programs = [
 export default function CapacityBuilding() {
   return (
     <div className="min-h-screen">
+      <SEO 
+        title="Capacity Building"
+        description="Board training, executive development, staff certification, and workshops for financial institutions in Yemen."
+        keywords="Capacity Building, Training, Board Governance, Executive Development, Workshops, Yemen"
+      />
       <Header />
       
       <section className="relative pt-32 pb-20 bg-causeway-forest">

@@ -2,7 +2,7 @@
  * CauseWay Logo Component
  * Brand: CauseWay (كوزواي)
  * Features the distinctive square-within-square logo with teal, sage, and gold elements
- * Exact colors from brand guidelines
+ * Exact colors from brand guidelines - matching IMG_3866(9).jpeg
  */
 
 interface LogoProps {
@@ -22,20 +22,22 @@ export default function Logo({
 }: LogoProps) {
   const sizes = {
     sm: { icon: 28, text: 'text-base', arabic: 'text-xs' },
-    md: { icon: 36, text: 'text-xl', arabic: 'text-sm' },
-    lg: { icon: 52, text: 'text-2xl', arabic: 'text-lg' }
+    md: { icon: 40, text: 'text-xl', arabic: 'text-sm' },
+    lg: { icon: 56, text: 'text-2xl', arabic: 'text-lg' }
   };
 
   const currentSize = sizes[size];
-  const textColor = light ? 'text-causeway-cream' : 'text-causeway-forest';
-  const arabicColor = light ? 'text-causeway-sage' : 'text-causeway-teal';
+  const textColor = light ? 'text-causeway-cream' : 'text-causeway-cream';
+  const arabicColor = light ? 'text-causeway-sage' : 'text-causeway-sage';
 
-  // Exact brand colors
+  // Exact brand colors from the logo image
   const colors = {
-    teal: '#1e6b5a',      // Main frame color
-    sage: '#5a8a6a',      // Inner square
-    gold: '#d4a84b',      // Accent square
-    forest: '#1a2e1a'     // Background/text
+    tealFrame: '#2d6a5a',     // Main C-frame color (darker teal)
+    sageSquare: '#5a8a6a',    // Inner sage green square
+    goldSquare: '#d4a84b',    // Gold/amber accent square
+    tealDot: '#2d6a5a',       // Small teal circle
+    textWhite: '#f5f5f0',     // Off-white text
+    textSage: '#7aa88a'       // Sage text for Arabic
   };
 
   const LogoIcon = () => (
@@ -46,18 +48,23 @@ export default function Logo({
       fill="none" 
       xmlns="http://www.w3.org/2000/svg"
       className="flex-shrink-0"
+      aria-label="CauseWay Logo"
     >
-      {/* Outer C-shaped frame - Teal #1e6b5a */}
+      {/* Outer C-shaped frame - Teal #2d6a5a */}
       <path 
-        d="M15 10 L85 10 L85 22 L27 22 L27 78 L85 78 L85 90 L15 90 Z" 
-        fill={colors.teal}
+        d="M12 8 L12 92 L24 92 L24 20 L88 20 L88 8 Z" 
+        fill={colors.tealFrame}
+      />
+      <path 
+        d="M12 92 L88 92 L88 80 L24 80 L24 20 L12 20 Z" 
+        fill={colors.tealFrame}
       />
       {/* Inner sage square - #5a8a6a */}
-      <rect x="38" y="38" width="26" height="26" rx="4" fill={colors.sage} />
+      <rect x="32" y="40" width="28" height="28" rx="5" fill={colors.sageSquare} />
       {/* Gold accent square - #d4a84b */}
-      <rect x="54" y="26" width="22" height="22" rx="4" fill={colors.gold} />
-      {/* Small teal circle - #1e6b5a */}
-      <circle cx="82" cy="58" r="9" fill={colors.teal} />
+      <rect x="52" y="28" width="24" height="24" rx="5" fill={colors.goldSquare} />
+      {/* Small teal circle/dot - #2d6a5a */}
+      <circle cx="84" cy="60" r="10" fill={colors.tealFrame} />
     </svg>
   );
 
