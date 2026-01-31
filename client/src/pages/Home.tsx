@@ -500,26 +500,21 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Newsletter Section */}
-      <section className="py-12 sm:py-16 bg-[#faf9f6] border-t border-[#133129]/10">
+      {/* Newsletter Section - Matching Reference Design */}
+      <section className="py-8 sm:py-10 bg-[#133129] border-t border-[#224B40]/30">
         <div className="container">
-          <div className="bg-[#133129] rounded-lg p-6 sm:p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-6 md:gap-8">
-            <div className={`text-center md:text-${isRTL ? 'right' : 'left'}`}>
-              <h3 className="text-xl sm:text-2xl font-serif text-[#faf9f6] mb-2" style={{ fontFamily: "'Playfair Display', Georgia, serif" }}>
-                {language === 'ar' ? 'اشترك في رؤى كوزواي' : 'Subscribe to CauseWay Insights'}
-              </h3>
-              <p className="text-[#faf9f6]/70 text-sm sm:text-base">
-                {language === 'ar' ? 'احصل على تحليلات الخبراء والتحديثات في بريدك الإلكتروني.' : 'Get expert analysis and updates delivered to your inbox.'}
-              </p>
-            </div>
-            <form className={`flex flex-col sm:flex-row gap-3 w-full md:w-auto ${isRTL ? 'sm:flex-row-reverse' : ''}`}>
+          <div className={`flex flex-col md:flex-row items-center justify-between gap-4 md:gap-8 ${isRTL ? 'md:flex-row-reverse' : ''}`}>
+            <h3 className="text-lg sm:text-xl font-serif text-[#faf9f6] whitespace-nowrap" style={{ fontFamily: "'Playfair Display', Georgia, serif" }}>
+              {language === 'ar' ? 'اشترك في رؤى كوزواي' : 'Subscribe to CauseWay Insights'}
+            </h3>
+            <form className={`flex flex-col sm:flex-row gap-3 w-full md:flex-1 md:max-w-lg ${isRTL ? 'sm:flex-row-reverse' : ''}`}>
               <input
                 type="email"
                 placeholder={language === 'ar' ? 'أدخل بريدك الإلكتروني' : 'Enter your email address'}
-                className="px-4 py-3 bg-[#224B40] border border-[#406D61]/30 rounded text-[#faf9f6] placeholder:text-[#faf9f6]/40 focus:outline-none focus:border-[#d4a84b] w-full sm:min-w-[280px] text-sm sm:text-base"
+                className="flex-1 px-4 py-2.5 bg-white border border-[#e5e5e5] rounded text-[#133129] placeholder:text-[#133129]/40 focus:outline-none focus:border-[#d4a84b] text-sm"
                 dir={isRTL ? 'rtl' : 'ltr'}
               />
-              <Button className="bg-[#d4a84b] hover:bg-[#c9a227] text-[#133129] font-semibold whitespace-nowrap">
+              <Button className="bg-[#d4a84b] hover:bg-[#c9a227] text-[#133129] font-semibold whitespace-nowrap px-6">
                 {language === 'ar' ? 'اشترك' : 'Subscribe'}
               </Button>
             </form>
