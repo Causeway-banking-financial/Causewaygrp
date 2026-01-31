@@ -154,7 +154,7 @@ export default function Home() {
   const { language, isRTL } = useLanguage();
 
   return (
-    <div className="min-h-screen" dir={isRTL ? 'rtl' : 'ltr'}>
+    <div className="min-h-screen" id="main-content" role="main" dir={isRTL ? 'rtl' : 'ltr'}>
       <YetoBanner variant="top" />
       <Header />
       

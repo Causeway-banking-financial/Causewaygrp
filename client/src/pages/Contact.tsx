@@ -39,17 +39,37 @@ export default function Contact() {
     email: '',
     organization: '',
     topic: '',
-    message: ''
+    message: '',
+    website: '' // Honeypot field for spam protection
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitSuccess, setSubmitSuccess] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Honeypot check - if website field is filled, it's a bot
+    if (formData.website) {
+      console.log('Bot detected');
+      return;
+    }
+    
+    setIsSubmitting(true);
+    
+    // Simulate form submission
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    
+    setIsSubmitting(false);
+    setSubmitSuccess(true);
     toast.success(
       language === 'ar' 
         ? 'شكراً لرسالتك. سنرد خلال يومي عمل.'
         : 'Thank you for your message. We will respond within 2 business days.'
     );
-    setFormData({ name: '', email: '', organization: '', topic: '', message: '' });
+    setFormData({ name: '', email: '', organization: '', topic: '', message: '', website: '' });
+    
+    // Reset success state after 5 seconds
+    setTimeout(() => setSubmitSuccess(false), 5000);
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -234,10 +254,51 @@ export default function Contact() {
                     />
                   </div>
 
-                  <Button type="submit" className="bg-[#d4a84b] hover:bg-[#c9a227] text-[#133129] font-semibold px-8 py-3">
-                    {content.form.submit[language]}
-                    <Send className={`w-4 h-4 ${isRTL ? 'mr-2 rotate-180' : 'ml-2'}`} />
-                  </Button>
+                  { /* Honeypot field - hidden from users, visible to bots */ }
+                  <div className="hidden" aria-hidden="true">
+                    <label htmlFor="website">Website</label>
+                    <input
+                      type="text"
+                      id="website"
+                      name="website"
+                      value={formData.website}
+                      onChange={handleChange}
+                      tabIndex={-1}
+                      autoComplete="off"
+                    />
+                  </div>
+
+                  <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+                    <Button 
+                      type="submit" 
+                      className="bg-[#d4a84b] hover:bg-[#c9a227] text-[#133129] font-semibold px-8 py-3 disabled:opacity-50"
+                      disabled={isSubmitting}
+                    >
+                      {isSubmitting 
+                        ? (language === 'ar' ? 'جاري الإرسال...' : 'Sending...')
+                        : content.form.submit[language]
+                      }
+                      <Send className={`w-4 h-4 ${isRTL ? 'mr-2 rotate-180' : 'ml-2'}`} />
+                    </Button>
+                    
+                    {submitSuccess && (
+                      <span className="text-green-600 text-sm font-medium">
+                        {language === 'ar' ? '✓ تم الإرسال بنجاح' : '✓ Message sent successfully'}
+                      </span>
+                    )}
+                  </div>
+
+                  {/* Privacy Notice */}
+                  <p className="text-xs text-[#406D61] mt-4">
+                    {language === 'ar' 
+                      ? 'بإرسال هذا النموذج، فإنك توافق على سياسة الخصوصية الخاصة بنا. سيتم استخدام معلوماتك فقط للرد على استفسارك ولن تتم مشاركتها مع أطراف ثالثة.'
+                      : 'By submitting this form, you agree to our privacy policy. Your information will only be used to respond to your inquiry and will not be shared with third parties.'
+                    }
+                    {' '}
+                    <a href="/privacy-policy" className="text-[#d4a84b] hover:underline">
+                      {language === 'ar' ? 'سياسة الخصوصية' : 'Privacy Policy'}
+                    </a>
+                  </p>
                 </form>
               </div>
             </motion.div>
