@@ -1,8 +1,8 @@
 /**
  * CauseWay Home Page
  * Design: Institutional Arabesque Modernism
- * Sections: Hero, Services Preview, Observatory Preview, Insights, Newsletter, Stats
- * Enhanced with Yemen-specific imagery and improved mobile responsiveness
+ * Brand Colors: #133129 (forest), #224B40 (teal), #406D61 (sage), #d4a84b (gold), #faf9f6 (cream)
+ * Sections: Hero, Services Preview, Observatory Preview, Insights, Newsletter
  */
 
 import { Link } from 'wouter';
@@ -18,12 +18,13 @@ import {
   Calendar,
   ChevronRight,
   Clock,
-  ExternalLink
+  TrendingUp
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import YetoBanner from '@/components/YetoBanner';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 const services = [
   {
@@ -31,6 +32,7 @@ const services = [
     title: 'Islamic Finance Engineering',
     titleAr: 'هندسة التمويل الإسلامي',
     description: 'Sharia-compliant product development, Sukuk structuring, and Islamic banking transformation.',
+    descriptionAr: 'تطوير المنتجات المتوافقة مع الشريعة، هيكلة الصكوك، وتحويل البنوك الإسلامية.',
     href: '/services/islamic-finance'
   },
   {
@@ -38,6 +40,7 @@ const services = [
     title: 'Risk & Compliance',
     titleAr: 'المخاطر والامتثال',
     description: 'AML/CFT frameworks, regulatory compliance, internal audit, and risk assessment.',
+    descriptionAr: 'أطر مكافحة غسل الأموال وتمويل الإرهاب، الامتثال التنظيمي، التدقيق الداخلي، وتقييم المخاطر.',
     href: '/services/risk-compliance'
   },
   {
@@ -45,6 +48,7 @@ const services = [
     title: 'Core Banking Systems',
     titleAr: 'الأنظمة المصرفية الأساسية',
     description: 'System selection, digital transformation, integration services, and legacy modernization.',
+    descriptionAr: 'اختيار الأنظمة، التحول الرقمي، خدمات التكامل، وتحديث الأنظمة القديمة.',
     href: '/services/core-banking'
   },
   {
@@ -52,6 +56,7 @@ const services = [
     title: 'Microfinance Development',
     titleAr: 'تطوير التمويل الأصغر',
     description: 'MFI establishment, capacity building, product development, and regulatory licensing.',
+    descriptionAr: 'إنشاء مؤسسات التمويل الأصغر، بناء القدرات، تطوير المنتجات، والترخيص التنظيمي.',
     href: '/services/microfinance'
   },
   {
@@ -59,6 +64,7 @@ const services = [
     title: 'Capacity Building',
     titleAr: 'بناء القدرات',
     description: 'Board training, executive development, staff certification, and workshops.',
+    descriptionAr: 'تدريب مجالس الإدارة، تطوير القيادات، شهادات الموظفين، وورش العمل.',
     href: '/services/capacity-building'
   },
   {
@@ -66,6 +72,7 @@ const services = [
     title: 'Branding & Identity',
     titleAr: 'العلامة التجارية والهوية',
     description: 'Financial sector branding, corporate identity, marketing strategy, and digital presence.',
+    descriptionAr: 'العلامة التجارية للقطاع المالي، الهوية المؤسسية، استراتيجية التسويق، والحضور الرقمي.',
     href: '/services/branding'
   }
 ];
@@ -73,36 +80,48 @@ const services = [
 const insights = [
   {
     category: 'Governance',
+    categoryAr: 'الحوكمة',
     title: 'Governance in Fragile Markets: Building Audit-Ready Systems',
+    titleAr: 'الحوكمة في الأسواق الهشة: بناء أنظمة جاهزة للتدقيق',
     excerpt: 'A deep dive into compliance frameworks for high-risk environments and emerging market banks.',
     date: 'January 28, 2026',
+    dateAr: '28 يناير 2026',
     readTime: '12 min',
     image: '/images/aden-aerial.jpg',
     href: '/insights/articles/governance-fragile-markets'
   },
   {
     category: 'Islamic Finance',
+    categoryAr: 'التمويل الإسلامي',
     title: 'Islamic Finance Product Engineering: From Concept to Execution',
+    titleAr: 'هندسة منتجات التمويل الإسلامي: من المفهوم إلى التنفيذ',
     excerpt: 'Structuring innovative, compliant financial solutions for modern banking needs.',
     date: 'January 25, 2026',
+    dateAr: '25 يناير 2026',
     readTime: '8 min',
     image: '/images/financial-district.png',
     href: '/insights/articles/islamic-finance-engineering'
   },
   {
     category: 'Compliance',
+    categoryAr: 'الامتثال',
     title: 'AML/CFT in Development Finance: Practical Frameworks',
+    titleAr: 'مكافحة غسل الأموال في تمويل التنمية: أطر عملية',
     excerpt: 'Implementing robust anti-money laundering strategies in challenging environments.',
     date: 'January 20, 2026',
+    dateAr: '20 يناير 2026',
     readTime: '10 min',
     image: '/images/business-district.jpg',
     href: '/insights/articles/aml-cft-frameworks'
   },
   {
     category: 'Risk Management',
+    categoryAr: 'إدارة المخاطر',
     title: 'Treasury Governance for Emerging Market Banks',
+    titleAr: 'حوكمة الخزينة للبنوك في الأسواق الناشئة',
     excerpt: 'Optimizing liquidity and risk management in volatile economic conditions.',
     date: 'January 15, 2026',
+    dateAr: '15 يناير 2026',
     readTime: '9 min',
     image: '/images/aden-harbor.jpg',
     href: '/insights/articles/treasury-governance'
@@ -110,34 +129,36 @@ const insights = [
 ];
 
 const newsTicker = [
-  { text: 'New AML/CFT Framework Released', type: 'update' },
-  { text: 'Yemen Banking Sector Update', type: 'report' },
-  { text: 'Observatory Q1 Report Available', type: 'report' },
-  { text: 'YETO Platform Launch Announced', type: 'announcement' }
+  { text: 'New AML/CFT Framework Released', textAr: 'إصدار إطار جديد لمكافحة غسل الأموال' },
+  { text: 'Yemen Banking Sector Update', textAr: 'تحديث القطاع المصرفي اليمني' },
+  { text: 'Observatory Q1 Report Available', textAr: 'تقرير المرصد للربع الأول متاح' },
+  { text: 'YETO Platform Launch Announced', textAr: 'الإعلان عن إطلاق منصة يتو' }
 ];
 
 export default function Home() {
+  const { language, isRTL } = useLanguage();
+
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen" dir={isRTL ? 'rtl' : 'ltr'}>
       <YetoBanner variant="top" />
       <Header />
       
-      {/* Hero Section - Enhanced with Aden imagery */}
-      <section className="relative min-h-screen flex items-center pt-20">
-        <div className="absolute inset-0 bg-causeway-forest">
+      {/* Hero Section */}
+      <section className="relative h-screen flex items-center pt-20">
+        <div className="absolute inset-0 bg-[#133129]">
           <div 
             className="absolute inset-0 bg-cover bg-center"
             style={{ 
               backgroundImage: 'url(/images/aden-aerial.jpg)',
-              filter: 'brightness(0.4) saturate(0.8)'
+              filter: 'brightness(0.35) saturate(0.7)'
             }}
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-causeway-forest/95 via-causeway-forest/80 to-causeway-forest/60" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#133129]/95 via-[#133129]/80 to-[#133129]/60" />
         </div>
         
         {/* Geometric Corner Ornaments */}
-        <div className="absolute top-28 left-6 md:left-12 w-16 md:w-24 h-16 md:h-24 border-l-2 border-t-2 border-causeway-gold/40 hidden sm:block" />
-        <div className="absolute bottom-28 right-6 md:right-12 w-16 md:w-24 h-16 md:h-24 border-r-2 border-b-2 border-causeway-gold/40 hidden sm:block" />
+        <div className="absolute top-28 left-6 md:left-12 w-16 md:w-24 h-16 md:h-24 border-l-2 border-t-2 border-[#d4a84b]/40 hidden sm:block" />
+        <div className="absolute bottom-28 right-6 md:right-12 w-16 md:w-24 h-16 md:h-24 border-r-2 border-b-2 border-[#d4a84b]/40 hidden sm:block" />
         
         <div className="container relative z-10 py-12 md:py-20">
           <motion.div 
@@ -146,64 +167,84 @@ export default function Home() {
             transition={{ duration: 0.8 }}
             className="max-w-3xl"
           >
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display text-causeway-cream leading-tight mb-4 md:mb-6">
-              Where Finance Becomes{' '}
-              <span className="text-causeway-gold italic block sm:inline">Infrastructure</span>
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-serif text-[#faf9f6] leading-tight mb-4 md:mb-6" style={{ fontFamily: "'Playfair Display', Georgia, serif" }}>
+              {language === 'ar' ? (
+                <>
+                  حيث يصبح التمويل{' '}
+                  <span className="text-[#d4a84b] italic block sm:inline">بنية تحتية</span>
+                </>
+              ) : (
+                <>
+                  Where Finance Becomes{' '}
+                  <span className="text-[#d4a84b] italic block sm:inline">Infrastructure</span>
+                </>
+              )}
             </h1>
-            <p className="text-lg sm:text-xl md:text-2xl text-causeway-cream/80 mb-6 md:mb-8 leading-relaxed">
-              Building Sharia-grounded, governance-safe financial systems 
-              for banks, institutions, and development partners.
+            <p className="text-lg sm:text-xl md:text-2xl text-[#faf9f6]/80 mb-6 md:mb-8 leading-relaxed">
+              {language === 'ar' 
+                ? 'بناء أنظمة مالية مؤسسة على الشريعة وآمنة حوكمياً للبنوك والمؤسسات وشركاء التنمية.'
+                : 'Building Sharia-grounded, governance-safe financial systems for banks, institutions, and development partners.'
+              }
             </p>
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+            <div className={`flex flex-col sm:flex-row gap-3 sm:gap-4 ${isRTL ? 'sm:flex-row-reverse' : ''}`}>
               <Link href="/services">
-                <Button className="btn-gold text-sm sm:text-base px-6 sm:px-8 py-5 sm:py-6 w-full sm:w-auto">
-                  Explore Our Services
-                  <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 ml-2" />
+                <Button className="bg-[#d4a84b] hover:bg-[#c9a227] text-[#133129] font-semibold text-sm sm:text-base px-6 sm:px-8 py-5 sm:py-6 w-full sm:w-auto shadow-lg hover:shadow-xl transition-all">
+                  {language === 'ar' ? 'استكشف خدماتنا' : 'Explore Our Services'}
+                  <ArrowRight className={`w-4 h-4 sm:w-5 sm:h-5 ${isRTL ? 'mr-2 rotate-180' : 'ml-2'}`} />
                 </Button>
               </Link>
               <Link href="/contact">
-                <Button className="btn-outline-light text-sm sm:text-base px-6 sm:px-8 py-5 sm:py-6 w-full sm:w-auto">
-                  Request a Briefing
+                <Button variant="outline" className="border-[#faf9f6]/40 text-[#faf9f6] hover:bg-[#faf9f6]/10 hover:border-[#faf9f6]/60 text-sm sm:text-base px-6 sm:px-8 py-5 sm:py-6 w-full sm:w-auto">
+                  {language === 'ar' ? 'طلب إحاطة' : 'Request a Briefing'}
                 </Button>
               </Link>
             </div>
           </motion.div>
         </div>
 
-        {/* News Ticker - Enhanced */}
-        <div className="absolute bottom-0 left-0 right-0 bg-causeway-forest-light/90 backdrop-blur-sm border-t border-causeway-teal/20">
-          <div className="container py-2 sm:py-3">
-            <div className="flex items-center gap-3 sm:gap-4 overflow-hidden">
-              <span className="text-causeway-gold font-semibold text-xs sm:text-sm whitespace-nowrap flex-shrink-0">
-                Governance Pulse
+        {/* Governance Pulse Ticker - Matching Reference Design */}
+        <div className="absolute bottom-0 left-0 right-0 bg-[#224B40]/95 backdrop-blur-sm border-t border-[#406D61]/30">
+          <div className="container py-3">
+            <div className="flex items-center gap-4">
+              <div className="flex items-center gap-2 flex-shrink-0">
+                <span className="text-[#d4a84b] font-semibold text-sm whitespace-nowrap">
+                  {language === 'ar' ? 'نبض الحوكمة' : 'Governance Pulse'}
+                </span>
+              </div>
+              <span className="text-[#faf9f6]/50 text-sm">|</span>
+              <span className="text-[#faf9f6]/60 text-sm whitespace-nowrap">
+                {language === 'ar' ? 'آخر:' : 'Latest:'}
               </span>
-              <span className="text-causeway-cream/40 hidden sm:block">|</span>
-              <div className="flex items-center gap-4 sm:gap-6 overflow-x-auto scrollbar-hide">
-                {newsTicker.map((item, index) => (
-                  <span key={index} className="text-causeway-cream/70 text-xs sm:text-sm whitespace-nowrap flex items-center gap-2">
-                    <span className="text-causeway-gold/60">Latest:</span> {item.text}
-                    {index < newsTicker.length - 1 && <span className="text-causeway-cream/30 ml-4">|</span>}
-                  </span>
-                ))}
+              <div className="ticker-wrapper flex-1 overflow-hidden">
+                <div className="ticker-content">
+                  {[...newsTicker, ...newsTicker].map((item, index) => (
+                    <span key={index} className="text-[#faf9f6]/90 text-sm whitespace-nowrap flex items-center">
+                      {language === 'ar' ? item.textAr : item.text}
+                      <span className="text-[#faf9f6]/40 mx-4">|</span>
+                    </span>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Services Section - Enhanced grid */}
-      <section className="py-16 md:py-24 bg-causeway-cream">
+      {/* Services Section */}
+      <section className="py-16 md:py-24 bg-[#faf9f6]">
         <div className="container">
           <div className="text-center mb-10 md:mb-16">
-            <span className="text-causeway-gold font-semibold text-xs sm:text-sm uppercase tracking-wider">
-              Our Expertise
+            <span className="text-[#d4a84b] font-semibold text-xs sm:text-sm uppercase tracking-wider">
+              {language === 'ar' ? 'خبراتنا' : 'Our Expertise'}
             </span>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-display text-causeway-forest mt-2 sm:mt-3 mb-3 sm:mb-4">
-              Comprehensive Financial Advisory
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-serif text-[#133129] mt-2 sm:mt-3 mb-3 sm:mb-4" style={{ fontFamily: "'Playfair Display', Georgia, serif" }}>
+              {language === 'ar' ? 'استشارات مالية شاملة' : 'Comprehensive Financial Advisory'}
             </h2>
-            <p className="text-causeway-forest/70 max-w-2xl mx-auto text-sm sm:text-base px-4">
-              From Islamic finance engineering to digital transformation, we provide 
-              end-to-end solutions for financial institutions.
+            <p className="text-[#406D61] max-w-2xl mx-auto text-sm sm:text-base px-4">
+              {language === 'ar' 
+                ? 'من هندسة التمويل الإسلامي إلى التحول الرقمي، نقدم حلولاً متكاملة للمؤسسات المالية.'
+                : 'From Islamic finance engineering to digital transformation, we provide end-to-end solutions for financial institutions.'
+              }
             </p>
           </div>
 
@@ -217,21 +258,22 @@ export default function Home() {
                 viewport={{ once: true }}
               >
                 <Link href={service.href}>
-                  <div className="group bg-white p-5 sm:p-6 md:p-8 rounded-lg shadow-sm hover:shadow-xl transition-all duration-300 h-full border border-transparent hover:border-causeway-gold/20">
-                    <div className="w-12 h-12 sm:w-14 sm:h-14 bg-causeway-forest/10 rounded-lg flex items-center justify-center mb-4 sm:mb-6 group-hover:bg-causeway-gold/20 transition-colors">
-                      <service.icon className="w-6 h-6 sm:w-7 sm:h-7 text-causeway-teal group-hover:text-causeway-gold transition-colors" />
+                  <div className="group bg-white p-5 sm:p-6 md:p-8 rounded-lg shadow-sm hover:shadow-xl transition-all duration-300 h-full border border-transparent hover:border-[#d4a84b]/20">
+                    <div className="w-12 h-12 sm:w-14 sm:h-14 bg-[#133129]/10 rounded-lg flex items-center justify-center mb-4 sm:mb-6 group-hover:bg-[#d4a84b]/20 transition-colors">
+                      <service.icon className="w-6 h-6 sm:w-7 sm:h-7 text-[#224B40] group-hover:text-[#d4a84b] transition-colors" />
                     </div>
-                    <h3 className="text-lg sm:text-xl font-display text-causeway-forest mb-1 sm:mb-2">
-                      {service.title}
+                    <h3 className="text-lg sm:text-xl font-serif text-[#133129] mb-1 sm:mb-2" style={{ fontFamily: "'Playfair Display', Georgia, serif" }}>
+                      {language === 'ar' ? service.titleAr : service.title}
                     </h3>
-                    <p className="text-causeway-teal/80 font-body-ar text-xs sm:text-sm mb-2 sm:mb-3">
-                      {service.titleAr}
+                    <p className="text-[#1e6b5a]/80 text-xs sm:text-sm mb-2 sm:mb-3" style={{ fontFamily: language === 'ar' ? "'Amiri', serif" : "'Source Sans Pro', sans-serif" }}>
+                      {language === 'ar' ? service.title : service.titleAr}
                     </p>
-                    <p className="text-causeway-forest/60 text-xs sm:text-sm leading-relaxed">
-                      {service.description}
+                    <p className="text-[#406D61] text-xs sm:text-sm leading-relaxed">
+                      {language === 'ar' ? service.descriptionAr : service.description}
                     </p>
-                    <div className="mt-3 sm:mt-4 flex items-center text-causeway-gold font-medium text-xs sm:text-sm opacity-0 group-hover:opacity-100 transition-opacity">
-                      Learn More <ChevronRight className="w-3 h-3 sm:w-4 sm:h-4 ml-1" />
+                    <div className={`mt-3 sm:mt-4 flex items-center text-[#d4a84b] font-medium text-xs sm:text-sm opacity-0 group-hover:opacity-100 transition-opacity ${isRTL ? 'flex-row-reverse' : ''}`}>
+                      {language === 'ar' ? 'اعرف المزيد' : 'Learn More'} 
+                      <ChevronRight className={`w-3 h-3 sm:w-4 sm:h-4 ${isRTL ? 'mr-1 rotate-180' : 'ml-1'}`} />
                     </div>
                   </div>
                 </Link>
@@ -241,9 +283,9 @@ export default function Home() {
 
           <div className="text-center mt-8 sm:mt-12">
             <Link href="/services">
-              <Button variant="outline" className="border-causeway-forest text-causeway-forest hover:bg-causeway-forest hover:text-causeway-cream text-sm sm:text-base">
-                View All Services
-                <ArrowRight className="w-4 h-4 ml-2" />
+              <Button variant="outline" className="border-[#133129] text-[#133129] hover:bg-[#133129] hover:text-[#faf9f6] text-sm sm:text-base">
+                {language === 'ar' ? 'عرض جميع الخدمات' : 'View All Services'}
+                <ArrowRight className={`w-4 h-4 ${isRTL ? 'mr-2 rotate-180' : 'ml-2'}`} />
               </Button>
             </Link>
           </div>
@@ -251,35 +293,38 @@ export default function Home() {
       </section>
 
       {/* Quote Section */}
-      <section className="py-12 sm:py-16 bg-causeway-cream border-y border-causeway-forest/10">
+      <section className="py-12 sm:py-16 bg-[#faf9f6] border-y border-[#133129]/10">
         <div className="container">
           <blockquote className="text-center max-w-3xl mx-auto px-4">
-            <p className="text-xl sm:text-2xl md:text-3xl font-display text-causeway-forest italic leading-relaxed">
-              "Governance is not a constraint; it is the foundation of credibility."
+            <p className="text-xl sm:text-2xl md:text-3xl font-serif text-[#133129] italic leading-relaxed" style={{ fontFamily: "'Playfair Display', Georgia, serif" }}>
+              {language === 'ar' 
+                ? '"الحوكمة ليست قيداً؛ إنها أساس المصداقية."'
+                : '"Governance is not a constraint; it is the foundation of credibility."'
+              }
             </p>
-            <cite className="text-causeway-forest/60 mt-3 sm:mt-4 block not-italic text-sm sm:text-base">
-              — CauseWay Leadership
+            <cite className="text-[#406D61] mt-3 sm:mt-4 block not-italic text-sm sm:text-base">
+              — {language === 'ar' ? 'قيادة كوزواي' : 'CauseWay Leadership'}
             </cite>
           </blockquote>
         </div>
       </section>
 
-      {/* Insights Section - Enhanced layout matching mockup */}
+      {/* Insights Section */}
       <section className="py-16 md:py-24 bg-white">
         <div className="container">
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 md:mb-12">
-            <div>
-              <span className="text-causeway-gold font-semibold text-xs sm:text-sm uppercase tracking-wider">
-                Latest Insights
+          <div className={`flex flex-col md:flex-row justify-between items-start md:items-center mb-8 md:mb-12 ${isRTL ? 'md:flex-row-reverse' : ''}`}>
+            <div className={isRTL ? 'text-right' : ''}>
+              <span className="text-[#d4a84b] font-semibold text-xs sm:text-sm uppercase tracking-wider">
+                {language === 'ar' ? 'أحدث الرؤى' : 'Latest Insights'}
               </span>
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-display text-causeway-forest mt-2 sm:mt-3">
-                Expert Analysis & Thought Leadership
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-serif text-[#133129] mt-2 sm:mt-3" style={{ fontFamily: "'Playfair Display', Georgia, serif" }}>
+                {language === 'ar' ? 'تحليلات الخبراء والقيادة الفكرية' : 'Expert Analysis & Thought Leadership'}
               </h2>
             </div>
             <Link href="/insights">
-              <Button variant="outline" className="mt-4 md:mt-0 border-causeway-forest text-causeway-forest hover:bg-causeway-forest hover:text-causeway-cream text-sm">
-                View All Insights
-                <ArrowRight className="w-4 h-4 ml-2" />
+              <Button variant="outline" className="mt-4 md:mt-0 border-[#133129] text-[#133129] hover:bg-[#133129] hover:text-[#faf9f6] text-sm">
+                {language === 'ar' ? 'عرض جميع الرؤى' : 'View All Insights'}
+                <ArrowRight className={`w-4 h-4 ${isRTL ? 'mr-2 rotate-180' : 'ml-2'}`} />
               </Button>
             </Link>
           </div>
@@ -287,7 +332,7 @@ export default function Home() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 md:gap-8">
             {/* Featured Article */}
             <motion.div
-              initial={{ opacity: 0, x: -20 }}
+              initial={{ opacity: 0, x: isRTL ? 20 : -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}
@@ -299,29 +344,30 @@ export default function Home() {
                     className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105"
                     style={{ backgroundImage: `url(${insights[0].image})` }}
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-causeway-forest via-causeway-forest/70 to-transparent" />
-                  <div className="absolute bottom-0 left-0 right-0 p-5 sm:p-6 md:p-8">
-                    <span className="inline-block bg-causeway-gold text-causeway-forest text-xs font-semibold px-3 py-1 rounded mb-3 sm:mb-4">
-                      {insights[0].category}
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#133129] via-[#133129]/70 to-transparent" />
+                  <div className={`absolute bottom-0 left-0 right-0 p-5 sm:p-6 md:p-8 ${isRTL ? 'text-right' : ''}`}>
+                    <span className="inline-block bg-[#d4a84b] text-[#133129] text-xs font-semibold px-3 py-1 rounded mb-3 sm:mb-4">
+                      {language === 'ar' ? insights[0].categoryAr : insights[0].category}
                     </span>
-                    <h3 className="text-xl sm:text-2xl md:text-3xl font-display text-causeway-cream mb-2 sm:mb-3">
-                      {insights[0].title}
+                    <h3 className="text-xl sm:text-2xl md:text-3xl font-serif text-[#faf9f6] mb-2 sm:mb-3" style={{ fontFamily: "'Playfair Display', Georgia, serif" }}>
+                      {language === 'ar' ? insights[0].titleAr : insights[0].title}
                     </h3>
-                    <p className="text-causeway-cream/80 text-xs sm:text-sm mb-3 sm:mb-4 line-clamp-2">
+                    <p className="text-[#faf9f6]/80 text-xs sm:text-sm mb-3 sm:mb-4 line-clamp-2">
                       {insights[0].excerpt}
                     </p>
-                    <div className="flex items-center gap-3 sm:gap-4 text-causeway-cream/60 text-xs sm:text-sm">
-                      <span className="flex items-center gap-1">
+                    <div className={`flex items-center gap-3 sm:gap-4 text-[#faf9f6]/60 text-xs sm:text-sm ${isRTL ? 'flex-row-reverse' : ''}`}>
+                      <span className={`flex items-center gap-1 ${isRTL ? 'flex-row-reverse' : ''}`}>
                         <Calendar className="w-3 h-3 sm:w-4 sm:h-4" />
-                        {insights[0].date}
+                        {language === 'ar' ? insights[0].dateAr : insights[0].date}
                       </span>
-                      <span className="flex items-center gap-1">
+                      <span className={`flex items-center gap-1 ${isRTL ? 'flex-row-reverse' : ''}`}>
                         <Clock className="w-3 h-3 sm:w-4 sm:h-4" />
                         {insights[0].readTime}
                       </span>
                     </div>
-                    <div className="mt-3 sm:mt-4 flex items-center text-causeway-gold font-medium text-sm">
-                      Read Analysis <ArrowRight className="w-4 h-4 ml-2" />
+                    <div className={`mt-3 sm:mt-4 flex items-center text-[#d4a84b] font-medium text-sm ${isRTL ? 'flex-row-reverse' : ''}`}>
+                      {language === 'ar' ? 'قراءة التحليل' : 'Read Analysis'} 
+                      <ArrowRight className={`w-4 h-4 ${isRTL ? 'mr-2 rotate-180' : 'ml-2'}`} />
                     </div>
                   </div>
                 </div>
@@ -333,24 +379,25 @@ export default function Home() {
               {insights.slice(1).map((article, index) => (
                 <motion.div
                   key={article.href}
-                  initial={{ opacity: 0, x: 20 }}
+                  initial={{ opacity: 0, x: isRTL ? -20 : 20 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.6, delay: index * 0.1 }}
                   viewport={{ once: true }}
                 >
                   <Link href={article.href}>
-                    <div className="group bg-causeway-cream/50 rounded-lg p-4 sm:p-5 md:p-6 hover:bg-causeway-cream transition-colors border border-transparent hover:border-causeway-gold/20">
-                      <span className="text-causeway-gold text-xs font-semibold uppercase tracking-wider">
-                        {article.category}
+                    <div className={`group bg-[#faf9f6]/50 rounded-lg p-4 sm:p-5 md:p-6 hover:bg-[#faf9f6] transition-colors border border-transparent hover:border-[#d4a84b]/20 ${isRTL ? 'text-right' : ''}`}>
+                      <span className="text-[#d4a84b] text-xs font-semibold uppercase tracking-wider">
+                        {language === 'ar' ? article.categoryAr : article.category}
                       </span>
-                      <h4 className="text-base sm:text-lg font-display text-causeway-forest mt-1 sm:mt-2 mb-1 sm:mb-2 group-hover:text-causeway-teal transition-colors line-clamp-2">
-                        {article.title}
+                      <h4 className="text-base sm:text-lg font-serif text-[#133129] mt-1 sm:mt-2 mb-1 sm:mb-2 group-hover:text-[#224B40] transition-colors line-clamp-2" style={{ fontFamily: "'Playfair Display', Georgia, serif" }}>
+                        {language === 'ar' ? article.titleAr : article.title}
                       </h4>
-                      <p className="text-causeway-forest/60 text-xs sm:text-sm mb-2 sm:mb-3 line-clamp-2">
+                      <p className="text-[#406D61] text-xs sm:text-sm mb-2 sm:mb-3 line-clamp-2">
                         {article.excerpt}
                       </p>
-                      <div className="flex items-center text-causeway-gold font-medium text-xs sm:text-sm">
-                        Read More <ArrowRight className="w-3 h-3 sm:w-4 sm:h-4 ml-1" />
+                      <div className={`flex items-center text-[#d4a84b] font-medium text-xs sm:text-sm ${isRTL ? 'flex-row-reverse' : ''}`}>
+                        {language === 'ar' ? 'اقرأ المزيد' : 'Read More'} 
+                        <ArrowRight className={`w-3 h-3 sm:w-4 sm:h-4 ${isRTL ? 'mr-1 rotate-180' : 'ml-1'}`} />
                       </div>
                     </div>
                   </Link>
@@ -361,8 +408,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Observatory Preview - Enhanced */}
-      <section className="py-16 md:py-24 bg-causeway-forest relative overflow-hidden">
+      {/* Observatory Preview */}
+      <section className="py-16 md:py-24 bg-[#133129] relative overflow-hidden">
         <div className="absolute inset-0">
           <div 
             className="absolute inset-0 bg-cover bg-center"
@@ -371,53 +418,55 @@ export default function Home() {
               filter: 'brightness(0.25) saturate(0.6)'
             }}
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-causeway-forest via-causeway-forest/90 to-causeway-forest/70" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#133129] via-[#133129]/90 to-[#133129]/70" />
         </div>
         
         <div className="container relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
+          <div className={`grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center ${isRTL ? 'lg:grid-flow-col-dense' : ''}`}>
             <motion.div
-              initial={{ opacity: 0, x: -30 }}
+              initial={{ opacity: 0, x: isRTL ? 30 : -30 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}
+              className={isRTL ? 'lg:col-start-2 text-right' : ''}
             >
-              <span className="text-causeway-gold font-semibold text-xs sm:text-sm uppercase tracking-wider">
-                Observatory
+              <span className="text-[#d4a84b] font-semibold text-xs sm:text-sm uppercase tracking-wider">
+                {language === 'ar' ? 'المرصد' : 'Observatory'}
               </span>
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-display text-causeway-cream mt-2 sm:mt-3 mb-3 sm:mb-4">
-                Yemen Economic Transparency Observatory
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-serif text-[#faf9f6] mt-2 sm:mt-3 mb-3 sm:mb-4" style={{ fontFamily: "'Playfair Display', Georgia, serif" }}>
+                {language === 'ar' ? 'المرصد اليمني للشفافية الاقتصادية' : 'Yemen Economic Transparency Observatory'}
               </h2>
-              <p className="text-causeway-cream/80 font-body-ar text-lg sm:text-xl mb-3 sm:mb-4">
-                المرصد اليمني للشفافية الاقتصادية
+              <p className="text-[#faf9f6]/80 text-lg sm:text-xl mb-3 sm:mb-4" style={{ fontFamily: language === 'ar' ? "'Amiri', serif" : "'Playfair Display', Georgia, serif" }}>
+                {language === 'ar' ? 'Yemen Economic Transparency Observatory' : 'المرصد اليمني للشفافية الاقتصادية'}
               </p>
-              <p className="text-causeway-cream/70 mb-4 sm:mb-6 leading-relaxed text-sm sm:text-base">
-                YETO provides comprehensive economic data, analysis, and transparency 
-                reporting for Yemen. Access real-time economic indicators, sector analysis, 
-                exchange rate tracking, and in-depth reports.
+              <p className="text-[#faf9f6]/70 mb-4 sm:mb-6 leading-relaxed text-sm sm:text-base">
+                {language === 'ar' 
+                  ? 'يوفر يتو بيانات اقتصادية شاملة وتحليلات وتقارير شفافية لليمن. الوصول إلى المؤشرات الاقتصادية الآنية، تحليل القطاعات، تتبع أسعار الصرف، والتقارير المعمقة.'
+                  : 'YETO provides comprehensive economic data, analysis, and transparency reporting for Yemen. Access real-time economic indicators, sector analysis, exchange rate tracking, and in-depth reports.'
+                }
               </p>
-              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+              <div className={`flex flex-col sm:flex-row gap-3 sm:gap-4 ${isRTL ? 'sm:flex-row-reverse' : ''}`}>
                 <Link href="/observatory">
-                  <Button className="btn-gold w-full sm:w-auto">
-                    Explore Observatory
-                    <ArrowRight className="w-4 h-4 ml-2" />
+                  <Button className="bg-[#d4a84b] hover:bg-[#c9a227] text-[#133129] font-semibold w-full sm:w-auto">
+                    {language === 'ar' ? 'استكشف المرصد' : 'Explore Observatory'}
+                    <ArrowRight className={`w-4 h-4 ${isRTL ? 'mr-2 rotate-180' : 'ml-2'}`} />
                   </Button>
                 </Link>
               </div>
             </motion.div>
 
             <motion.div
-              initial={{ opacity: 0, x: 30 }}
+              initial={{ opacity: 0, x: isRTL ? -30 : 30 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}
-              className="hidden md:block"
+              className={`hidden md:block ${isRTL ? 'lg:col-start-1' : ''}`}
             >
-              {/* YETO Teaser Image - Yemen Map */}
-              <div className="relative rounded-lg overflow-hidden shadow-2xl">
+              {/* YETO Teaser Image */}
+              <div className="relative rounded-lg overflow-hidden shadow-2xl border border-[#d4a84b]/20">
                 <img 
-                  src="/images/yeto-teaser.png" 
-                  alt="YETO - Yemen Economic Transparency Observatory - For a decade, decisions have been made in the dark. Something is about to change."
+                  src="/images/yeto-teaser.jpg" 
+                  alt="YETO - Yemen Economic Transparency Observatory"
                   className="w-full h-auto rounded-lg"
                 />
               </div>
@@ -426,26 +475,27 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Newsletter Section - Enhanced */}
-      <section className="py-12 sm:py-16 bg-causeway-cream border-t border-causeway-forest/10">
+      {/* Newsletter Section */}
+      <section className="py-12 sm:py-16 bg-[#faf9f6] border-t border-[#133129]/10">
         <div className="container">
-          <div className="bg-causeway-forest rounded-lg p-6 sm:p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-6 md:gap-8">
-            <div className="text-center md:text-left">
-              <h3 className="text-xl sm:text-2xl font-display text-causeway-cream mb-2">
-                Subscribe to CauseWay Insights
+          <div className="bg-[#133129] rounded-lg p-6 sm:p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-6 md:gap-8">
+            <div className={`text-center md:text-${isRTL ? 'right' : 'left'}`}>
+              <h3 className="text-xl sm:text-2xl font-serif text-[#faf9f6] mb-2" style={{ fontFamily: "'Playfair Display', Georgia, serif" }}>
+                {language === 'ar' ? 'اشترك في رؤى كوزواي' : 'Subscribe to CauseWay Insights'}
               </h3>
-              <p className="text-causeway-cream/70 text-sm sm:text-base">
-                Get expert analysis and updates delivered to your inbox.
+              <p className="text-[#faf9f6]/70 text-sm sm:text-base">
+                {language === 'ar' ? 'احصل على تحليلات الخبراء والتحديثات في بريدك الإلكتروني.' : 'Get expert analysis and updates delivered to your inbox.'}
               </p>
             </div>
-            <form className="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
+            <form className={`flex flex-col sm:flex-row gap-3 w-full md:w-auto ${isRTL ? 'sm:flex-row-reverse' : ''}`}>
               <input
                 type="email"
-                placeholder="Enter your email address"
-                className="px-4 py-3 bg-causeway-forest-light border border-causeway-teal/30 rounded text-causeway-cream placeholder:text-causeway-cream/40 focus:outline-none focus:border-causeway-gold w-full sm:min-w-[280px] text-sm sm:text-base"
+                placeholder={language === 'ar' ? 'أدخل بريدك الإلكتروني' : 'Enter your email address'}
+                className="px-4 py-3 bg-[#224B40] border border-[#406D61]/30 rounded text-[#faf9f6] placeholder:text-[#faf9f6]/40 focus:outline-none focus:border-[#d4a84b] w-full sm:min-w-[280px] text-sm sm:text-base"
+                dir={isRTL ? 'rtl' : 'ltr'}
               />
-              <Button className="btn-gold whitespace-nowrap">
-                Subscribe
+              <Button className="bg-[#d4a84b] hover:bg-[#c9a227] text-[#133129] font-semibold whitespace-nowrap">
+                {language === 'ar' ? 'اشترك' : 'Subscribe'}
               </Button>
             </form>
           </div>

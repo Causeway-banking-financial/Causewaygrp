@@ -1,13 +1,12 @@
 /**
  * CauseWay Logo Component
+ * Uses the exact brand logo image with proper sizing
  * Brand: CauseWay (كوزواي)
- * Uses the exact brand logo image with correct colors
- * Colors: Forest Green (#1a2e1a), Teal (#1e6b5a), Sage (#5a8a6a), Gold (#d4a84b)
  */
 
 interface LogoProps {
   variant?: 'full' | 'icon' | 'text';
-  size?: 'sm' | 'md' | 'lg';
+  size?: 'sm' | 'md' | 'lg' | 'xl';
   className?: string;
   showArabic?: boolean;
   light?: boolean;
@@ -21,49 +20,43 @@ export default function Logo({
   light = false
 }: LogoProps) {
   const sizes = {
-    sm: { icon: 28, text: 'text-base', arabic: 'text-xs' },
-    md: { icon: 36, text: 'text-lg', arabic: 'text-sm' },
-    lg: { icon: 48, text: 'text-xl', arabic: 'text-base' }
+    sm: { height: 'h-8', text: 'text-lg', arabic: 'text-sm', gap: 'gap-2' },
+    md: { height: 'h-10', text: 'text-xl', arabic: 'text-base', gap: 'gap-2.5' },
+    lg: { height: 'h-14', text: 'text-2xl', arabic: 'text-lg', gap: 'gap-3' },
+    xl: { height: 'h-16', text: 'text-3xl', arabic: 'text-xl', gap: 'gap-4' }
   };
 
   const currentSize = sizes[size];
-  const textColor = light ? 'text-causeway-cream' : 'text-causeway-cream';
-  const arabicColor = light ? 'text-causeway-gold' : 'text-causeway-gold';
+  
+  // Text colors based on background
+  const textColor = light ? 'text-[#faf9f6]' : 'text-[#133129]';
+  const arabicColor = light ? 'text-[#5a8a6a]' : 'text-[#1e6b5a]';
 
-  // Exact brand colors matching the logo
-  const colors = {
-    tealFrame: '#1e6b5a',     // Teal green for C-frame
-    sageSquare: '#5a8a6a',    // Sage green inner square
-    goldSquare: '#d4a84b',    // Gold accent square
-    forestGreen: '#1a2e1a',   // Deep forest green
-  };
-
+  // Logo icon using the exact brand design
   const LogoIcon = () => (
     <svg 
-      width={currentSize.icon} 
-      height={currentSize.icon} 
       viewBox="0 0 100 100" 
       fill="none" 
       xmlns="http://www.w3.org/2000/svg"
-      className="flex-shrink-0"
+      className={`${currentSize.height} w-auto flex-shrink-0`}
       aria-label="CauseWay Logo"
     >
       {/* Outer C-shaped frame - Teal Green */}
-      {/* Top horizontal bar */}
-      <rect x="5" y="5" width="90" height="14" rx="2" fill={colors.tealFrame} />
-      {/* Left vertical bar */}
-      <rect x="5" y="5" width="14" height="90" rx="2" fill={colors.tealFrame} />
-      {/* Bottom horizontal bar - shorter to form C shape */}
-      <rect x="5" y="81" width="65" height="14" rx="2" fill={colors.tealFrame} />
+      <path 
+        d="M8 8 H72 Q78 8 78 14 V20 H20 V80 H72 Q78 80 78 74 V68 H92 V86 Q92 92 86 92 H14 Q8 92 8 86 V14 Q8 8 14 8 Z" 
+        fill="#224B40"
+      />
+      {/* Top bar extension */}
+      <rect x="72" y="8" width="20" height="12" rx="2" fill="#224B40" />
       
       {/* Inner sage green square */}
-      <rect x="30" y="38" width="28" height="28" rx="4" fill={colors.sageSquare} />
+      <rect x="36" y="42" width="24" height="24" rx="4" fill="#406D61" />
       
-      {/* Gold accent square - overlapping */}
-      <rect x="50" y="28" width="24" height="24" rx="4" fill={colors.goldSquare} />
+      {/* Gold accent square - overlapping position */}
+      <rect x="52" y="32" width="20" height="20" rx="4" fill="#d4a84b" />
       
       {/* Small teal circle - bottom right area */}
-      <circle cx="78" cy="65" r="12" fill={colors.tealFrame} />
+      <circle cx="78" cy="66" r="10" fill="#1e6b5a" />
     </svg>
   );
 
@@ -73,12 +66,18 @@ export default function Logo({
 
   if (variant === 'text') {
     return (
-      <div className={`flex items-center gap-1.5 ${className}`}>
-        <span className={`font-display font-bold ${currentSize.text} ${textColor}`}>
+      <div className={`flex items-center ${currentSize.gap} ${className}`}>
+        <span 
+          className={`font-serif font-bold tracking-tight ${currentSize.text} ${textColor}`}
+          style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
+        >
           CauseWay
         </span>
         {showArabic && (
-          <span className={`font-display-ar ${currentSize.arabic} ${arabicColor}`}>
+          <span 
+            className={`${currentSize.arabic} ${arabicColor} font-medium`}
+            style={{ fontFamily: "'Amiri', serif" }}
+          >
             كوزواي
           </span>
         )}
@@ -86,15 +85,22 @@ export default function Logo({
     );
   }
 
+  // Full logo with icon and text
   return (
-    <div className={`flex items-center gap-2 ${className}`}>
+    <div className={`flex items-center ${currentSize.gap} ${className}`}>
       <LogoIcon />
-      <div className="flex items-baseline gap-1.5">
-        <span className={`font-display font-bold ${currentSize.text} ${textColor}`}>
+      <div className="flex items-baseline gap-2">
+        <span 
+          className={`font-serif font-bold tracking-tight ${currentSize.text} ${textColor}`}
+          style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
+        >
           CauseWay
         </span>
         {showArabic && (
-          <span className={`font-display-ar ${currentSize.arabic} ${arabicColor}`}>
+          <span 
+            className={`${currentSize.arabic} ${arabicColor} font-medium`}
+            style={{ fontFamily: "'Amiri', serif" }}
+          >
             كوزواي
           </span>
         )}

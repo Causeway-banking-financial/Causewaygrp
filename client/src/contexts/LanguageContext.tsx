@@ -117,16 +117,7 @@ interface LanguageProviderProps {
 }
 
 export function LanguageProvider({ children }: LanguageProviderProps) {
-  const [language, setLanguageState] = useState<Language>(() => {
-    // Check localStorage for saved preference
-    if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('causeway-language');
-      if (saved === 'ar' || saved === 'en') {
-        return saved;
-      }
-    }
-    return 'en';
-  });
+  const [language, setLanguageState] = useState<Language>('en');
 
   const setLanguage = (lang: Language) => {
     setLanguageState(lang);

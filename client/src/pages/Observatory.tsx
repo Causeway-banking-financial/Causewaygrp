@@ -1,7 +1,7 @@
 /**
  * Observatory Page - YETO (Yemen Economic Transparency Observatory)
+ * Brand Colors: #133129 (forest), #224B40 (teal), #406D61 (sage), #d4a84b (gold), #faf9f6 (cream)
  * المرصد اليمني للشفافية الاقتصادية
- * Enhanced with dashboard mockup gallery and proper brand colors
  */
 
 import { useState } from 'react';
@@ -25,58 +25,66 @@ import {
 import { Button } from '@/components/ui/button';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import YetoBanner from '@/components/YetoBanner';
 import { toast } from 'sonner';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 const features = [
   {
     icon: BarChart3,
     title: 'Economic Indicators',
     titleAr: 'المؤشرات الاقتصادية',
-    description: 'Real-time tracking of key economic metrics including GDP, inflation, and trade data.'
+    description: 'Real-time tracking of key economic metrics including GDP, inflation, and trade data.',
+    descriptionAr: 'تتبع آني للمقاييس الاقتصادية الرئيسية بما في ذلك الناتج المحلي الإجمالي والتضخم وبيانات التجارة.'
   },
   {
     icon: TrendingUp,
     title: 'Exchange Rates',
     titleAr: 'أسعار الصرف',
-    description: 'Daily exchange rate monitoring and historical trend analysis.'
+    description: 'Daily exchange rate monitoring and historical trend analysis.',
+    descriptionAr: 'مراقبة يومية لأسعار الصرف وتحليل الاتجاهات التاريخية.'
   },
   {
     icon: Globe,
     title: 'Sector Analysis',
     titleAr: 'تحليل القطاعات',
-    description: 'In-depth analysis of banking, microfinance, and financial services sectors.'
+    description: 'In-depth analysis of banking, microfinance, and financial services sectors.',
+    descriptionAr: 'تحليل معمق لقطاعات البنوك والتمويل الأصغر والخدمات المالية.'
   },
   {
     icon: FileText,
     title: 'Reports & Publications',
     titleAr: 'التقارير والمنشورات',
-    description: 'Quarterly reports, whitepapers, and policy briefs on Yemen\'s economy.'
+    description: 'Quarterly reports, whitepapers, and policy briefs on Yemen\'s economy.',
+    descriptionAr: 'تقارير ربع سنوية وأوراق بيضاء وموجزات سياسات حول اقتصاد اليمن.'
   },
   {
     icon: Database,
     title: 'Data Sources',
     titleAr: 'مصادر البيانات',
-    description: 'Aggregated data from Central Bank, World Bank, IMF, and UN agencies.'
+    description: 'Aggregated data from Central Bank, World Bank, IMF, and UN agencies.',
+    descriptionAr: 'بيانات مجمعة من البنك المركزي والبنك الدولي وصندوق النقد الدولي ووكالات الأمم المتحدة.'
   },
   {
     icon: Calendar,
     title: 'Economic Calendar',
     titleAr: 'التقويم الاقتصادي',
-    description: 'Upcoming economic events, policy announcements, and report releases.'
+    description: 'Upcoming economic events, policy announcements, and report releases.',
+    descriptionAr: 'الأحداث الاقتصادية القادمة وإعلانات السياسات وإصدارات التقارير.'
   }
 ];
 
 const upcomingReports = [
-  { title: 'Q1 2026 Banking Sector Review', date: 'March 2026', status: 'In Progress' },
-  { title: 'Yemen Microfinance Landscape', date: 'April 2026', status: 'Planned' },
-  { title: 'Exchange Rate Dynamics Analysis', date: 'May 2026', status: 'Planned' }
+  { title: 'Q1 2026 Banking Sector Review', titleAr: 'مراجعة القطاع المصرفي للربع الأول 2026', date: 'March 2026', dateAr: 'مارس 2026', status: 'In Progress', statusAr: 'قيد التنفيذ' },
+  { title: 'Yemen Microfinance Landscape', titleAr: 'مشهد التمويل الأصغر في اليمن', date: 'April 2026', dateAr: 'أبريل 2026', status: 'Planned', statusAr: 'مخطط' },
+  { title: 'Exchange Rate Dynamics Analysis', titleAr: 'تحليل ديناميكيات سعر الصرف', date: 'May 2026', dateAr: 'مايو 2026', status: 'Planned', statusAr: 'مخطط' }
 ];
 
 const dataSources = [
-  { name: 'Central Bank of Yemen', url: 'https://www.centralbank.gov.ye' },
-  { name: 'World Bank Yemen', url: 'https://www.worldbank.org/en/country/yemen' },
-  { name: 'IMF Yemen Reports', url: 'https://www.imf.org/en/Countries/YEM' },
-  { name: 'UN OCHA Yemen', url: 'https://www.unocha.org/yemen' }
+  { name: 'Central Bank of Yemen', nameAr: 'البنك المركزي اليمني', url: 'https://www.centralbank.gov.ye' },
+  { name: 'World Bank Yemen', nameAr: 'البنك الدولي - اليمن', url: 'https://www.worldbank.org/en/country/yemen' },
+  { name: 'IMF Yemen Reports', nameAr: 'تقارير صندوق النقد الدولي - اليمن', url: 'https://www.imf.org/en/Countries/YEM' },
+  { name: 'UN OCHA Yemen', nameAr: 'مكتب الأمم المتحدة لتنسيق الشؤون الإنسانية - اليمن', url: 'https://www.unocha.org/yemen' }
 ];
 
 // YETO Dashboard mockup images
@@ -85,42 +93,51 @@ const dashboardMockups = [
     src: '/images/yeto/bilingual-dashboard.png',
     title: 'Bilingual Dashboard',
     titleAr: 'لوحة القيادة ثنائية اللغة',
-    description: 'Full Arabic and English support with seamless language switching'
+    description: 'Full Arabic and English support with seamless language switching',
+    descriptionAr: 'دعم كامل للعربية والإنجليزية مع تبديل سلس للغة'
   },
   {
     src: '/images/yeto/system-overview.png',
     title: 'Complete System Overview',
     titleAr: 'نظرة عامة على النظام',
-    description: 'Comprehensive view of all economic indicators and data streams'
+    description: 'Comprehensive view of all economic indicators and data streams',
+    descriptionAr: 'عرض شامل لجميع المؤشرات الاقتصادية وتدفقات البيانات'
   },
   {
     src: '/images/yeto/research-portal.png',
     title: 'Research & Academic Portal',
     titleAr: 'بوابة البحث الأكاديمي',
-    description: 'Access to research papers, academic publications, and policy briefs'
+    description: 'Access to research papers, academic publications, and policy briefs',
+    descriptionAr: 'الوصول إلى أوراق البحث والمنشورات الأكاديمية وموجزات السياسات'
   },
   {
     src: '/images/yeto/data-pipeline.png',
     title: 'Data Pipeline Architecture',
     titleAr: 'هيكل خط البيانات',
-    description: 'Real-time data aggregation from multiple authoritative sources'
+    description: 'Real-time data aggregation from multiple authoritative sources',
+    descriptionAr: 'تجميع البيانات في الوقت الفعلي من مصادر موثوقة متعددة'
   },
   {
     src: '/images/yeto/mobile-dashboard.png',
     title: 'Mobile Responsive Dashboard',
     titleAr: 'لوحة القيادة المتجاوبة',
-    description: 'Full functionality on mobile devices for on-the-go access'
+    description: 'Full functionality on mobile devices for on-the-go access',
+    descriptionAr: 'وظائف كاملة على الأجهزة المحمولة للوصول أثناء التنقل'
   }
 ];
 
 export default function Observatory() {
   const [email, setEmail] = useState('');
   const [selectedImage, setSelectedImage] = useState<number | null>(null);
+  const { language, isRTL } = useLanguage();
 
   const handleNotify = (e: React.FormEvent) => {
     e.preventDefault();
     if (email) {
-      toast.success('Thank you! We\'ll notify you when YETO launches.');
+      toast.success(language === 'ar' 
+        ? 'شكراً لك! سنخبرك عند إطلاق يتو.'
+        : 'Thank you! We\'ll notify you when YETO launches.'
+      );
       setEmail('');
     }
   };
@@ -146,86 +163,92 @@ export default function Observatory() {
   };
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen" dir={isRTL ? 'rtl' : 'ltr'}>
+      <YetoBanner variant="top" />
       <Header />
       
       {/* Hero Section */}
-      <section className="relative pt-32 pb-20 bg-causeway-forest min-h-[70vh] flex items-center">
+      <section className="relative pt-32 pb-20 bg-[#133129] min-h-[70vh] flex items-center">
         <div className="absolute inset-0">
           <div 
             className="absolute inset-0 bg-cover bg-center opacity-30"
             style={{ backgroundImage: 'url(/images/hero-observatory.jpg)' }}
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-causeway-forest via-causeway-forest/90 to-causeway-forest" />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#133129] via-[#133129]/90 to-[#133129]" />
         </div>
         
         {/* Geometric Decorations */}
-        <div className="absolute top-32 right-10 w-32 h-32 border border-causeway-gold/20 rotate-45 hidden lg:block" />
-        <div className="absolute bottom-20 left-10 w-24 h-24 border border-causeway-teal/20 hidden lg:block" />
+        <div className={`absolute top-32 ${isRTL ? 'left-10' : 'right-10'} w-32 h-32 border border-[#d4a84b]/20 rotate-45 hidden lg:block`} />
+        <div className={`absolute bottom-20 ${isRTL ? 'right-10' : 'left-10'} w-24 h-24 border border-[#224B40]/20 hidden lg:block`} />
         
         <div className="container relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div className={`grid grid-cols-1 lg:grid-cols-2 gap-12 items-center ${isRTL ? 'lg:grid-flow-col-dense' : ''}`}>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
+              className={isRTL ? 'lg:col-start-2' : ''}
             >
-              <div className="inline-flex items-center gap-2 bg-causeway-gold/20 px-4 py-2 rounded-full mb-6">
-                <Bell className="w-4 h-4 text-causeway-gold" />
-                <span className="text-causeway-gold text-sm font-semibold">Coming Q2 2026</span>
+              <div className={`inline-flex items-center gap-2 bg-[#d4a84b]/20 px-4 py-2 rounded-full mb-6 ${isRTL ? 'flex-row-reverse' : ''}`}>
+                <Bell className="w-4 h-4 text-[#d4a84b]" />
+                <span className="text-[#d4a84b] text-sm font-semibold">
+                  {language === 'ar' ? 'قادم في الربع الثاني 2026' : 'Coming Q2 2026'}
+                </span>
               </div>
               
-              <h1 className="text-4xl md:text-5xl font-display text-causeway-cream mb-4">
-                Yemen Economic Transparency Observatory
+              <h1 className="text-4xl md:text-5xl font-serif text-[#faf9f6] mb-4" style={{ fontFamily: "'Playfair Display', Georgia, serif" }}>
+                {language === 'ar' ? 'المرصد اليمني للشفافية الاقتصادية' : 'Yemen Economic Transparency Observatory'}
               </h1>
-              <p className="text-2xl text-causeway-cream/80 font-body-ar mb-6">
-                المرصد اليمني للشفافية الاقتصادية
+              <p className="text-2xl text-[#faf9f6]/80 mb-6" style={{ fontFamily: language === 'ar' ? "'Source Sans Pro', sans-serif" : "'Amiri', serif" }}>
+                {language === 'ar' ? 'Yemen Economic Transparency Observatory' : 'المرصد اليمني للشفافية الاقتصادية'}
               </p>
-              <p className="text-lg text-causeway-cream/70 mb-8 leading-relaxed">
-                YETO is CauseWay's flagship initiative to promote economic transparency 
-                in Yemen. The platform will provide comprehensive economic data, analysis, 
-                and reporting to support informed decision-making.
+              <p className="text-lg text-[#faf9f6]/70 mb-8 leading-relaxed">
+                {language === 'ar' 
+                  ? 'يتو هي مبادرة كوزواي الرائدة لتعزيز الشفافية الاقتصادية في اليمن. ستوفر المنصة بيانات اقتصادية شاملة وتحليلات وتقارير لدعم اتخاذ القرارات المستنيرة.'
+                  : 'YETO is CauseWay\'s flagship initiative to promote economic transparency in Yemen. The platform will provide comprehensive economic data, analysis, and reporting to support informed decision-making.'
+                }
               </p>
               
-              <blockquote className="border-l-4 border-causeway-gold pl-4 mb-8">
-                <p className="text-causeway-cream/80 italic">
+              <blockquote className={`border-${isRTL ? 'r' : 'l'}-4 border-[#d4a84b] ${isRTL ? 'pr-4' : 'pl-4'} mb-8`}>
+                <p className="text-[#faf9f6]/80 italic" style={{ fontFamily: "'Amiri', serif" }}>
                   "نحو اقتصاد مبني على الحقائق"
                 </p>
-                <p className="text-causeway-cream/60 text-sm mt-2">
+                <p className="text-[#faf9f6]/60 text-sm mt-2">
                   "Towards a fact-based economy"
                 </p>
               </blockquote>
 
-              <form onSubmit={handleNotify} className="flex flex-col sm:flex-row gap-3 max-w-md">
+              <form onSubmit={handleNotify} className={`flex flex-col sm:flex-row gap-3 max-w-md ${isRTL ? 'sm:flex-row-reverse' : ''}`}>
                 <input
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="Enter your email for launch updates"
-                  className="flex-1 px-4 py-3 bg-causeway-forest-light border border-causeway-teal/30 rounded text-causeway-cream placeholder:text-causeway-cream/40 focus:outline-none focus:border-causeway-gold"
+                  placeholder={language === 'ar' ? 'أدخل بريدك الإلكتروني لتحديثات الإطلاق' : 'Enter your email for launch updates'}
+                  className="flex-1 px-4 py-3 bg-[#224B40] border border-[#406D61]/30 rounded text-[#faf9f6] placeholder:text-[#faf9f6]/40 focus:outline-none focus:border-[#d4a84b]"
+                  dir={isRTL ? 'rtl' : 'ltr'}
                 />
-                <Button type="submit" className="btn-gold whitespace-nowrap">
-                  Notify Me
+                <Button type="submit" className="bg-[#d4a84b] hover:bg-[#c9a227] text-[#133129] font-semibold whitespace-nowrap">
+                  {language === 'ar' ? 'أخبرني' : 'Notify Me'}
                 </Button>
               </form>
             </motion.div>
 
             <motion.div
-              initial={{ opacity: 0, x: 30 }}
+              initial={{ opacity: 0, x: isRTL ? -30 : 30 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="hidden lg:block"
+              className={`hidden lg:block ${isRTL ? 'lg:col-start-1' : ''}`}
             >
               {/* YETO Teaser Image - Yemen Map */}
-              <div className="relative rounded-lg overflow-hidden shadow-2xl hover-glow cursor-pointer" onClick={() => openLightbox(0)}>
+              <div className="relative rounded-lg overflow-hidden shadow-2xl cursor-pointer group" onClick={() => openLightbox(0)}>
                 <img 
-                  src="/images/yeto-teaser.png" 
-                  alt="YETO - Yemen Economic Transparency Observatory - For a decade, decisions have been made in the dark. Something is about to change."
-                  className="w-full h-auto rounded-lg"
+                  src="/images/yeto-teaser.jpg" 
+                  alt="YETO - Yemen Economic Transparency Observatory"
+                  className="w-full h-auto rounded-lg transition-transform duration-500 group-hover:scale-105"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-causeway-forest/30 to-transparent" />
-                <div className="absolute bottom-4 right-4 bg-causeway-gold/90 p-2 rounded-full">
-                  <Maximize2 className="w-5 h-5 text-causeway-forest" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#133129]/30 to-transparent" />
+                <div className={`absolute bottom-4 ${isRTL ? 'left-4' : 'right-4'} bg-[#d4a84b]/90 p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity`}>
+                  <Maximize2 className="w-5 h-5 text-[#133129]" />
                 </div>
               </div>
             </motion.div>
@@ -234,18 +257,20 @@ export default function Observatory() {
       </section>
 
       {/* Platform Preview Gallery */}
-      <section className="py-20 bg-causeway-forest-light">
+      <section className="py-20 bg-[#224B40]">
         <div className="container">
           <div className="text-center mb-12">
-            <span className="text-causeway-gold font-semibold text-sm uppercase tracking-wider">
-              Platform Preview
+            <span className="text-[#d4a84b] font-semibold text-sm uppercase tracking-wider">
+              {language === 'ar' ? 'معاينة المنصة' : 'Platform Preview'}
             </span>
-            <h2 className="text-3xl md:text-4xl font-display text-causeway-cream mt-3 mb-4">
-              YETO Dashboard Previews
+            <h2 className="text-3xl md:text-4xl font-serif text-[#faf9f6] mt-3 mb-4" style={{ fontFamily: "'Playfair Display', Georgia, serif" }}>
+              {language === 'ar' ? 'معاينات لوحة قيادة يتو' : 'YETO Dashboard Previews'}
             </h2>
-            <p className="text-causeway-cream/70 max-w-2xl mx-auto">
-              Get a glimpse of the powerful analytics and visualization tools 
-              that will be available when YETO launches.
+            <p className="text-[#faf9f6]/70 max-w-2xl mx-auto">
+              {language === 'ar' 
+                ? 'ألق نظرة على أدوات التحليلات والتصور القوية التي ستكون متاحة عند إطلاق يتو.'
+                : 'Get a glimpse of the powerful analytics and visualization tools that will be available when YETO launches.'
+              }
             </p>
           </div>
 
@@ -257,29 +282,28 @@ export default function Observatory() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 viewport={{ once: true }}
-                className="gallery-item card-flash bg-causeway-forest rounded-lg overflow-hidden cursor-pointer group"
+                className="bg-[#133129] rounded-lg overflow-hidden cursor-pointer group"
                 onClick={() => openLightbox(index)}
               >
                 <div className="relative aspect-video overflow-hidden">
                   <img 
                     src={mockup.src} 
-                    alt={mockup.title}
+                    alt={language === 'ar' ? mockup.titleAr : mockup.title}
                     className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-causeway-forest via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  <div className="absolute bottom-4 right-4 bg-causeway-gold/90 p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <Maximize2 className="w-4 h-4 text-causeway-forest" />
+                  <div className={`absolute bottom-4 ${isRTL ? 'left-4' : 'right-4'} bg-[#d4a84b]/90 p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300`}>
+                    <Maximize2 className="w-4 h-4 text-[#133129]" />
                   </div>
                 </div>
                 <div className="p-4">
-                  <h3 className="text-lg font-display text-causeway-cream mb-1">
-                    {mockup.title}
+                  <h3 className="text-lg font-serif text-[#faf9f6] mb-1" style={{ fontFamily: "'Playfair Display', Georgia, serif" }}>
+                    {language === 'ar' ? mockup.titleAr : mockup.title}
                   </h3>
-                  <p className="text-causeway-gold/80 font-body-ar text-sm mb-2">
-                    {mockup.titleAr}
+                  <p className="text-[#d4a84b]/80 text-sm mb-2" style={{ fontFamily: language === 'ar' ? "'Source Sans Pro', sans-serif" : "'Amiri', serif" }}>
+                    {language === 'ar' ? mockup.title : mockup.titleAr}
                   </p>
-                  <p className="text-causeway-cream/60 text-sm">
-                    {mockup.description}
+                  <p className="text-[#faf9f6]/60 text-sm">
+                    {language === 'ar' ? mockup.descriptionAr : mockup.description}
                   </p>
                 </div>
               </motion.div>
@@ -289,18 +313,20 @@ export default function Observatory() {
       </section>
 
       {/* Features Section */}
-      <section className="py-20 bg-causeway-cream">
+      <section className="py-20 bg-[#faf9f6]">
         <div className="container">
           <div className="text-center mb-16">
-            <span className="text-causeway-gold font-semibold text-sm uppercase tracking-wider">
-              Platform Features
+            <span className="text-[#d4a84b] font-semibold text-sm uppercase tracking-wider">
+              {language === 'ar' ? 'ميزات المنصة' : 'Platform Features'}
             </span>
-            <h2 className="text-3xl md:text-4xl font-display text-causeway-forest mt-3 mb-4">
-              What YETO Will Offer
+            <h2 className="text-3xl md:text-4xl font-serif text-[#133129] mt-3 mb-4" style={{ fontFamily: "'Playfair Display', Georgia, serif" }}>
+              {language === 'ar' ? 'ما ستقدمه يتو' : 'What YETO Will Offer'}
             </h2>
-            <p className="text-causeway-forest/70 max-w-2xl mx-auto">
-              A comprehensive platform for economic data, analysis, and transparency 
-              reporting focused on Yemen's financial sector.
+            <p className="text-[#406D61] max-w-2xl mx-auto">
+              {language === 'ar' 
+                ? 'منصة شاملة للبيانات الاقتصادية والتحليلات وتقارير الشفافية تركز على القطاع المالي في اليمن.'
+                : 'A comprehensive platform for economic data, analysis, and transparency reporting focused on Yemen\'s financial sector.'
+              }
             </p>
           </div>
 
@@ -312,19 +338,19 @@ export default function Observatory() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 viewport={{ once: true }}
-                className="bg-white p-8 rounded-lg shadow-sm hover-lift card-flash"
+                className="bg-white p-8 rounded-lg shadow-sm hover:shadow-lg transition-shadow"
               >
-                <div className="w-14 h-14 bg-causeway-sage/20 rounded-lg flex items-center justify-center mb-6">
-                  <feature.icon className="w-7 h-7 text-causeway-teal" />
+                <div className="w-14 h-14 bg-[#406D61]/20 rounded-lg flex items-center justify-center mb-6">
+                  <feature.icon className="w-7 h-7 text-[#224B40]" />
                 </div>
-                <h3 className="text-xl font-display text-causeway-forest mb-2">
-                  {feature.title}
+                <h3 className="text-xl font-serif text-[#133129] mb-2" style={{ fontFamily: "'Playfair Display', Georgia, serif" }}>
+                  {language === 'ar' ? feature.titleAr : feature.title}
                 </h3>
-                <p className="text-causeway-teal/80 font-body-ar text-sm mb-3">
-                  {feature.titleAr}
+                <p className="text-[#1e6b5a]/80 text-sm mb-3" style={{ fontFamily: language === 'ar' ? "'Source Sans Pro', sans-serif" : "'Amiri', serif" }}>
+                  {language === 'ar' ? feature.title : feature.titleAr}
                 </p>
-                <p className="text-causeway-forest/60 text-sm leading-relaxed">
-                  {feature.description}
+                <p className="text-[#406D61] text-sm leading-relaxed">
+                  {language === 'ar' ? feature.descriptionAr : feature.description}
                 </p>
               </motion.div>
             ))}
@@ -335,49 +361,52 @@ export default function Observatory() {
       {/* Upcoming Reports */}
       <section className="py-20 bg-white">
         <div className="container">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            <div>
-              <span className="text-causeway-gold font-semibold text-sm uppercase tracking-wider">
-                Upcoming
+          <div className={`grid grid-cols-1 lg:grid-cols-2 gap-12 ${isRTL ? 'lg:grid-flow-col-dense' : ''}`}>
+            <div className={isRTL ? 'lg:col-start-2' : ''}>
+              <span className="text-[#d4a84b] font-semibold text-sm uppercase tracking-wider">
+                {language === 'ar' ? 'قادم' : 'Upcoming'}
               </span>
-              <h2 className="text-3xl font-display text-causeway-forest mt-3 mb-6">
-                Planned Reports & Publications
+              <h2 className="text-3xl font-serif text-[#133129] mt-3 mb-6" style={{ fontFamily: "'Playfair Display', Georgia, serif" }}>
+                {language === 'ar' ? 'التقارير والمنشورات المخططة' : 'Planned Reports & Publications'}
               </h2>
-              <p className="text-causeway-forest/70 mb-8">
-                Our research team is preparing comprehensive reports on Yemen's 
-                economic landscape. Subscribe to receive notifications when these 
-                reports are published.
+              <p className="text-[#406D61] mb-8">
+                {language === 'ar' 
+                  ? 'يعد فريق البحث لدينا تقارير شاملة عن المشهد الاقتصادي في اليمن. اشترك لتلقي إشعارات عند نشر هذه التقارير.'
+                  : 'Our research team is preparing comprehensive reports on Yemen\'s economic landscape. Subscribe to receive notifications when these reports are published.'
+                }
               </p>
               
               <div className="space-y-4">
                 {upcomingReports.map((report) => (
-                  <div key={report.title} className="flex items-center justify-between bg-causeway-sage/10 p-4 rounded-lg border border-causeway-sage/20">
-                    <div>
-                      <h4 className="font-medium text-causeway-forest">{report.title}</h4>
-                      <p className="text-causeway-forest/60 text-sm">{report.date}</p>
+                  <div key={report.title} className={`flex items-center justify-between bg-[#406D61]/10 p-4 rounded-lg border border-[#406D61]/20 ${isRTL ? 'flex-row-reverse' : ''}`}>
+                    <div className={isRTL ? 'text-right' : ''}>
+                      <h4 className="font-medium text-[#133129]">{language === 'ar' ? report.titleAr : report.title}</h4>
+                      <p className="text-[#406D61] text-sm">{language === 'ar' ? report.dateAr : report.date}</p>
                     </div>
                     <span className={`text-xs px-3 py-1 rounded-full ${
                       report.status === 'In Progress' 
-                        ? 'bg-causeway-gold/20 text-causeway-gold-dark' 
-                        : 'bg-causeway-sage/20 text-causeway-teal'
+                        ? 'bg-[#d4a84b]/20 text-[#c9a227]' 
+                        : 'bg-[#406D61]/20 text-[#224B40]'
                     }`}>
-                      {report.status}
+                      {language === 'ar' ? report.statusAr : report.status}
                     </span>
                   </div>
                 ))}
               </div>
             </div>
 
-            <div>
-              <span className="text-causeway-gold font-semibold text-sm uppercase tracking-wider">
-                Data Sources
+            <div className={isRTL ? 'lg:col-start-1' : ''}>
+              <span className="text-[#d4a84b] font-semibold text-sm uppercase tracking-wider">
+                {language === 'ar' ? 'مصادر البيانات' : 'Data Sources'}
               </span>
-              <h2 className="text-3xl font-display text-causeway-forest mt-3 mb-6">
-                Trusted Sources
+              <h2 className="text-3xl font-serif text-[#133129] mt-3 mb-6" style={{ fontFamily: "'Playfair Display', Georgia, serif" }}>
+                {language === 'ar' ? 'مصادر موثوقة' : 'Trusted Sources'}
               </h2>
-              <p className="text-causeway-forest/70 mb-8">
-                YETO aggregates data from authoritative sources to provide 
-                accurate and reliable economic information.
+              <p className="text-[#406D61] mb-8">
+                {language === 'ar' 
+                  ? 'تجمع يتو البيانات من مصادر موثوقة لتوفير معلومات اقتصادية دقيقة وموثوقة.'
+                  : 'YETO aggregates data from authoritative sources to provide accurate and reliable economic information.'
+                }
               </p>
               
               <div className="space-y-4">
@@ -387,10 +416,10 @@ export default function Observatory() {
                     href={source.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center justify-between bg-causeway-sage/10 p-4 rounded-lg border border-causeway-sage/20 hover:bg-causeway-sage/20 transition-colors"
+                    className={`flex items-center justify-between bg-[#406D61]/10 p-4 rounded-lg border border-[#406D61]/20 hover:bg-[#406D61]/20 transition-colors ${isRTL ? 'flex-row-reverse' : ''}`}
                   >
-                    <span className="font-medium text-causeway-forest">{source.name}</span>
-                    <ExternalLink className="w-4 h-4 text-causeway-teal" />
+                    <span className="font-medium text-[#133129]">{language === 'ar' ? source.nameAr : source.name}</span>
+                    <ExternalLink className="w-4 h-4 text-[#224B40]" />
                   </a>
                 ))}
               </div>
@@ -400,26 +429,28 @@ export default function Observatory() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-causeway-forest">
+      <section className="py-20 bg-[#133129]">
         <div className="container">
           <div className="text-center max-w-2xl mx-auto">
-            <h2 className="text-3xl font-display text-causeway-cream mb-4">
-              Stay Informed
+            <h2 className="text-3xl font-serif text-[#faf9f6] mb-4" style={{ fontFamily: "'Playfair Display', Georgia, serif" }}>
+              {language === 'ar' ? 'ابق على اطلاع' : 'Stay Informed'}
             </h2>
-            <p className="text-causeway-cream/70 mb-8">
-              Be the first to know when YETO launches. Subscribe for updates 
-              and early access to our economic reports.
+            <p className="text-[#faf9f6]/70 mb-8">
+              {language === 'ar' 
+                ? 'كن أول من يعرف عند إطلاق يتو. اشترك للحصول على التحديثات والوصول المبكر إلى تقاريرنا الاقتصادية.'
+                : 'Be the first to know when YETO launches. Subscribe for updates and early access to our economic reports.'
+              }
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className={`flex flex-col sm:flex-row gap-4 justify-center ${isRTL ? 'sm:flex-row-reverse' : ''}`}>
               <Link href="/insights">
-                <Button className="btn-gold">
-                  View Current Insights
-                  <ArrowRight className="w-4 h-4 ml-2" />
+                <Button className="bg-[#d4a84b] hover:bg-[#c9a227] text-[#133129] font-semibold">
+                  {language === 'ar' ? 'عرض الرؤى الحالية' : 'View Current Insights'}
+                  <ArrowRight className={`w-4 h-4 ${isRTL ? 'mr-2 rotate-180' : 'ml-2'}`} />
                 </Button>
               </Link>
               <Link href="/contact">
-                <Button className="btn-outline-light">
-                  Contact Us
+                <Button variant="outline" className="border-[#faf9f6]/40 text-[#faf9f6] hover:bg-[#faf9f6]/10">
+                  {language === 'ar' ? 'اتصل بنا' : 'Contact Us'}
                 </Button>
               </Link>
             </div>
@@ -435,23 +466,23 @@ export default function Observatory() {
         >
           <button 
             onClick={closeLightbox}
-            className="absolute top-4 right-4 text-white/80 hover:text-white p-2 z-50"
+            className={`absolute top-4 ${isRTL ? 'left-4' : 'right-4'} text-white/80 hover:text-white p-2 z-50`}
           >
             <X className="w-8 h-8" />
           </button>
           
           <button 
             onClick={(e) => { e.stopPropagation(); prevImage(); }}
-            className="absolute left-4 text-white/80 hover:text-white p-2 z-50"
+            className={`absolute ${isRTL ? 'right-4' : 'left-4'} text-white/80 hover:text-white p-2 z-50`}
           >
-            <ChevronLeft className="w-10 h-10" />
+            <ChevronLeft className={`w-10 h-10 ${isRTL ? 'rotate-180' : ''}`} />
           </button>
           
           <button 
             onClick={(e) => { e.stopPropagation(); nextImage(); }}
-            className="absolute right-4 text-white/80 hover:text-white p-2 z-50"
+            className={`absolute ${isRTL ? 'left-4' : 'right-4'} text-white/80 hover:text-white p-2 z-50`}
           >
-            <ChevronRight className="w-10 h-10" />
+            <ChevronRight className={`w-10 h-10 ${isRTL ? 'rotate-180' : ''}`} />
           </button>
           
           <div 
@@ -460,18 +491,18 @@ export default function Observatory() {
           >
             <img 
               src={dashboardMockups[selectedImage].src}
-              alt={dashboardMockups[selectedImage].title}
+              alt={language === 'ar' ? dashboardMockups[selectedImage].titleAr : dashboardMockups[selectedImage].title}
               className="max-w-full max-h-[80vh] object-contain rounded-lg"
             />
             <div className="text-center mt-4">
-              <h3 className="text-xl font-display text-white">
-                {dashboardMockups[selectedImage].title}
+              <h3 className="text-xl font-serif text-white" style={{ fontFamily: "'Playfair Display', Georgia, serif" }}>
+                {language === 'ar' ? dashboardMockups[selectedImage].titleAr : dashboardMockups[selectedImage].title}
               </h3>
-              <p className="text-causeway-gold font-body-ar">
-                {dashboardMockups[selectedImage].titleAr}
+              <p className="text-[#d4a84b]" style={{ fontFamily: language === 'ar' ? "'Source Sans Pro', sans-serif" : "'Amiri', serif" }}>
+                {language === 'ar' ? dashboardMockups[selectedImage].title : dashboardMockups[selectedImage].titleAr}
               </p>
               <p className="text-white/70 text-sm mt-2">
-                {dashboardMockups[selectedImage].description}
+                {language === 'ar' ? dashboardMockups[selectedImage].descriptionAr : dashboardMockups[selectedImage].description}
               </p>
               <p className="text-white/50 text-xs mt-4">
                 {selectedImage + 1} / {dashboardMockups.length}

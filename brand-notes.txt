@@ -1,0 +1,37 @@
+# CauseWay Brand Guidelines - Key Findings
+
+## Logo Design
+- C-shaped frame in teal green (#224B40)
+- Inner sage green square (#406D61)
+- Gold/amber accent square (#d4a84b)
+- Small teal circle element
+- "CauseWay" in white/cream serif font
+- "كوزواي" in teal green Arabic text below
+
+## Brand Colors
+- Deep Forest Green: #133129
+- Teal Green: #224B40
+- Sage Green: #406D61
+- Gold/Amber: #d4a84b
+- Cream/Off-white: #faf9f6
+
+## Typography
+- English: Serif font (similar to Playfair Display or Georgia)
+- Arabic: Arabic serif font (كوزواي in teal color)
+
+## Hero Section Reference (from IMG_3947.PNG)
+- Dark overlay on city skyline image
+- "Where Finance Becomes Infrastructure" - italic serif
+- Subtitle in lighter weight
+- Two CTAs: "Explore Our Services" (gold bg) and "Request a Briefing" (outline)
+- Governance Pulse ticker at bottom with gold accent
+
+## Insights Section Reference (from IMG_3948.PNG)
+- Quote block with gold line accent
+- Featured article with large image
+- Sidebar with smaller article cards
+- Newsletter subscription section with gold subscribe button
+
+## Site Architecture (from IMG_3945.PNG)
+- Main nav: Home, About, Services, Observatory, Insights, Contact
+- Footer sections: Regulatory, Standards, Data Sources, Publications, Legal
