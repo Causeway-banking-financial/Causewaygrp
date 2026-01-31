@@ -33,15 +33,6 @@ const values = [
   }
 ];
 
-const milestones = [
-  { year: '2010', event: 'Founded in Aden, Yemen with focus on banking consultancy' },
-  { year: '2013', event: 'Expanded services to include Islamic finance engineering' },
-  { year: '2016', event: 'Launched capacity building programs for financial institutions' },
-  { year: '2019', event: 'Established microfinance development practice' },
-  { year: '2022', event: 'Initiated YETO (Yemen Economic Transparency Observatory)' },
-  { year: '2025', event: 'Regional expansion and digital transformation services' }
-];
-
 const affiliations = [
   'AAOIFI (Accounting and Auditing Organization for Islamic Financial Institutions)',
   'Yemen Microfinance Network',
@@ -134,7 +125,7 @@ export default function About() {
       {/* Our Story */}
       <section className="py-20 bg-white">
         <div className="container">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+          <div className="max-w-4xl mx-auto">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -145,17 +136,17 @@ export default function About() {
                 Our Story
               </span>
               <h2 className="text-3xl md:text-4xl font-display text-causeway-forest mt-3 mb-6">
-                A Legacy of Excellence Since 2010
+                A Commitment to Excellence
               </h2>
               <div className="space-y-4 text-causeway-forest/70 leading-relaxed">
                 <p>
-                  Founded in Aden, Yemen, CauseWay emerged from a recognition that the 
-                  region's financial sector needed specialized expertise that understood 
-                  both international best practices and local context.
+                  CauseWay Consulting, Services & Development Group was established in Aden, Yemen, 
+                  emerging from a recognition that the region's financial sector needed specialized 
+                  expertise that understood both international best practices and local context.
                 </p>
                 <p>
-                  Our founders, seasoned professionals with decades of experience in 
-                  banking, Islamic finance, and regulatory compliance, established 
+                  Our team comprises seasoned professionals with extensive experience in 
+                  banking, Islamic finance, and regulatory compliance. We established 
                   CauseWay to bridge the gap between global financial standards and 
                   regional implementation challenges.
                 </p>
@@ -165,30 +156,12 @@ export default function About() {
                   solutions that range from Islamic product development to digital 
                   transformation and capacity building.
                 </p>
-              </div>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              viewport={{ once: true }}
-              className="relative"
-            >
-              <div className="bg-causeway-forest p-8 rounded-lg">
-                <h3 className="text-xl font-display text-causeway-cream mb-6">Key Milestones</h3>
-                <div className="space-y-4">
-                  {milestones.map((milestone, index) => (
-                    <div key={milestone.year} className="flex gap-4">
-                      <div className="text-causeway-gold font-semibold min-w-[60px]">
-                        {milestone.year}
-                      </div>
-                      <div className="text-causeway-cream/80 text-sm">
-                        {milestone.event}
-                      </div>
-                    </div>
-                  ))}
-                </div>
+                <p>
+                  Our commitment to Sharia-grounded, governance-safe financial systems 
+                  has positioned us as a trusted partner for institutions seeking to 
+                  strengthen their operations while maintaining compliance with both 
+                  Islamic principles and international regulatory standards.
+                </p>
               </div>
             </motion.div>
           </div>
