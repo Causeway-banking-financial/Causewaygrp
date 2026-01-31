@@ -30,6 +30,7 @@ import CookieNotice from "./pages/legal/CookieNotice";
 import HowWeWork from "./pages/HowWeWork";
 import Resources from "./pages/Resources";
 import FAQ from "./pages/FAQ";
+import Careers from "./pages/Careers";
 
 function Router() {
   return (
@@ -65,6 +66,9 @@ function Router() {
       
       {/* Contact */}
       <Route path="/contact" component={Contact} />
+      
+      {/* Careers */}
+      <Route path="/careers" component={Careers} />
       
       {/* Legal */}
       <Route path="/privacy-policy" component={PrivacyPolicy} />

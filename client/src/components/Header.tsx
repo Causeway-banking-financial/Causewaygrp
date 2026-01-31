@@ -38,6 +38,7 @@ const resources = [
   { name: 'How We Work', nameAr: 'كيف نعمل', href: '/how-we-work' },
   { name: 'Resource Hub', nameAr: 'مركز الموارد', href: '/resources' },
   { name: 'FAQ', nameAr: 'الأسئلة الشائعة', href: '/faq' },
+  { name: 'Careers', nameAr: 'الوظائف', href: '/careers' },
 ];
 
 export default function Header() {
