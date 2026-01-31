@@ -1,5 +1,6 @@
 /**
  * Insights Page - Articles, Publications, News
+ * Enhanced with unique content, external resources, and mobile responsiveness
  */
 
 import { useState } from 'react';
@@ -11,12 +12,15 @@ import {
   Clock, 
   Download, 
   FileText,
-  Filter,
-  Search
+  Search,
+  ExternalLink,
+  BookOpen,
+  Globe
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import YetoBanner from '@/components/YetoBanner';
 
 const categories = [
   'All',
@@ -32,10 +36,10 @@ const articles = [
     id: 'governance-fragile-markets',
     category: 'Governance',
     title: 'Governance in Fragile Markets: Building Audit-Ready Systems',
-    excerpt: 'A deep dive into compliance frameworks for high-risk environments and emerging market banks. This analysis explores practical approaches to establishing robust governance structures.',
+    excerpt: 'A deep dive into compliance frameworks for high-risk environments and emerging market banks. This analysis explores practical approaches to establishing robust governance structures in Yemen and similar contexts.',
     date: 'January 28, 2026',
     readTime: '12 min',
-    image: '/images/hero-observatory.jpg',
+    image: '/images/aden-aerial.jpg',
     type: 'article',
     featured: true
   },
@@ -43,50 +47,50 @@ const articles = [
     id: 'islamic-finance-engineering',
     category: 'Islamic Finance',
     title: 'Islamic Finance Product Engineering: From Concept to Execution',
-    excerpt: 'Structuring innovative, compliant financial solutions for modern banking needs. A comprehensive guide to developing Sharia-compliant products.',
+    excerpt: 'Structuring innovative, compliant financial solutions for modern banking needs. A comprehensive guide to developing Sharia-compliant products aligned with AAOIFI standards.',
     date: 'January 25, 2026',
     readTime: '8 min',
-    image: '/images/hero-islamic-finance.jpg',
+    image: '/images/financial-district.png',
     type: 'article'
   },
   {
     id: 'aml-cft-frameworks',
     category: 'Compliance',
     title: 'AML/CFT in Development Finance: Practical Frameworks',
-    excerpt: 'Implementing robust anti-money laundering strategies in challenging environments. Best practices for financial institutions in fragile states.',
+    excerpt: 'Implementing robust anti-money laundering strategies in challenging environments. Best practices for financial institutions aligned with FATF recommendations.',
     date: 'January 20, 2026',
     readTime: '10 min',
-    image: '/images/hero-services.jpg',
+    image: '/images/business-district.jpg',
     type: 'article'
   },
   {
     id: 'treasury-governance',
     category: 'Risk Management',
     title: 'Treasury Governance for Emerging Market Banks',
-    excerpt: 'Optimizing liquidity and risk management in volatile markets. Strategic approaches to treasury operations.',
+    excerpt: 'Optimizing liquidity and risk management in volatile markets. Strategic approaches to treasury operations in fragile economies.',
     date: 'January 15, 2026',
     readTime: '9 min',
-    image: '/images/hero-insights.jpg',
+    image: '/images/aden-harbor.jpg',
     type: 'article'
   },
   {
     id: 'yemen-banking-outlook-2026',
     category: 'Economic Analysis',
     title: 'Yemen Banking Sector Outlook 2026',
-    excerpt: 'Analysis of current trends, challenges, and opportunities in Yemen\'s banking sector. Key indicators and projections for the year ahead.',
+    excerpt: 'Analysis of current trends, challenges, and opportunities in Yemen\'s banking sector. Key indicators and projections for the year ahead based on Central Bank data.',
     date: 'January 10, 2026',
     readTime: '15 min',
-    image: '/images/hero-main.jpg',
+    image: '/images/aden-city.jpg',
     type: 'article'
   },
   {
     id: 'microfinance-resilience',
     category: 'Economic Analysis',
     title: 'Microfinance Resilience in Crisis Economies',
-    excerpt: 'How MFIs in Yemen have adapted to economic challenges and maintained operations. Lessons for the sector.',
+    excerpt: 'How MFIs in Yemen have adapted to economic challenges and maintained operations. Lessons for the sector from Yemen Microfinance Network data.',
     date: 'January 5, 2026',
     readTime: '11 min',
-    image: '/images/hero-observatory.jpg',
+    image: '/images/aden-aerial.jpg',
     type: 'article'
   }
 ];
@@ -136,6 +140,34 @@ const news = [
   }
 ];
 
+// External resources and standards
+const externalResources = [
+  {
+    title: 'AAOIFI Sharia Standards',
+    description: 'Accounting and Auditing Organization for Islamic Financial Institutions',
+    url: 'https://aaoifi.com',
+    type: 'Standards'
+  },
+  {
+    title: 'FATF Recommendations',
+    description: 'Financial Action Task Force AML/CFT Guidelines',
+    url: 'https://www.fatf-gafi.org',
+    type: 'Compliance'
+  },
+  {
+    title: 'Basel Committee Standards',
+    description: 'Banking supervision and regulatory framework',
+    url: 'https://www.bis.org/bcbs',
+    type: 'Regulation'
+  },
+  {
+    title: 'IFSB Standards',
+    description: 'Islamic Financial Services Board prudential standards',
+    url: 'https://www.ifsb.org',
+    type: 'Standards'
+  }
+];
+
 export default function Insights() {
   const [activeCategory, setActiveCategory] = useState('All');
   const [searchQuery, setSearchQuery] = useState('');
@@ -149,16 +181,20 @@ export default function Insights() {
 
   return (
     <div className="min-h-screen">
+      <YetoBanner variant="top" />
       <Header />
       
       {/* Hero Section */}
-      <section className="relative pt-32 pb-20 bg-causeway-forest">
+      <section className="relative pt-28 sm:pt-32 pb-16 sm:pb-20 bg-causeway-forest">
         <div className="absolute inset-0">
           <div 
-            className="absolute inset-0 bg-cover bg-center opacity-20"
-            style={{ backgroundImage: 'url(/images/hero-insights.jpg)' }}
+            className="absolute inset-0 bg-cover bg-center"
+            style={{ 
+              backgroundImage: 'url(/images/aden-aerial.jpg)',
+              filter: 'brightness(0.3) saturate(0.7)'
+            }}
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-causeway-forest via-causeway-forest/95 to-causeway-forest" />
+          <div className="absolute inset-0 bg-gradient-to-b from-causeway-forest via-causeway-forest/90 to-causeway-forest" />
         </div>
         
         <div className="container relative z-10">
@@ -168,13 +204,13 @@ export default function Insights() {
             transition={{ duration: 0.6 }}
             className="max-w-3xl"
           >
-            <span className="text-causeway-gold font-semibold text-sm uppercase tracking-wider">
+            <span className="text-causeway-gold font-semibold text-xs sm:text-sm uppercase tracking-wider">
               Insights
             </span>
-            <h1 className="text-4xl md:text-5xl font-display text-causeway-cream mt-3 mb-6">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-display text-causeway-cream mt-2 sm:mt-3 mb-4 sm:mb-6">
               Expert Analysis & Thought Leadership
             </h1>
-            <p className="text-xl text-causeway-cream/80 leading-relaxed">
+            <p className="text-base sm:text-xl text-causeway-cream/80 leading-relaxed">
               In-depth articles, research publications, and news from CauseWay's 
               experts on governance, Islamic finance, compliance, and economic analysis.
             </p>
@@ -183,16 +219,16 @@ export default function Insights() {
       </section>
 
       {/* Filter Section */}
-      <section className="py-8 bg-causeway-cream border-b border-causeway-forest/10 sticky top-20 z-30">
+      <section className="py-4 sm:py-6 md:py-8 bg-causeway-cream border-b border-causeway-forest/10 sticky top-14 sm:top-16 z-30">
         <div className="container">
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-            {/* Categories */}
-            <div className="flex flex-wrap gap-2">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-3 sm:gap-4">
+            {/* Categories - Horizontal scroll on mobile */}
+            <div className="flex gap-2 overflow-x-auto pb-2 md:pb-0 w-full md:w-auto scrollbar-hide">
               {categories.map((category) => (
                 <button
                   key={category}
                   onClick={() => setActiveCategory(category)}
-                  className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+                  className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-medium transition-colors whitespace-nowrap flex-shrink-0 ${
                     activeCategory === category
                       ? 'bg-causeway-forest text-causeway-cream'
                       : 'bg-white text-causeway-forest hover:bg-causeway-forest/10'
@@ -211,7 +247,7 @@ export default function Insights() {
                 placeholder="Search articles..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 bg-white border border-causeway-forest/10 rounded-lg text-causeway-forest placeholder:text-causeway-forest/40 focus:outline-none focus:border-causeway-gold"
+                className="w-full pl-10 pr-4 py-2 bg-white border border-causeway-forest/10 rounded-lg text-causeway-forest placeholder:text-causeway-forest/40 focus:outline-none focus:border-causeway-gold text-sm"
               />
             </div>
           </div>
@@ -219,21 +255,21 @@ export default function Insights() {
       </section>
 
       {/* Articles Section */}
-      <section className="py-16 bg-causeway-cream">
+      <section className="py-10 sm:py-16 bg-causeway-cream">
         <div className="container">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8">
             {/* Main Articles */}
-            <div className="lg:col-span-2 space-y-8">
-              <h2 className="text-2xl font-display text-causeway-forest">
+            <div className="lg:col-span-2 space-y-6 sm:space-y-8">
+              <h2 className="text-xl sm:text-2xl font-display text-causeway-forest">
                 Articles ({filteredArticles.length})
               </h2>
               
               {filteredArticles.length === 0 ? (
-                <div className="bg-white p-8 rounded-lg text-center">
-                  <p className="text-causeway-forest/60">No articles found matching your criteria.</p>
+                <div className="bg-white p-6 sm:p-8 rounded-lg text-center">
+                  <p className="text-causeway-forest/60 text-sm sm:text-base">No articles found matching your criteria.</p>
                 </div>
               ) : (
-                <div className="space-y-6">
+                <div className="space-y-4 sm:space-y-6">
                   {filteredArticles.map((article, index) => (
                     <motion.div
                       key={article.id}
@@ -246,35 +282,35 @@ export default function Insights() {
                         <div className={`group bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-lg transition-shadow ${
                           article.featured ? 'ring-2 ring-causeway-gold' : ''
                         }`}>
-                          <div className="grid grid-cols-1 md:grid-cols-3">
+                          <div className="grid grid-cols-1 sm:grid-cols-3">
                             <div 
-                              className="h-48 md:h-full bg-cover bg-center"
+                              className="h-40 sm:h-full min-h-[160px] bg-cover bg-center"
                               style={{ backgroundImage: `url(${article.image})` }}
                             />
-                            <div className="md:col-span-2 p-6">
-                              <div className="flex items-center gap-3 mb-3">
-                                <span className="bg-causeway-gold/20 text-causeway-gold-dark text-xs font-semibold px-3 py-1 rounded-full">
+                            <div className="sm:col-span-2 p-4 sm:p-6">
+                              <div className="flex items-center gap-2 sm:gap-3 mb-2 sm:mb-3 flex-wrap">
+                                <span className="bg-causeway-gold/20 text-causeway-gold-dark text-xs font-semibold px-2.5 sm:px-3 py-1 rounded-full">
                                   {article.category}
                                 </span>
                                 {article.featured && (
-                                  <span className="bg-causeway-forest text-causeway-cream text-xs font-semibold px-3 py-1 rounded-full">
+                                  <span className="bg-causeway-forest text-causeway-cream text-xs font-semibold px-2.5 sm:px-3 py-1 rounded-full">
                                     Featured
                                   </span>
                                 )}
                               </div>
-                              <h3 className="text-xl font-display text-causeway-forest mb-2 group-hover:text-causeway-teal transition-colors">
+                              <h3 className="text-base sm:text-xl font-display text-causeway-forest mb-2 group-hover:text-causeway-teal transition-colors line-clamp-2">
                                 {article.title}
                               </h3>
-                              <p className="text-causeway-forest/60 text-sm mb-4 line-clamp-2">
+                              <p className="text-causeway-forest/60 text-xs sm:text-sm mb-3 sm:mb-4 line-clamp-2">
                                 {article.excerpt}
                               </p>
-                              <div className="flex items-center gap-4 text-causeway-forest/50 text-sm">
+                              <div className="flex items-center gap-3 sm:gap-4 text-causeway-forest/50 text-xs sm:text-sm">
                                 <span className="flex items-center gap-1">
-                                  <Calendar className="w-4 h-4" />
+                                  <Calendar className="w-3 h-3 sm:w-4 sm:h-4" />
                                   {article.date}
                                 </span>
                                 <span className="flex items-center gap-1">
-                                  <Clock className="w-4 h-4" />
+                                  <Clock className="w-3 h-3 sm:w-4 sm:h-4" />
                                   {article.readTime}
                                 </span>
                               </div>
@@ -289,26 +325,26 @@ export default function Insights() {
             </div>
 
             {/* Sidebar */}
-            <div className="space-y-8">
+            <div className="space-y-6 sm:space-y-8">
               {/* Publications */}
-              <div className="bg-white p-6 rounded-lg shadow-sm">
-                <h3 className="text-lg font-display text-causeway-forest mb-4 flex items-center gap-2">
-                  <FileText className="w-5 h-5 text-causeway-teal" />
+              <div className="bg-white p-4 sm:p-6 rounded-lg shadow-sm">
+                <h3 className="text-base sm:text-lg font-display text-causeway-forest mb-3 sm:mb-4 flex items-center gap-2">
+                  <FileText className="w-4 h-4 sm:w-5 sm:h-5 text-causeway-teal" />
                   Publications
                 </h3>
-                <div className="space-y-4">
+                <div className="space-y-3 sm:space-y-4">
                   {publications.map((pub) => (
                     <div key={pub.title} className="group cursor-pointer">
-                      <div className="flex items-start justify-between">
-                        <div>
-                          <h4 className="font-medium text-causeway-forest text-sm group-hover:text-causeway-teal transition-colors">
+                      <div className="flex items-start justify-between gap-2">
+                        <div className="min-w-0">
+                          <h4 className="font-medium text-causeway-forest text-xs sm:text-sm group-hover:text-causeway-teal transition-colors line-clamp-1">
                             {pub.title}
                           </h4>
-                          <p className="text-causeway-forest/50 text-xs mt-1">
+                          <p className="text-causeway-forest/50 text-xs mt-1 line-clamp-2">
                             {pub.description}
                           </p>
                         </div>
-                        <Download className="w-4 h-4 text-causeway-teal flex-shrink-0 mt-1" />
+                        <Download className="w-4 h-4 text-causeway-teal flex-shrink-0 mt-0.5" />
                       </div>
                       <div className="text-xs text-causeway-forest/40 mt-1">
                         {pub.type} • {pub.size}
@@ -316,22 +352,52 @@ export default function Insights() {
                     </div>
                   ))}
                 </div>
-                <Link href="/insights/publications">
-                  <Button variant="outline" className="w-full mt-4 text-sm border-causeway-forest text-causeway-forest hover:bg-causeway-forest hover:text-causeway-cream">
-                    View All Publications
-                  </Button>
-                </Link>
+              </div>
+
+              {/* External Resources */}
+              <div className="bg-white p-4 sm:p-6 rounded-lg shadow-sm">
+                <h3 className="text-base sm:text-lg font-display text-causeway-forest mb-3 sm:mb-4 flex items-center gap-2">
+                  <Globe className="w-4 h-4 sm:w-5 sm:h-5 text-causeway-teal" />
+                  Key Resources
+                </h3>
+                <div className="space-y-3">
+                  {externalResources.map((resource) => (
+                    <a 
+                      key={resource.title}
+                      href={resource.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group block"
+                    >
+                      <div className="flex items-start justify-between gap-2">
+                        <div className="min-w-0">
+                          <h4 className="font-medium text-causeway-forest text-xs sm:text-sm group-hover:text-causeway-teal transition-colors flex items-center gap-1">
+                            {resource.title}
+                            <ExternalLink className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
+                          </h4>
+                          <p className="text-causeway-forest/50 text-xs mt-0.5">
+                            {resource.description}
+                          </p>
+                        </div>
+                      </div>
+                      <span className="text-xs text-causeway-gold mt-1 inline-block">
+                        {resource.type}
+                      </span>
+                    </a>
+                  ))}
+                </div>
               </div>
 
               {/* News */}
-              <div className="bg-white p-6 rounded-lg shadow-sm">
-                <h3 className="text-lg font-display text-causeway-forest mb-4">
+              <div className="bg-white p-4 sm:p-6 rounded-lg shadow-sm">
+                <h3 className="text-base sm:text-lg font-display text-causeway-forest mb-3 sm:mb-4 flex items-center gap-2">
+                  <BookOpen className="w-4 h-4 sm:w-5 sm:h-5 text-causeway-teal" />
                   Company News
                 </h3>
-                <div className="space-y-4">
+                <div className="space-y-3 sm:space-y-4">
                   {news.map((item) => (
-                    <div key={item.title} className="border-b border-causeway-forest/10 pb-4 last:border-0 last:pb-0">
-                      <h4 className="font-medium text-causeway-forest text-sm">
+                    <div key={item.title} className="border-b border-causeway-forest/10 pb-3 sm:pb-4 last:border-0 last:pb-0">
+                      <h4 className="font-medium text-causeway-forest text-xs sm:text-sm line-clamp-2">
                         {item.title}
                       </h4>
                       <p className="text-causeway-forest/50 text-xs mt-1">
@@ -340,26 +406,21 @@ export default function Insights() {
                     </div>
                   ))}
                 </div>
-                <Link href="/insights/news">
-                  <Button variant="outline" className="w-full mt-4 text-sm border-causeway-forest text-causeway-forest hover:bg-causeway-forest hover:text-causeway-cream">
-                    View All News
-                  </Button>
-                </Link>
               </div>
 
               {/* Newsletter */}
-              <div className="bg-causeway-forest p-6 rounded-lg">
-                <h3 className="text-lg font-display text-causeway-cream mb-3">
+              <div className="bg-causeway-forest p-4 sm:p-6 rounded-lg">
+                <h3 className="text-base sm:text-lg font-display text-causeway-cream mb-2 sm:mb-3">
                   Subscribe to Updates
                 </h3>
-                <p className="text-causeway-cream/70 text-sm mb-4">
+                <p className="text-causeway-cream/70 text-xs sm:text-sm mb-3 sm:mb-4">
                   Get the latest insights delivered to your inbox.
                 </p>
-                <form className="space-y-3">
+                <form className="space-y-2 sm:space-y-3">
                   <input
                     type="email"
                     placeholder="Your email"
-                    className="w-full px-4 py-2 bg-causeway-forest-light border border-causeway-teal/30 rounded text-causeway-cream placeholder:text-causeway-cream/40 focus:outline-none focus:border-causeway-gold text-sm"
+                    className="w-full px-3 sm:px-4 py-2 bg-causeway-forest-light border border-causeway-teal/30 rounded text-causeway-cream placeholder:text-causeway-cream/40 focus:outline-none focus:border-causeway-gold text-sm"
                   />
                   <Button className="btn-gold w-full text-sm">
                     Subscribe

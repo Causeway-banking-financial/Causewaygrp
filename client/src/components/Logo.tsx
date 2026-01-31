@@ -2,6 +2,7 @@
  * CauseWay Logo Component
  * Brand: CauseWay (كوزواي)
  * Features the distinctive square-within-square logo with teal, sage, and gold elements
+ * Exact colors from brand guidelines
  */
 
 interface LogoProps {
@@ -20,13 +21,22 @@ export default function Logo({
   light = false
 }: LogoProps) {
   const sizes = {
-    sm: { icon: 32, text: 'text-lg', arabic: 'text-sm' },
-    md: { icon: 40, text: 'text-xl', arabic: 'text-base' },
-    lg: { icon: 56, text: 'text-3xl', arabic: 'text-xl' }
+    sm: { icon: 28, text: 'text-base', arabic: 'text-xs' },
+    md: { icon: 36, text: 'text-xl', arabic: 'text-sm' },
+    lg: { icon: 52, text: 'text-2xl', arabic: 'text-lg' }
   };
 
   const currentSize = sizes[size];
   const textColor = light ? 'text-causeway-cream' : 'text-causeway-forest';
+  const arabicColor = light ? 'text-causeway-sage' : 'text-causeway-teal';
+
+  // Exact brand colors
+  const colors = {
+    teal: '#1e6b5a',      // Main frame color
+    sage: '#5a8a6a',      // Inner square
+    gold: '#d4a84b',      // Accent square
+    forest: '#1a2e1a'     // Background/text
+  };
 
   const LogoIcon = () => (
     <svg 
@@ -35,18 +45,19 @@ export default function Logo({
       viewBox="0 0 100 100" 
       fill="none" 
       xmlns="http://www.w3.org/2000/svg"
+      className="flex-shrink-0"
     >
-      {/* Outer C-shaped frame - Teal */}
+      {/* Outer C-shaped frame - Teal #1e6b5a */}
       <path 
-        d="M20 15 L80 15 L80 25 L30 25 L30 75 L80 75 L80 85 L20 85 Z" 
-        fill="#1e6b5a"
+        d="M15 10 L85 10 L85 22 L27 22 L27 78 L85 78 L85 90 L15 90 Z" 
+        fill={colors.teal}
       />
-      {/* Inner sage square */}
-      <rect x="40" y="35" width="25" height="25" rx="3" fill="#5a8a6a" />
-      {/* Gold accent square */}
-      <rect x="55" y="25" width="20" height="20" rx="3" fill="#d4a84b" />
-      {/* Small teal circle */}
-      <circle cx="80" cy="55" r="8" fill="#1e6b5a" />
+      {/* Inner sage square - #5a8a6a */}
+      <rect x="38" y="38" width="26" height="26" rx="4" fill={colors.sage} />
+      {/* Gold accent square - #d4a84b */}
+      <rect x="54" y="26" width="22" height="22" rx="4" fill={colors.gold} />
+      {/* Small teal circle - #1e6b5a */}
+      <circle cx="82" cy="58" r="9" fill={colors.teal} />
     </svg>
   );
 
@@ -61,7 +72,7 @@ export default function Logo({
           CauseWay
         </span>
         {showArabic && (
-          <span className={`font-display-ar ${currentSize.arabic} ${textColor} opacity-80`}>
+          <span className={`font-display-ar ${currentSize.arabic} ${arabicColor}`}>
             كوزواي
           </span>
         )}
@@ -70,14 +81,14 @@ export default function Logo({
   }
 
   return (
-    <div className={`flex items-center gap-3 ${className}`}>
+    <div className={`flex items-center gap-2 sm:gap-3 ${className}`}>
       <LogoIcon />
-      <div className="flex flex-col">
-        <span className={`font-display font-semibold ${currentSize.text} ${textColor} leading-tight`}>
+      <div className="flex flex-col leading-none">
+        <span className={`font-display font-semibold ${currentSize.text} ${textColor}`}>
           CauseWay
         </span>
         {showArabic && (
-          <span className={`font-display-ar ${currentSize.arabic} ${light ? 'text-causeway-sage' : 'text-causeway-teal'} leading-tight`}>
+          <span className={`font-display-ar ${currentSize.arabic} ${arabicColor} mt-0.5`}>
             كوزواي
           </span>
         )}
