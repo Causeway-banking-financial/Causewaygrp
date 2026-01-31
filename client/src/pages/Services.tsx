@@ -42,10 +42,25 @@ const services = [
       'Core banking configuration',
       'Staff training programs'
     ],
+    whatWeDoAr: [
+      'تطوير المنتجات المتوافقة مع الشريعة',
+      'هيكلة وإصدار الصكوك',
+      'التحول المصرفي الإسلامي',
+      'التنسيق مع هيئات الفتوى الشرعية',
+      'أدلة المنتجات وإجراءات التشغيل',
+      'حزم إحاطة الهيئة الشرعية',
+      'تكوين النظام المصرفي الأساسي',
+      'برامج تدريب الموظفين'
+    ],
     whatWeDont: [
       'Provide religious rulings (fatwas) directly',
       'Replace your Sharia Supervisory Board',
       'Guarantee regulatory approval'
+    ],
+    whatWeDontAr: [
+      'تقديم الفتاوى الشرعية مباشرة',
+      'استبدال هيئتكم الشرعية',
+      'ضمان الموافقة التنظيمية'
     ],
     href: '/services/islamic-finance'
   },
@@ -66,10 +81,25 @@ const services = [
       'Policy and procedure development',
       'Compliance training programs'
     ],
+    whatWeDoAr: [
+      'تطوير أطر مكافحة غسل الأموال وتمويل الإرهاب',
+      'تقييم الامتثال التنظيمي',
+      'إنشاء التدقيق الداخلي',
+      'منهجيات تقييم المخاطر',
+      'أنظمة مراقبة الامتثال',
+      'أطر التقارير التنظيمية',
+      'تطوير السياسات والإجراءات',
+      'برامج تدريب الامتثال'
+    ],
     whatWeDont: [
       'Act as your internal compliance officer',
       'Guarantee immunity from regulatory penalties',
       'Provide legal advice or representation'
+    ],
+    whatWeDontAr: [
+      'العمل كمسؤول امتثال داخلي لديكم',
+      'ضمان الحصانة من العقوبات التنظيمية',
+      'تقديم المشورة أو التمثيل القانوني'
     ],
     href: '/services/risk-compliance'
   },
@@ -90,10 +120,25 @@ const services = [
       'User acceptance testing',
       'Post-deployment support and migration'
     ],
+    whatWeDoAr: [
+      'اختيار وتقييم الأنظمة',
+      'إدارة مشاريع التنفيذ',
+      'استراتيجية التحول الرقمي',
+      'خدمات التكامل',
+      'تحديث الأنظمة القديمة',
+      'تخطيط ترحيل البيانات',
+      'اختبار قبول المستخدم',
+      'الدعم والترحيل بعد النشر'
+    ],
     whatWeDont: [
       'Sell or license third-party software',
       'Provide ongoing IT infrastructure management',
       'Replace your internal IT team'
+    ],
+    whatWeDontAr: [
+      'بيع أو ترخيص برامج الطرف الثالث',
+      'توفير إدارة البنية التحتية لتكنولوجيا المعلومات المستمرة',
+      'استبدال فريق تكنولوجيا المعلومات الداخلي لديكم'
     ],
     timeline: 'Core Banking System: Under development, expected delivery mid-2027',
     href: '/services/core-banking'
@@ -115,10 +160,25 @@ const services = [
       'Operational efficiency improvement',
       'Impact measurement frameworks'
     ],
+    whatWeDoAr: [
+      'دعم إنشاء مؤسسات التمويل الأصغر',
+      'برامج بناء القدرات',
+      'تطوير المنتجات',
+      'المساعدة في الترخيص التنظيمي',
+      'إدارة الأداء الاجتماعي',
+      'تنفيذ حماية العملاء',
+      'تحسين الكفاءة التشغيلية',
+      'أطر قياس الأثر'
+    ],
     whatWeDont: [
       'Promise immediate transformation to commercial banks',
       'Provide direct lending capital',
       'Guarantee regulatory licensing approval'
+    ],
+    whatWeDontAr: [
+      'الوعد بالتحول الفوري إلى بنوك تجارية',
+      'توفير رأس مال الإقراض المباشر',
+      'ضمان الموافقة على الترخيص التنظيمي'
     ],
     href: '/services/microfinance'
   },
@@ -139,10 +199,25 @@ const services = [
       'Change management training',
       'Customized learning solutions'
     ],
+    whatWeDoAr: [
+      'تدريب مجلس الإدارة والحوكمة',
+      'برامج تطوير القيادات التنفيذية',
+      'برامج شهادات الموظفين',
+      'ورش العمل والندوات',
+      'التدريب على المهارات التقنية',
+      'تطوير القيادة',
+      'التدريب على إدارة التغيير',
+      'حلول التعلم المخصصة'
+    ],
     whatWeDont: [
       'Provide accredited university degrees',
       'Replace ongoing HR development functions',
       'Guarantee individual career advancement'
+    ],
+    whatWeDontAr: [
+      'تقديم شهادات جامعية معتمدة',
+      'استبدال وظائف تطوير الموارد البشرية المستمرة',
+      'ضمان التقدم الوظيفي الفردي'
     ],
     href: '/services/capacity-building'
   },
@@ -163,10 +238,25 @@ const services = [
       'Stakeholder communication strategy',
       'Digital presence optimization'
     ],
+    whatWeDoAr: [
+      'استراتيجية العلامة التجارية للقطاع المالي',
+      'تطوير الهوية المؤسسية',
+      'أنظمة الهوية البصرية',
+      'إنشاء إرشادات العلامة التجارية',
+      'أطر التسمية والرسائل',
+      'سياسات حوكمة العلامة التجارية',
+      'استراتيجية التواصل مع أصحاب المصلحة',
+      'تحسين الحضور الرقمي'
+    ],
     whatWeDont: [
       'Run advertising or marketing campaigns',
       'Manage social media accounts',
       'Provide ongoing PR services'
+    ],
+    whatWeDontAr: [
+      'إدارة الحملات الإعلانية أو التسويقية',
+      'إدارة حسابات وسائل التواصل الاجتماعي',
+      'تقديم خدمات العلاقات العامة المستمرة'
     ],
     href: '/services/branding'
   }
@@ -272,7 +362,7 @@ export default function Services() {
                       {language === 'ar' ? 'ما نقدمه' : 'What We Do'}
                     </h3>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                      {service.whatWeDo.map((feature) => (
+                      {(language === 'ar' ? service.whatWeDoAr : service.whatWeDo).map((feature: string) => (
                         <div key={feature} className={`flex items-start gap-2 ${isRTL ? 'flex-row-reverse text-right' : ''}`}>
                           <CheckCircle className="w-4 h-4 text-[#224B40] flex-shrink-0 mt-0.5" />
                           <span className="text-[#406D61] text-sm">{feature}</span>
@@ -288,7 +378,7 @@ export default function Services() {
                       {language === 'ar' ? 'ما لا نقدمه' : 'What We Don\'t Do'}
                     </h3>
                     <div className="space-y-2">
-                      {service.whatWeDont.map((item) => (
+                      {(language === 'ar' ? service.whatWeDontAr : service.whatWeDont).map((item: string) => (
                         <div key={item} className={`flex items-start gap-2 ${isRTL ? 'flex-row-reverse text-right' : ''}`}>
                           <XCircle className="w-4 h-4 text-[#406D61]/60 flex-shrink-0 mt-0.5" />
                           <span className="text-[#406D61]/80 text-sm">{item}</span>
