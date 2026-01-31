@@ -1,6 +1,7 @@
 /**
  * Observatory Page - YETO (Yemen Economic Transparency Observatory)
  * المرصد اليمني للشفافية الاقتصادية
+ * Enhanced with dashboard mockup gallery and proper brand colors
  */
 
 import { useState } from 'react';
@@ -15,13 +16,15 @@ import {
   Database,
   Bell,
   Calendar,
-  Download,
-  ExternalLink
+  ExternalLink,
+  X,
+  ChevronLeft,
+  ChevronRight,
+  Maximize2
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import YetoBanner from '@/components/YetoBanner';
 import { toast } from 'sonner';
 
 const features = [
@@ -76,14 +79,69 @@ const dataSources = [
   { name: 'UN OCHA Yemen', url: 'https://www.unocha.org/yemen' }
 ];
 
+// YETO Dashboard mockup images
+const dashboardMockups = [
+  {
+    src: '/images/yeto/bilingual-dashboard.png',
+    title: 'Bilingual Dashboard',
+    titleAr: 'لوحة القيادة ثنائية اللغة',
+    description: 'Full Arabic and English support with seamless language switching'
+  },
+  {
+    src: '/images/yeto/system-overview.png',
+    title: 'Complete System Overview',
+    titleAr: 'نظرة عامة على النظام',
+    description: 'Comprehensive view of all economic indicators and data streams'
+  },
+  {
+    src: '/images/yeto/research-portal.png',
+    title: 'Research & Academic Portal',
+    titleAr: 'بوابة البحث الأكاديمي',
+    description: 'Access to research papers, academic publications, and policy briefs'
+  },
+  {
+    src: '/images/yeto/data-pipeline.png',
+    title: 'Data Pipeline Architecture',
+    titleAr: 'هيكل خط البيانات',
+    description: 'Real-time data aggregation from multiple authoritative sources'
+  },
+  {
+    src: '/images/yeto/mobile-dashboard.png',
+    title: 'Mobile Responsive Dashboard',
+    titleAr: 'لوحة القيادة المتجاوبة',
+    description: 'Full functionality on mobile devices for on-the-go access'
+  }
+];
+
 export default function Observatory() {
   const [email, setEmail] = useState('');
+  const [selectedImage, setSelectedImage] = useState<number | null>(null);
 
   const handleNotify = (e: React.FormEvent) => {
     e.preventDefault();
     if (email) {
       toast.success('Thank you! We\'ll notify you when YETO launches.');
       setEmail('');
+    }
+  };
+
+  const openLightbox = (index: number) => {
+    setSelectedImage(index);
+  };
+
+  const closeLightbox = () => {
+    setSelectedImage(null);
+  };
+
+  const nextImage = () => {
+    if (selectedImage !== null) {
+      setSelectedImage((selectedImage + 1) % dashboardMockups.length);
+    }
+  };
+
+  const prevImage = () => {
+    if (selectedImage !== null) {
+      setSelectedImage((selectedImage - 1 + dashboardMockups.length) % dashboardMockups.length);
     }
   };
 
@@ -159,15 +217,73 @@ export default function Observatory() {
               className="hidden lg:block"
             >
               {/* YETO Teaser Image - Yemen Map */}
-              <div className="relative rounded-lg overflow-hidden shadow-2xl">
+              <div className="relative rounded-lg overflow-hidden shadow-2xl hover-glow cursor-pointer" onClick={() => openLightbox(0)}>
                 <img 
                   src="/images/yeto-teaser.png" 
                   alt="YETO - Yemen Economic Transparency Observatory - For a decade, decisions have been made in the dark. Something is about to change."
                   className="w-full h-auto rounded-lg"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-causeway-forest/30 to-transparent" />
+                <div className="absolute bottom-4 right-4 bg-causeway-gold/90 p-2 rounded-full">
+                  <Maximize2 className="w-5 h-5 text-causeway-forest" />
+                </div>
               </div>
             </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Platform Preview Gallery */}
+      <section className="py-20 bg-causeway-forest-light">
+        <div className="container">
+          <div className="text-center mb-12">
+            <span className="text-causeway-gold font-semibold text-sm uppercase tracking-wider">
+              Platform Preview
+            </span>
+            <h2 className="text-3xl md:text-4xl font-display text-causeway-cream mt-3 mb-4">
+              YETO Dashboard Previews
+            </h2>
+            <p className="text-causeway-cream/70 max-w-2xl mx-auto">
+              Get a glimpse of the powerful analytics and visualization tools 
+              that will be available when YETO launches.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {dashboardMockups.map((mockup, index) => (
+              <motion.div
+                key={mockup.title}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                viewport={{ once: true }}
+                className="gallery-item card-flash bg-causeway-forest rounded-lg overflow-hidden cursor-pointer group"
+                onClick={() => openLightbox(index)}
+              >
+                <div className="relative aspect-video overflow-hidden">
+                  <img 
+                    src={mockup.src} 
+                    alt={mockup.title}
+                    className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-causeway-forest via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  <div className="absolute bottom-4 right-4 bg-causeway-gold/90 p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <Maximize2 className="w-4 h-4 text-causeway-forest" />
+                  </div>
+                </div>
+                <div className="p-4">
+                  <h3 className="text-lg font-display text-causeway-cream mb-1">
+                    {mockup.title}
+                  </h3>
+                  <p className="text-causeway-gold/80 font-body-ar text-sm mb-2">
+                    {mockup.titleAr}
+                  </p>
+                  <p className="text-causeway-cream/60 text-sm">
+                    {mockup.description}
+                  </p>
+                </div>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
@@ -196,9 +312,9 @@ export default function Observatory() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 viewport={{ once: true }}
-                className="bg-white p-8 rounded-lg shadow-sm"
+                className="bg-white p-8 rounded-lg shadow-sm hover-lift card-flash"
               >
-                <div className="w-14 h-14 bg-causeway-forest/10 rounded-lg flex items-center justify-center mb-6">
+                <div className="w-14 h-14 bg-causeway-sage/20 rounded-lg flex items-center justify-center mb-6">
                   <feature.icon className="w-7 h-7 text-causeway-teal" />
                 </div>
                 <h3 className="text-xl font-display text-causeway-forest mb-2">
@@ -235,7 +351,7 @@ export default function Observatory() {
               
               <div className="space-y-4">
                 {upcomingReports.map((report) => (
-                  <div key={report.title} className="flex items-center justify-between bg-causeway-cream/50 p-4 rounded-lg">
+                  <div key={report.title} className="flex items-center justify-between bg-causeway-sage/10 p-4 rounded-lg border border-causeway-sage/20">
                     <div>
                       <h4 className="font-medium text-causeway-forest">{report.title}</h4>
                       <p className="text-causeway-forest/60 text-sm">{report.date}</p>
@@ -243,7 +359,7 @@ export default function Observatory() {
                     <span className={`text-xs px-3 py-1 rounded-full ${
                       report.status === 'In Progress' 
                         ? 'bg-causeway-gold/20 text-causeway-gold-dark' 
-                        : 'bg-causeway-teal/20 text-causeway-teal'
+                        : 'bg-causeway-sage/20 text-causeway-teal'
                     }`}>
                       {report.status}
                     </span>
@@ -271,7 +387,7 @@ export default function Observatory() {
                     href={source.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center justify-between bg-causeway-cream/50 p-4 rounded-lg hover:bg-causeway-cream transition-colors"
+                    className="flex items-center justify-between bg-causeway-sage/10 p-4 rounded-lg border border-causeway-sage/20 hover:bg-causeway-sage/20 transition-colors"
                   >
                     <span className="font-medium text-causeway-forest">{source.name}</span>
                     <ExternalLink className="w-4 h-4 text-causeway-teal" />
@@ -310,6 +426,60 @@ export default function Observatory() {
           </div>
         </div>
       </section>
+
+      {/* Lightbox Modal */}
+      {selectedImage !== null && (
+        <div 
+          className="fixed inset-0 z-50 bg-black/95 flex items-center justify-center p-4"
+          onClick={closeLightbox}
+        >
+          <button 
+            onClick={closeLightbox}
+            className="absolute top-4 right-4 text-white/80 hover:text-white p-2 z-50"
+          >
+            <X className="w-8 h-8" />
+          </button>
+          
+          <button 
+            onClick={(e) => { e.stopPropagation(); prevImage(); }}
+            className="absolute left-4 text-white/80 hover:text-white p-2 z-50"
+          >
+            <ChevronLeft className="w-10 h-10" />
+          </button>
+          
+          <button 
+            onClick={(e) => { e.stopPropagation(); nextImage(); }}
+            className="absolute right-4 text-white/80 hover:text-white p-2 z-50"
+          >
+            <ChevronRight className="w-10 h-10" />
+          </button>
+          
+          <div 
+            className="max-w-6xl max-h-[90vh] overflow-hidden"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <img 
+              src={dashboardMockups[selectedImage].src}
+              alt={dashboardMockups[selectedImage].title}
+              className="max-w-full max-h-[80vh] object-contain rounded-lg"
+            />
+            <div className="text-center mt-4">
+              <h3 className="text-xl font-display text-white">
+                {dashboardMockups[selectedImage].title}
+              </h3>
+              <p className="text-causeway-gold font-body-ar">
+                {dashboardMockups[selectedImage].titleAr}
+              </p>
+              <p className="text-white/70 text-sm mt-2">
+                {dashboardMockups[selectedImage].description}
+              </p>
+              <p className="text-white/50 text-xs mt-4">
+                {selectedImage + 1} / {dashboardMockups.length}
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
 
       <Footer />
     </div>

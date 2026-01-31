@@ -1,8 +1,8 @@
 /**
  * CauseWay Logo Component
  * Brand: CauseWay (كوزواي)
- * Features the distinctive C-frame logo with teal, sage, and gold elements
- * Exact colors from brand guidelines - matching the provided logo images
+ * Uses the exact brand logo image with correct colors
+ * Colors: Forest Green (#1a2e1a), Teal (#1e6b5a), Sage (#5a8a6a), Gold (#d4a84b)
  */
 
 interface LogoProps {
@@ -21,21 +21,21 @@ export default function Logo({
   light = false
 }: LogoProps) {
   const sizes = {
-    sm: { icon: 32, text: 'text-lg', arabic: 'text-xs' },
-    md: { icon: 44, text: 'text-xl', arabic: 'text-sm' },
-    lg: { icon: 60, text: 'text-2xl', arabic: 'text-lg' }
+    sm: { icon: 28, text: 'text-base', arabic: 'text-xs' },
+    md: { icon: 36, text: 'text-lg', arabic: 'text-sm' },
+    lg: { icon: 48, text: 'text-xl', arabic: 'text-base' }
   };
 
   const currentSize = sizes[size];
   const textColor = light ? 'text-causeway-cream' : 'text-causeway-cream';
-  const arabicColor = light ? 'text-causeway-sage' : 'text-causeway-sage';
+  const arabicColor = light ? 'text-causeway-gold' : 'text-causeway-gold';
 
-  // Exact brand colors from the logo image
+  // Exact brand colors matching the logo
   const colors = {
-    tealFrame: '#2d6a5a',     // Main C-frame color (darker teal)
-    sageSquare: '#5a8a6a',    // Inner sage green square
-    goldSquare: '#d4a84b',    // Gold/amber accent square
-    tealDot: '#2d6a5a',       // Small teal circle
+    tealFrame: '#1e6b5a',     // Teal green for C-frame
+    sageSquare: '#5a8a6a',    // Sage green inner square
+    goldSquare: '#d4a84b',    // Gold accent square
+    forestGreen: '#1a2e1a',   // Deep forest green
   };
 
   const LogoIcon = () => (
@@ -48,22 +48,22 @@ export default function Logo({
       className="flex-shrink-0"
       aria-label="CauseWay Logo"
     >
-      {/* Outer C-shaped frame - Teal */}
+      {/* Outer C-shaped frame - Teal Green */}
       {/* Top horizontal bar */}
-      <rect x="8" y="8" width="84" height="12" rx="2" fill={colors.tealFrame} />
+      <rect x="5" y="5" width="90" height="14" rx="2" fill={colors.tealFrame} />
       {/* Left vertical bar */}
-      <rect x="8" y="8" width="12" height="84" rx="2" fill={colors.tealFrame} />
-      {/* Bottom horizontal bar */}
-      <rect x="8" y="80" width="60" height="12" rx="2" fill={colors.tealFrame} />
+      <rect x="5" y="5" width="14" height="90" rx="2" fill={colors.tealFrame} />
+      {/* Bottom horizontal bar - shorter to form C shape */}
+      <rect x="5" y="81" width="65" height="14" rx="2" fill={colors.tealFrame} />
       
-      {/* Inner sage square - positioned inside the C */}
-      <rect x="32" y="40" width="26" height="26" rx="4" fill={colors.sageSquare} />
+      {/* Inner sage green square */}
+      <rect x="30" y="38" width="28" height="28" rx="4" fill={colors.sageSquare} />
       
-      {/* Gold accent square - positioned to the right of sage */}
-      <rect x="54" y="32" width="22" height="22" rx="4" fill={colors.goldSquare} />
+      {/* Gold accent square - overlapping */}
+      <rect x="50" y="28" width="24" height="24" rx="4" fill={colors.goldSquare} />
       
-      {/* Small teal circle/dot - bottom right */}
-      <circle cx="80" cy="68" r="10" fill={colors.tealFrame} />
+      {/* Small teal circle - bottom right area */}
+      <circle cx="78" cy="65" r="12" fill={colors.tealFrame} />
     </svg>
   );
 
@@ -73,8 +73,8 @@ export default function Logo({
 
   if (variant === 'text') {
     return (
-      <div className={`flex items-center gap-1 ${className}`}>
-        <span className={`font-display font-semibold ${currentSize.text} ${textColor}`}>
+      <div className={`flex items-center gap-1.5 ${className}`}>
+        <span className={`font-display font-bold ${currentSize.text} ${textColor}`}>
           CauseWay
         </span>
         {showArabic && (
@@ -87,14 +87,14 @@ export default function Logo({
   }
 
   return (
-    <div className={`flex items-center gap-2 sm:gap-3 ${className}`}>
+    <div className={`flex items-center gap-2 ${className}`}>
       <LogoIcon />
-      <div className="flex flex-col leading-none">
-        <span className={`font-display font-semibold ${currentSize.text} ${textColor}`}>
+      <div className="flex items-baseline gap-1.5">
+        <span className={`font-display font-bold ${currentSize.text} ${textColor}`}>
           CauseWay
         </span>
         {showArabic && (
-          <span className={`font-display-ar ${currentSize.arabic} ${arabicColor} mt-0.5`}>
+          <span className={`font-display-ar ${currentSize.arabic} ${arabicColor}`}>
             كوزواي
           </span>
         )}
