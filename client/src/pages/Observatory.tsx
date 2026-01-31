@@ -21,8 +21,7 @@ import {
   ChevronLeft,
   ChevronRight,
   Maximize2,
-  CheckCircle,
-  AlertCircle
+
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Header from '@/components/Header';
@@ -46,19 +45,7 @@ const yetoSectors = [
   { id: 11, nameAr: 'الأسعار وتكاليف المعيشة', nameEn: 'Prices & Cost of Living', image: 'https://images.unsplash.com/photo-1542838132-92c53300491e?w=800&q=80' }
 ];
 
-// External API Data Sources - from the screenshot
-const dataSources = [
-  { name: 'World Bank WDI', nameAr: 'البنك الدولي', status: 'active', records: 0 },
-  { name: 'UNHCR', nameAr: 'المفوضية السامية للاجئين', status: 'active', records: 0 },
-  { name: 'WHO GHO', nameAr: 'منظمة الصحة العالمية', status: 'active', records: 0 },
-  { name: 'OCHA FTS', nameAr: 'مكتب تنسيق الشؤون الإنسانية', status: 'error', records: 0 },
-  { name: 'HDX CKAN', nameAr: 'منصة البيانات الإنسانية', status: 'active', records: 0 },
-  { name: 'FEWS NET', nameAr: 'شبكة نظم الإنذار المبكر', status: 'active', records: 0 },
-  { name: 'UNICEF', nameAr: 'اليونيسف', status: 'active', records: 0 },
-  { name: 'WFP VAM', nameAr: 'برنامج الأغذية العالمي', status: 'auth_required', records: 0 },
-  { name: 'ReliefWeb', nameAr: 'ريليف ويب', status: 'auth_required', records: 0 },
-  { name: 'IMF WEO', nameAr: 'صندوق النقد الدولي', status: 'active', records: 0 }
-];
+
 
 const features = [
   {
@@ -344,78 +331,7 @@ export default function Observatory() {
         </div>
       </section>
 
-      {/* External API Data Sources */}
-      <section className="py-20 bg-white">
-        <div className="container">
-          <div className="text-center mb-12">
-            <span className="text-[#d4a84b] font-semibold text-sm uppercase tracking-wider">
-              {language === 'ar' ? 'مصادر البيانات' : 'Data Sources'}
-            </span>
-            <h2 className="text-3xl md:text-4xl font-serif text-[#133129] mt-3 mb-4" style={{ fontFamily: "'Playfair Display', Georgia, serif" }}>
-              {language === 'ar' ? 'اتصالات API الخارجية' : 'External API Connections'}
-            </h2>
-            <p className="text-[#406D61] max-w-2xl mx-auto">
-              {language === 'ar' 
-                ? 'بيانات مجمعة من مصادر دولية موثوقة لتوفير رؤية شاملة'
-                : 'Aggregated data from trusted international sources for comprehensive insights'
-              }
-            </p>
-          </div>
 
-          <div className="max-w-4xl mx-auto">
-            <div className="grid gap-3">
-              {dataSources.map((source, index) => (
-                <motion.div
-                  key={source.name}
-                  initial={{ opacity: 0, x: isRTL ? 20 : -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.4, delay: index * 0.05 }}
-                  viewport={{ once: true }}
-                  className={`flex items-center justify-between p-4 bg-[#faf9f6] rounded-lg border border-[#133129]/10 ${isRTL ? 'flex-row-reverse' : ''}`}
-                >
-                  <div className={`flex items-center gap-4 ${isRTL ? 'flex-row-reverse' : ''}`}>
-                    <div className={`px-3 py-1 rounded-full text-xs font-semibold ${
-                      source.status === 'active' ? 'bg-green-100 text-green-700' :
-                      source.status === 'error' ? 'bg-red-100 text-red-700' :
-                      'bg-yellow-100 text-yellow-700'
-                    }`}>
-                      {source.status === 'active' && (
-                        <span className="flex items-center gap-1">
-                          <CheckCircle className="w-3 h-3" />
-                          {language === 'ar' ? 'نشط' : 'Active'}
-                        </span>
-                      )}
-                      {source.status === 'error' && (
-                        <span className="flex items-center gap-1">
-                          <AlertCircle className="w-3 h-3" />
-                          {language === 'ar' ? 'خطأ' : 'Error'}
-                        </span>
-                      )}
-                      {source.status === 'auth_required' && (
-                        <span className="flex items-center gap-1">
-                          <AlertCircle className="w-3 h-3" />
-                          {language === 'ar' ? 'مصادقة مطلوبة' : 'Auth Required'}
-                        </span>
-                      )}
-                    </div>
-                    <span className="text-[#406D61] text-sm">
-                      {language === 'ar' ? 'آخر سنة' : 'Latest Year'}
-                    </span>
-                  </div>
-                  <div className={`text-center ${isRTL ? 'text-right' : 'text-left'}`}>
-                    <span className="text-[#133129] font-medium">{source.records}</span>
-                    <span className="text-[#406D61] text-sm mx-2">{language === 'ar' ? 'سجلات' : 'Records'}</span>
-                  </div>
-                  <div className={`${isRTL ? 'text-left' : 'text-right'}`}>
-                    <p className="text-[#133129] font-semibold">{source.name}</p>
-                    <p className="text-[#406D61] text-sm">{source.nameAr}</p>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* Features Section */}
       <section className="py-20 bg-[#133129]">
