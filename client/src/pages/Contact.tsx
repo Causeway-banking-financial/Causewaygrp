@@ -86,7 +86,7 @@ export default function Contact() {
         en: 'Aden, Republic of Yemen',
         ar: 'عدن، الجمهورية اليمنية'
       },
-      phone: '+967 2 234 567',
+      phone: '+967 2 236655',
       email: 'info@causewaygrp.com',
       hours: { en: 'Sunday - Thursday: 9:00 AM - 5:00 PM', ar: 'الأحد - الخميس: 9:00 ص - 5:00 م' }
     },

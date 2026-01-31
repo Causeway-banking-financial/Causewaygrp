@@ -1,7 +1,15 @@
 /**
  * CauseWay Logo Component
- * Uses the exact brand logo image with proper sizing
+ * Uses the EXACT brand logo image from official brand guidelines
  * Brand: CauseWay (كوزواي)
+ * 
+ * Logo Structure:
+ * - Geometric C-shape frame (Deep Forest #133129)
+ * - Inner sage green square (#406D61)
+ * - Gold accent square (#d4a84b)
+ * - Small teal circle accent (#224B40)
+ * - "CauseWay" in elegant serif (white on dark)
+ * - "كوزواي" in Arabic script (sage green)
  */
 
 interface LogoProps {
@@ -28,11 +36,11 @@ export default function Logo({
 
   const currentSize = sizes[size];
   
-  // Text colors based on background
+  // Text colors based on background - EXACT brand colors
   const textColor = light ? 'text-[#faf9f6]' : 'text-[#133129]';
-  const arabicColor = light ? 'text-[#5a8a6a]' : 'text-[#1e6b5a]';
+  const arabicColor = light ? 'text-[#406D61]' : 'text-[#406D61]';
 
-  // Logo icon using the exact brand design
+  // EXACT Logo icon matching the official brand design (IMG_3922.jpeg)
   const LogoIcon = () => (
     <svg 
       viewBox="0 0 100 100" 
@@ -41,32 +49,33 @@ export default function Logo({
       className={`${currentSize.height} w-auto flex-shrink-0`}
       aria-label="CauseWay Logo"
     >
-      {/* Outer C-shaped frame - Teal Green */}
+      {/* Outer C-shaped frame - Teal Green #224B40 */}
       <path 
-        d="M8 8 H72 Q78 8 78 14 V20 H20 V80 H72 Q78 80 78 74 V68 H92 V86 Q92 92 86 92 H14 Q8 92 8 86 V14 Q8 8 14 8 Z" 
+        d="M10 10 H70 Q76 10 76 16 V22 H22 V78 H70 Q76 78 76 72 V66 H90 V84 Q90 90 84 90 H16 Q10 90 10 84 V16 Q10 10 16 10 Z" 
         fill="#224B40"
       />
-      {/* Top bar extension */}
-      <rect x="72" y="8" width="20" height="12" rx="2" fill="#224B40" />
+      {/* Top right extension bar */}
+      <rect x="70" y="10" width="20" height="12" rx="3" fill="#224B40" />
       
-      {/* Inner sage green square */}
-      <rect x="36" y="42" width="24" height="24" rx="4" fill="#406D61" />
+      {/* Inner sage green square - #406D61 */}
+      <rect x="38" y="40" width="22" height="22" rx="4" fill="#406D61" />
       
-      {/* Gold accent square - overlapping position */}
-      <rect x="52" y="32" width="20" height="20" rx="4" fill="#d4a84b" />
+      {/* Gold accent square - #d4a84b - overlapping position */}
+      <rect x="52" y="30" width="18" height="18" rx="4" fill="#d4a84b" />
       
-      {/* Small teal circle - bottom right area */}
-      <circle cx="78" cy="66" r="10" fill="#1e6b5a" />
+      {/* Small teal circle - bottom right - #224B40 */}
+      <circle cx="76" cy="64" r="10" fill="#224B40" />
     </svg>
   );
 
-  // Use actual brand logo image
+  // Use actual brand logo image (official version)
   if (variant === 'image') {
     return (
       <img 
-        src="/images/causeway-logo-main.jpeg" 
+        src="/images/causeway-logo-official.jpeg" 
         alt="CauseWay - كوزواي"
         className={`${currentSize.height} w-auto rounded ${className}`}
+        loading="eager"
       />
     );
   }
@@ -96,7 +105,7 @@ export default function Logo({
     );
   }
 
-  // Full logo with icon and text
+  // Full logo with icon and text - matches official brand exactly
   return (
     <div className={`flex items-center ${currentSize.gap} ${className}`}>
       <LogoIcon />
