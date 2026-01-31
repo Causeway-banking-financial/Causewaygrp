@@ -119,8 +119,8 @@ export default function About() {
               </h2>
               <p className="text-[#406D61] leading-relaxed">
                 {language === 'ar' 
-                  ? 'تقديم خدمات استشارية مالية عالمية المستوى تعزز الحوكمة المؤسسية وتعزز التمويل المتوافق مع الشريعة وتبني بنية تحتية مالية مستدامة. نحن ملتزمون بالتميز والشفافية وخلق قيمة دائمة لعملائنا والمجتمعات التي يخدمونها.'
-                  : 'To provide world-class financial advisory services that strengthen institutional governance, promote Sharia-compliant finance, and build sustainable financial infrastructure. We are committed to excellence, transparency, and creating lasting value for our clients and the communities they serve.'
+                  ? 'تزويد المؤسسات بحلول مالية مبنية على الأدلة ومؤسسة على الشريعة تبني الثقة والحوكمة والبنية التحتية المستدامة.'
+                  : 'To provide institutions with evidence-based, Sharia-grounded financial solutions that build trust, governance, and sustainable infrastructure.'
                 }
               </p>
             </motion.div>
@@ -140,8 +140,8 @@ export default function About() {
               </h2>
               <p className="text-[#406D61] leading-relaxed">
                 {language === 'ar' 
-                  ? 'أن نكون الشركة الاستشارية المالية الرائدة في المنطقة، معترف بها لخبرتنا في التمويل الإسلامي والتزامنا بالتميز في الحوكمة ودورنا في تعزيز الشفافية الاقتصادية. نتصور قطاعاً مالياً قوياً وأخلاقياً وشاملاً.'
-                  : 'To be the leading financial consultancy in the region, recognized for our expertise in Islamic finance, our commitment to governance excellence, and our role in fostering economic transparency. We envision a financial sector that is robust, ethical, and inclusive.'
+                  ? 'أن نكون المؤسسة الرائدة في منطقتنا في تحويل البيانات المالية المجزأة إلى معلومات منظمة، وتعزيز الشفافية والمرونة.'
+                  : 'To be the leading institution in our region for turning fragmented financial data into structured intelligence, fostering transparency and resilience.'
                 }
               </p>
             </motion.div>
@@ -197,6 +197,19 @@ export default function About() {
                     </p>
                   </>
                 )}
+              </div>
+              
+              {/* YETO Bridge Paragraph */}
+              <div className="mt-8 p-6 bg-[#133129]/5 rounded-lg border-l-4 border-[#d4a84b]">
+                <h3 className="text-xl font-serif text-[#133129] mb-3" style={{ fontFamily: "'Playfair Display', Georgia, serif" }}>
+                  {language === 'ar' ? 'كوزواي ويتو: مبادرتان متكاملتان' : 'CauseWay & YETO: Two Complementary Initiatives'}
+                </h3>
+                <p className="text-[#406D61] leading-relaxed">
+                  {language === 'ar' 
+                    ? 'كوزواي هي شركة استشارية تقدم خدمات آمنة حوكمياً للمؤسسات المالية. يتو (المرصد اليمني للشفافية الاقتصادية) هو منصة مستقلة قيد الإطلاق توفر بيانات اقتصادية منظمة وتحليلات. رؤى استشاراتنا تغذي يتو، بينما يوفر يتو قاعدة أدلة محايدة - وليس أداة تسويقية - لصناع القرار في جميع أنحاء المنطقة.'
+                    : 'CauseWay is an advisory firm offering governance-safe services to financial institutions. YETO (Yemen Economic Transparency Observatory) is an independent platform launching soon that provides structured economic data and analysis. Our consultancy\'s insights feed into YETO, while YETO serves as a neutral evidence base—not a marketing tool—for decision-makers across the region.'
+                  }
+                </p>
               </div>
             </motion.div>
           </div>

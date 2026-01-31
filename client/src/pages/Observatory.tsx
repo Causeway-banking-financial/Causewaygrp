@@ -202,10 +202,16 @@ export default function Observatory() {
               <p className="text-2xl text-[#faf9f6]/80 mb-6" style={{ fontFamily: language === 'ar' ? "'Source Sans Pro', sans-serif" : "'Amiri', serif" }}>
                 {language === 'ar' ? 'Yemen Economic Transparency Observatory' : 'المرصد اليمني للشفافية الاقتصادية'}
               </p>
-              <p className="text-lg text-[#faf9f6]/70 mb-8 leading-relaxed">
+              <p className="text-lg text-[#faf9f6]/70 mb-4 leading-relaxed">
                 {language === 'ar' 
-                  ? 'يتو هي مبادرة كوزواي الرائدة لتعزيز الشفافية الاقتصادية في اليمن. ستوفر المنصة بيانات اقتصادية شاملة وتحليلات وتقارير لدعم اتخاذ القرارات المستنيرة.'
-                  : 'YETO is CauseWay\'s flagship initiative to promote economic transparency in Yemen. The platform will provide comprehensive economic data, analysis, and reporting to support informed decision-making.'
+                  ? 'يتو منصة مستقلة (قيد الإطلاق قريباً) توفر بيانات اقتصادية منظمة وتحليلات لليمن. رؤى كوزواي الاستشارية تغذي يتو، لكنه يعمل كقاعدة أدلة محايدة - وليس أداة تسويقية.'
+                  : 'YETO is an independent platform (launching soon) providing structured economic data and analysis for Yemen. CauseWay\'s consultancy insights feed into YETO, but it operates as a neutral evidence base\u2014not a marketing tool.'
+                }
+              </p>
+              <p className="text-[#faf9f6]/60 mb-8 leading-relaxed">
+                {language === 'ar' 
+                  ? 'ستوفر المنصة مؤشرات اقتصادية آنية، تحليل القطاعات، تتبع أسعار الصرف، وتقارير معمقة لصناع القرار في جميع أنحاء المنطقة.'
+                  : 'The platform will provide real-time economic indicators, sector analysis, exchange rate tracking, and in-depth reports for decision-makers across the region.'
                 }
               </p>
               

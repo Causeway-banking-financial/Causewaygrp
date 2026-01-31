@@ -149,7 +149,7 @@ export default function Home() {
           <div 
             className="absolute inset-0 bg-cover bg-center"
             style={{ 
-              backgroundImage: 'url(/images/aden-aerial.jpg)',
+              backgroundImage: 'url(/images/hero-aden-authentic.jpg)',
               filter: 'brightness(0.35) saturate(0.7)'
             }}
           />
@@ -182,8 +182,8 @@ export default function Home() {
             </h1>
             <p className="text-lg sm:text-xl md:text-2xl text-[#faf9f6]/80 mb-6 md:mb-8 leading-relaxed">
               {language === 'ar' 
-                ? 'بناء أنظمة مالية مؤسسة على الشريعة وآمنة حوكمياً للبنوك والمؤسسات وشركاء التنمية.'
-                : 'Building Sharia-grounded, governance-safe financial systems for banks, institutions, and development partners.'
+                ? 'نحوّل التمويل والاقتصاد إلى بنية تحتية موثوقة للمؤسسات التي تتحمل المسؤولية.'
+                : 'Turning finance and economics into reliable infrastructure for institutions that carry responsibility.'
               }
             </p>
             <div className={`flex flex-col sm:flex-row gap-3 sm:gap-4 ${isRTL ? 'sm:flex-row-reverse' : ''}`}>
@@ -439,10 +439,16 @@ export default function Home() {
               <p className="text-[#faf9f6]/80 text-lg sm:text-xl mb-3 sm:mb-4" style={{ fontFamily: language === 'ar' ? "'Amiri', serif" : "'Playfair Display', Georgia, serif" }}>
                 {language === 'ar' ? 'Yemen Economic Transparency Observatory' : 'المرصد اليمني للشفافية الاقتصادية'}
               </p>
+              <p className="text-[#faf9f6]/70 mb-3 leading-relaxed text-sm sm:text-base">
+                {language === 'ar' 
+                  ? 'كوزواي شركة استشارية تقدم خدمات آمنة حوكمياً. يتو منصة مستقلة (قيد الإطلاق قريباً) توفر بيانات اقتصادية منظمة وتحليلات.'
+                  : 'CauseWay is an advisory firm offering governance-safe services. YETO is an independent platform (launching soon) providing structured economic data and analysis.'
+                }
+              </p>
               <p className="text-[#faf9f6]/70 mb-4 sm:mb-6 leading-relaxed text-sm sm:text-base">
                 {language === 'ar' 
-                  ? 'يوفر يتو بيانات اقتصادية شاملة وتحليلات وتقارير شفافية لليمن. الوصول إلى المؤشرات الاقتصادية الآنية، تحليل القطاعات، تتبع أسعار الصرف، والتقارير المعمقة.'
-                  : 'YETO provides comprehensive economic data, analysis, and transparency reporting for Yemen. Access real-time economic indicators, sector analysis, exchange rate tracking, and in-depth reports.'
+                  ? 'الوصول إلى المؤشرات الاقتصادية الآنية، تحليل القطاعات، تتبع أسعار الصرف، والتقارير المعمقة.'
+                  : 'Access real-time economic indicators, sector analysis, exchange rate tracking, and in-depth reports.'
                 }
               </p>
               <div className={`flex flex-col sm:flex-row gap-3 sm:gap-4 ${isRTL ? 'sm:flex-row-reverse' : ''}`}>

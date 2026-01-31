@@ -42,44 +42,27 @@ export default function YetoBanner({ variant = 'top', onClose }: YetoBannerProps
 
   if (variant === 'top') {
     return (
-      <div className="bg-gradient-to-r from-[#d4a84b] via-[#c9a227] to-[#d4a84b] relative overflow-hidden sticky top-0 z-50" dir={isRTL ? 'rtl' : 'ltr'}>
-        <div className="container py-2.5 sm:py-3 relative">
-          <div className={`flex items-center justify-between gap-2 sm:gap-4 ${isRTL ? 'flex-row-reverse' : ''}`}>
-            <div className={`flex items-center gap-2 sm:gap-3 min-w-0 flex-1 ${isRTL ? 'flex-row-reverse' : ''}`}>
-              <div className="hidden sm:flex items-center justify-center w-7 h-7 sm:w-8 sm:h-8 bg-[#133129]/20 rounded-full flex-shrink-0">
-                <Bell className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#133129]" />
-              </div>
-              <div className={`flex items-center gap-1.5 sm:gap-2 flex-wrap min-w-0 ${isRTL ? 'flex-row-reverse' : ''}`}>
-                <span className="font-semibold text-[#133129] text-xs sm:text-sm whitespace-nowrap">
-                  {language === 'ar' ? 'يتو قريباً' : 'YETO Coming Soon'}
-                </span>
-                <span className="text-[#133129]/80 text-xs sm:text-sm hidden md:inline truncate">
-                  — {language === 'ar' ? 'المرصد اليمني للشفافية الاقتصادية' : 'Yemen Economic Transparency Observatory'}
-                </span>
-                <span className="text-[#133129]/70 text-xs hidden lg:inline" style={{ fontFamily: language === 'ar' ? "'Source Sans Pro', sans-serif" : "'Amiri', serif" }}>
-                  {language === 'ar' ? 'Yemen Economic Transparency Observatory' : 'المرصد اليمني للشفافية الاقتصادية'}
-                </span>
-              </div>
+      <div className="bg-[#133129] border-b border-[#d4a84b]/30 relative overflow-hidden sticky top-0 z-50" dir={isRTL ? 'rtl' : 'ltr'}>
+        <div className="container py-2 relative">
+          <div className={`flex items-center justify-center gap-3 ${isRTL ? 'flex-row-reverse' : ''}`}>
+            <div className={`flex items-center gap-2 ${isRTL ? 'flex-row-reverse' : ''}`}>
+              <span className="text-[#d4a84b] text-xs font-medium">
+                {language === 'ar' ? 'يتو' : 'YETO'}
+              </span>
+              <span className="text-[#faf9f6]/60 text-xs">
+                {language === 'ar' ? 'المرصد اليمني للشفافية الاقتصادية • قريباً' : 'Yemen Economic Transparency Observatory • Coming Soon'}
+              </span>
             </div>
-            <div className={`flex items-center gap-2 sm:gap-3 flex-shrink-0 ${isRTL ? 'flex-row-reverse' : ''}`}>
-              <Link href="/observatory">
-                <Button 
-                  size="sm" 
-                  className="bg-[#133129] text-[#faf9f6] hover:bg-[#224B40] text-xs px-2.5 sm:px-3 py-1.5"
-                >
-                  <span className="hidden xs:inline">{language === 'ar' ? 'اعرف المزيد' : 'Learn More'}</span>
-                  <span className="xs:hidden">{language === 'ar' ? 'المزيد' : 'More'}</span>
-                  <ArrowRight className={`w-3 h-3 ${isRTL ? 'mr-1 rotate-180' : 'ml-1'}`} />
-                </Button>
-              </Link>
-              <button 
-                onClick={handleClose}
-                className="text-[#133129]/60 hover:text-[#133129] transition-colors p-1"
-                aria-label="Close banner"
-              >
-                <X className="w-4 h-4" />
-              </button>
-            </div>
+            <Link href="/observatory" className="text-[#d4a84b] hover:text-[#c9a227] text-xs underline underline-offset-2 transition-colors">
+              {language === 'ar' ? 'اعرف المزيد' : 'Learn more'}
+            </Link>
+            <button 
+              onClick={handleClose}
+              className="text-[#faf9f6]/40 hover:text-[#faf9f6]/60 transition-colors p-0.5 absolute right-4"
+              aria-label="Close banner"
+            >
+              <X className="w-3.5 h-3.5" />
+            </button>
           </div>
         </div>
       </div>

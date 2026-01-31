@@ -23,6 +23,9 @@ import Contact from "./pages/Contact";
 import PrivacyPolicy from "./pages/legal/PrivacyPolicy";
 import TermsOfService from "./pages/legal/TermsOfService";
 import CookieNotice from "./pages/legal/CookieNotice";
+import HowWeWork from "./pages/HowWeWork";
+import Resources from "./pages/Resources";
+import FAQ from "./pages/FAQ";
 
 function Router() {
   return (
@@ -33,6 +36,9 @@ function Router() {
       
       {/* Services */}
       <Route path="/services" component={Services} />
+      <Route path="/how-we-work" component={HowWeWork} />
+      <Route path="/resources" component={Resources} />
+      <Route path="/faq" component={FAQ} />
       <Route path="/services/islamic-finance" component={IslamicFinance} />
       <Route path="/services/risk-compliance" component={RiskCompliance} />
       <Route path="/services/core-banking" component={CoreBanking} />

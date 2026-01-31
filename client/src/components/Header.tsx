@@ -34,6 +34,12 @@ const insights = [
   { name: 'News', nameAr: 'أخبار', href: '/insights' },
 ];
 
+const resources = [
+  { name: 'How We Work', nameAr: 'كيف نعمل', href: '/how-we-work' },
+  { name: 'Resource Hub', nameAr: 'مركز الموارد', href: '/resources' },
+  { name: 'FAQ', nameAr: 'الأسئلة الشائعة', href: '/faq' },
+];
+
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -172,6 +178,27 @@ export default function Header() {
               </DropdownMenuContent>
             </DropdownMenu>
 
+            {/* Resources Dropdown */}
+            <DropdownMenu>
+              <DropdownMenuTrigger className={`flex items-center gap-1 text-[#faf9f6]/90 hover:text-[#d4a84b] transition-colors font-medium text-sm xl:text-base ${
+                isActive('/how-we-work') || isActive('/resources') || isActive('/faq') ? 'text-[#d4a84b]' : ''
+              }`}>
+                {language === 'ar' ? 'الموارد' : 'Resources'} <ChevronDown className="w-4 h-4" />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="bg-[#133129] border-[#224B40]/30">
+                {resources.map((item) => (
+                  <DropdownMenuItem key={item.href} asChild>
+                    <Link 
+                      href={item.href}
+                      className="text-[#faf9f6]/90 hover:text-[#d4a84b] hover:bg-[#224B40]/50 cursor-pointer text-sm py-2"
+                    >
+                      {language === 'ar' ? item.nameAr : item.name}
+                    </Link>
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
+
             <Link 
               href="/contact"
               className={`text-[#faf9f6]/90 hover:text-[#d4a84b] transition-colors font-medium text-sm xl:text-base ${
@@ -296,6 +323,32 @@ export default function Header() {
                       >
                         {language === 'ar' ? 'جميع الرؤى' : 'All Insights'}
                       </Link>
+                    </div>
+                  )}
+                </div>
+
+                {/* Resources Accordion */}
+                <div className="border-b border-[#224B40]/20">
+                  <button 
+                    onClick={() => toggleMobileSection('resources')}
+                    className={`w-full flex items-center justify-between py-3 text-[#faf9f6]/90 hover:text-[#d4a84b] transition-colors font-medium ${
+                      isActive('/how-we-work') || isActive('/resources') || isActive('/faq') ? 'text-[#d4a84b]' : ''
+                    }`}
+                  >
+                    <span>{language === 'ar' ? 'الموارد' : 'Resources'}</span>
+                    <ChevronRight className={`w-5 h-5 transition-transform ${expandedSection === 'resources' ? 'rotate-90' : ''}`} />
+                  </button>
+                  {expandedSection === 'resources' && (
+                    <div className={`pb-3 space-y-2 ${isRTL ? 'pr-4' : 'pl-4'}`}>
+                      {resources.map((item) => (
+                        <Link 
+                          key={item.href}
+                          href={item.href}
+                          className="block text-[#faf9f6]/70 hover:text-[#d4a84b] transition-colors text-sm py-2"
+                        >
+                          {language === 'ar' ? item.nameAr : item.name}
+                        </Link>
+                      ))}
                     </div>
                   )}
                 </div>
