@@ -135,6 +135,21 @@ const newsTicker = [
   { text: 'YETO Platform Launch Announced', textAr: 'الإعلان عن إطلاق منصة يتو' }
 ];
 
+// YETO Data Sectors from reference images
+const yetoSectors = [
+  { id: 1, nameAr: 'الأمن الغذائي', nameEn: 'Food Security', image: '/images/yeto-sector-1.jpeg', position: 'top-left' },
+  { id: 2, nameAr: 'العملة والصرف', nameEn: 'Currency & Exchange', image: '/images/yeto-sector-1.jpeg', position: 'top-right' },
+  { id: 3, nameAr: 'تدفقات المساعدات', nameEn: 'Aid Flows', image: '/images/yeto-sector-1.jpeg', position: 'bottom-left' },
+  { id: 4, nameAr: 'الطاقة والوقود', nameEn: 'Energy & Fuel', image: '/images/yeto-sector-1.jpeg', position: 'bottom-right' },
+  { id: 5, nameAr: 'سوق العمل', nameEn: 'Labor Market', image: '/images/yeto-sector-2.jpeg', position: 'top-left' },
+  { id: 6, nameAr: 'الفقر والتنمية', nameEn: 'Poverty & Development', image: '/images/yeto-sector-2.jpeg', position: 'top-right' },
+  { id: 7, nameAr: 'اقتصاد الصراع', nameEn: 'Conflict Economy', image: '/images/yeto-sector-2.jpeg', position: 'bottom-left' },
+  { id: 8, nameAr: 'البنية التحتية', nameEn: 'Infrastructure', image: '/images/yeto-sector-2.jpeg', position: 'bottom-right' },
+  { id: 9, nameAr: 'الاستثمار', nameEn: 'Investment', image: '/images/yeto-sector-3.jpeg', position: 'top-left' },
+  { id: 10, nameAr: 'المالية العامة', nameEn: 'Public Finance', image: '/images/yeto-sector-3.jpeg', position: 'top-right' },
+  { id: 11, nameAr: 'الأسعار وتكاليف المعيشة', nameEn: 'Prices & Cost of Living', image: '/images/yeto-sector-3.jpeg', position: 'bottom-right' }
+];
+
 export default function Home() {
   const { language, isRTL } = useLanguage();
 
@@ -182,8 +197,8 @@ export default function Home() {
             </h1>
             <p className="text-lg sm:text-xl md:text-2xl text-[#faf9f6]/80 mb-6 md:mb-8 leading-relaxed">
               {language === 'ar' 
-                ? 'نحوّل التمويل والاقتصاد إلى بنية تحتية موثوقة للمؤسسات التي تتحمل المسؤولية.'
-                : 'Turning finance and economics into reliable infrastructure for institutions that carry responsibility.'
+                ? 'منصة معرفية اقتصادية ومالية قائمة على الأدلة للمؤسسات التي تتحمل المسؤولية.'
+                : 'Evidence-based economic and financial intelligence for institutions that carry responsibility.'
               }
             </p>
             <div className={`flex flex-col sm:flex-row gap-3 sm:gap-4 ${isRTL ? 'sm:flex-row-reverse' : ''}`}>

@@ -5,7 +5,7 @@
  */
 
 interface LogoProps {
-  variant?: 'full' | 'icon' | 'text';
+  variant?: 'full' | 'icon' | 'text' | 'image';
   size?: 'sm' | 'md' | 'lg' | 'xl';
   className?: string;
   showArabic?: boolean;
@@ -20,10 +20,10 @@ export default function Logo({
   light = false
 }: LogoProps) {
   const sizes = {
-    sm: { height: 'h-8', text: 'text-lg', arabic: 'text-sm', gap: 'gap-2' },
-    md: { height: 'h-10', text: 'text-xl', arabic: 'text-base', gap: 'gap-2.5' },
-    lg: { height: 'h-14', text: 'text-2xl', arabic: 'text-lg', gap: 'gap-3' },
-    xl: { height: 'h-16', text: 'text-3xl', arabic: 'text-xl', gap: 'gap-4' }
+    sm: { height: 'h-8', imgHeight: 32, text: 'text-lg', arabic: 'text-sm', gap: 'gap-2' },
+    md: { height: 'h-10', imgHeight: 40, text: 'text-xl', arabic: 'text-base', gap: 'gap-2.5' },
+    lg: { height: 'h-14', imgHeight: 56, text: 'text-2xl', arabic: 'text-lg', gap: 'gap-3' },
+    xl: { height: 'h-16', imgHeight: 64, text: 'text-3xl', arabic: 'text-xl', gap: 'gap-4' }
   };
 
   const currentSize = sizes[size];
@@ -59,6 +59,17 @@ export default function Logo({
       <circle cx="78" cy="66" r="10" fill="#1e6b5a" />
     </svg>
   );
+
+  // Use actual brand logo image
+  if (variant === 'image') {
+    return (
+      <img 
+        src="/images/causeway-logo-main.jpeg" 
+        alt="CauseWay - كوزواي"
+        className={`${currentSize.height} w-auto rounded ${className}`}
+      />
+    );
+  }
 
   if (variant === 'icon') {
     return <LogoIcon />;

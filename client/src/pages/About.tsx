@@ -16,31 +16,31 @@ import { useLanguage } from '@/contexts/LanguageContext';
 const values = [
   {
     icon: Target,
-    title: 'Excellence',
-    titleAr: 'التميز',
-    description: 'We deliver solutions that exceed expectations, grounded in deep expertise and rigorous methodology.',
-    descriptionAr: 'نقدم حلولاً تتجاوز التوقعات، مبنية على خبرة عميقة ومنهجية صارمة.'
+    title: 'Amanah (Trust)',
+    titleAr: 'الأمانة',
+    description: 'We uphold the highest standards of integrity and trust in all our dealings.',
+    descriptionAr: 'نحافظ على أعلى معايير النزاهة والثقة في كل تعاملاتنا.'
   },
   {
     icon: Eye,
-    title: 'Transparency',
-    titleAr: 'الشفافية',
-    description: 'We believe in open communication, honest assessment, and clear reporting at every stage.',
-    descriptionAr: 'نؤمن بالتواصل المفتوح والتقييم الصادق والتقارير الواضحة في كل مرحلة.'
+    title: 'Clarity',
+    titleAr: 'الوضوح',
+    description: 'We deliver clear, straightforward insights that enable informed decisions.',
+    descriptionAr: 'نقدم رؤى واضحة ومباشرة تمكّن من اتخاذ قرارات مستنيرة.'
   },
   {
     icon: Compass,
-    title: 'Integrity',
-    titleAr: 'النزاهة',
-    description: 'Our work is guided by ethical principles and Sharia compliance, ensuring trust and credibility.',
-    descriptionAr: 'يسترشد عملنا بالمبادئ الأخلاقية والامتثال للشريعة، مما يضمن الثقة والمصداقية.'
+    title: 'Accountability',
+    titleAr: 'المساءلة',
+    description: 'We take full responsibility for our work and its impact.',
+    descriptionAr: 'نتحمل المسؤولية الكاملة عن نتائج عملنا وتأثيره.'
   },
   {
     icon: Users,
-    title: 'Partnership',
-    titleAr: 'الشراكة',
-    description: 'We work alongside our clients as true partners, invested in their long-term success.',
-    descriptionAr: 'نعمل جنباً إلى جنب مع عملائنا كشركاء حقيقيين، ملتزمين بنجاحهم على المدى الطويل.'
+    title: 'Practicality',
+    titleAr: 'الواقعية',
+    description: 'We focus on actionable solutions that deliver tangible results.',
+    descriptionAr: 'نركز على الحلول العملية القابلة للتنفيذ والتي تحقق نتائج ملموسة.'
   }
 ];
 
