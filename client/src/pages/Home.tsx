@@ -158,58 +158,62 @@ export default function Home() {
       <YetoBanner variant="top" />
       <Header />
       
-      {/* Hero Section */}
-      <section className="relative h-screen flex items-center pt-20">
-        <div className="absolute inset-0 bg-[#133129]">
+      {/* Hero Section - Matching Reference Design with Centered Layout */}
+      <section className="relative h-screen flex items-center justify-center">
+        {/* Background Image - Yemen Cityscape */}
+        <div className="absolute inset-0">
           <div 
             className="absolute inset-0 bg-cover bg-center"
             style={{ 
-              backgroundImage: 'url(/images/hero-aden-authentic.jpg)',
-              filter: 'brightness(0.35) saturate(0.7)'
+              backgroundImage: 'url(/images/hero-yemen-aden.jpg)',
+              filter: 'brightness(0.4) saturate(0.8)'
             }}
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#133129]/95 via-[#133129]/80 to-[#133129]/60" />
+          {/* Overlay for text readability */}
+          <div className="absolute inset-0 bg-[#133129]/50" />
         </div>
         
-        {/* Geometric Corner Ornaments */}
-        <div className="absolute top-28 left-6 md:left-12 w-16 md:w-24 h-16 md:h-24 border-l-2 border-t-2 border-[#d4a84b]/40 hidden sm:block" />
-        <div className="absolute bottom-28 right-6 md:right-12 w-16 md:w-24 h-16 md:h-24 border-r-2 border-b-2 border-[#d4a84b]/40 hidden sm:block" />
-        
-        <div className="container relative z-10 py-12 md:py-20">
+        {/* Centered Hero Content */}
+        <div className="container relative z-10 text-center px-4">
           <motion.div 
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="max-w-3xl"
+            className="max-w-4xl mx-auto"
           >
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-serif text-[#faf9f6] leading-tight mb-4 md:mb-6" style={{ fontFamily: "'Playfair Display', Georgia, serif" }}>
+            {/* Main Headline - Centered */}
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif text-[#faf9f6] leading-tight mb-6 md:mb-8" style={{ fontFamily: "'Playfair Display', Georgia, serif" }}>
               {language === 'ar' ? (
                 <>
-                  حيث يصبح التمويل{' '}
-                  <span className="text-[#d4a84b] italic block sm:inline">بنية تحتية</span>
+                  حيث يصبح التمويل<br />
+                  <span className="text-[#d4a84b] italic">بنية تحتية</span>
                 </>
               ) : (
                 <>
-                  Where Finance Becomes{' '}
-                  <span className="text-[#d4a84b] italic block sm:inline">Infrastructure</span>
+                  Where Finance Becomes<br />
+                  <span className="text-[#d4a84b] italic">Infrastructure</span>
                 </>
               )}
             </h1>
-            <p className="text-lg sm:text-xl md:text-2xl text-[#faf9f6]/80 mb-6 md:mb-8 leading-relaxed">
+            
+            {/* Sub-headline - Sharia-grounded tagline */}
+            <p className="text-lg sm:text-xl md:text-2xl text-[#faf9f6]/90 mb-8 md:mb-10 leading-relaxed max-w-3xl mx-auto">
               {language === 'ar' 
-                ? 'منصة معرفية اقتصادية ومالية قائمة على الأدلة للمؤسسات التي تتحمل المسؤولية.'
-                : 'Evidence-based economic and financial intelligence for institutions that carry responsibility.'
+                ? 'بناء أنظمة مالية قائمة على الشريعة وآمنة حوكميًا للبنوك والمؤسسات وشركاء التنمية.'
+                : 'Building Sharia-grounded, governance-safe financial systems for banks, institutions, and development partners.'
               }
             </p>
-            <div className={`flex flex-col sm:flex-row gap-3 sm:gap-4 ${isRTL ? 'sm:flex-row-reverse' : ''}`}>
+            
+            {/* CTA Buttons - Centered */}
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link href="/services">
-                <Button className="bg-[#d4a84b] hover:bg-[#c9a227] text-[#133129] font-semibold text-sm sm:text-base px-6 sm:px-8 py-5 sm:py-6 w-full sm:w-auto shadow-lg hover:shadow-xl transition-all">
+                <Button className="bg-[#d4a84b] hover:bg-[#c9a227] text-[#133129] font-semibold text-base px-8 py-6 shadow-lg hover:shadow-xl transition-all min-w-[200px]">
                   {language === 'ar' ? 'استكشف خدماتنا' : 'Explore Our Services'}
-                  <ArrowRight className={`w-4 h-4 sm:w-5 sm:h-5 ${isRTL ? 'mr-2 rotate-180' : 'ml-2'}`} />
+                  <ArrowRight className={`w-5 h-5 ${isRTL ? 'mr-2 rotate-180' : 'ml-2'}`} />
                 </Button>
               </Link>
               <Link href="/contact">
-                <Button variant="outline" className="border-[#faf9f6]/40 text-[#faf9f6] hover:bg-[#faf9f6]/10 hover:border-[#faf9f6]/60 text-sm sm:text-base px-6 sm:px-8 py-5 sm:py-6 w-full sm:w-auto">
+                <Button variant="outline" className="border-[#faf9f6]/60 text-[#faf9f6] hover:bg-[#faf9f6]/10 hover:border-[#faf9f6] text-base px-8 py-6 min-w-[200px]">
                   {language === 'ar' ? 'طلب إحاطة' : 'Request a Briefing'}
                 </Button>
               </Link>
