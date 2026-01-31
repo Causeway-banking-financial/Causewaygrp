@@ -19,6 +19,10 @@ import Branding from "./pages/services/Branding";
 import Observatory from "./pages/Observatory";
 import Insights from "./pages/Insights";
 import ArticleDetail from "./pages/insights/ArticleDetail";
+import GovernanceFragileMarkets from "./pages/insights/GovernanceFragileMarkets";
+import IslamicFinanceEngineering from "./pages/insights/IslamicFinanceEngineering";
+import AMLDevelopmentFinance from "./pages/insights/AMLDevelopmentFinance";
+import TreasuryGovernance from "./pages/insights/TreasuryGovernance";
 import Contact from "./pages/Contact";
 import PrivacyPolicy from "./pages/legal/PrivacyPolicy";
 import TermsOfService from "./pages/legal/TermsOfService";
@@ -52,6 +56,10 @@ function Router() {
       {/* Insights */}
       <Route path="/insights" component={Insights} />
       <Route path="/insights/articles/:id" component={ArticleDetail} />
+      <Route path="/insights/governance-fragile-markets" component={GovernanceFragileMarkets} />
+      <Route path="/insights/islamic-finance-engineering" component={IslamicFinanceEngineering} />
+      <Route path="/insights/aml-development-finance" component={AMLDevelopmentFinance} />
+      <Route path="/insights/treasury-governance" component={TreasuryGovernance} />
       <Route path="/insights/publications" component={Insights} />
       <Route path="/insights/news" component={Insights} />
       

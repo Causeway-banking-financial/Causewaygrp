@@ -88,7 +88,7 @@ const insights = [
     dateAr: '28 يناير 2026',
     readTime: '12 min',
     image: '/images/aden-aerial.jpg',
-    href: '/insights/articles/governance-fragile-markets'
+    href: '/insights/governance-fragile-markets'
   },
   {
     category: 'Islamic Finance',
@@ -100,7 +100,7 @@ const insights = [
     dateAr: '25 يناير 2026',
     readTime: '8 min',
     image: '/images/financial-district.png',
-    href: '/insights/articles/islamic-finance-engineering'
+    href: '/insights/islamic-finance-engineering'
   },
   {
     category: 'Compliance',
@@ -112,7 +112,7 @@ const insights = [
     dateAr: '20 يناير 2026',
     readTime: '10 min',
     image: '/images/business-district.jpg',
-    href: '/insights/articles/aml-cft-frameworks'
+    href: '/insights/aml-development-finance'
   },
   {
     category: 'Risk Management',
@@ -124,7 +124,7 @@ const insights = [
     dateAr: '15 يناير 2026',
     readTime: '9 min',
     image: '/images/aden-harbor.jpg',
-    href: '/insights/articles/treasury-governance'
+    href: '/insights/treasury-governance'
   }
 ];
 
