@@ -146,14 +146,36 @@
   }
   body {
     @apply bg-background text-foreground;
-    font-family: 'Source Sans Pro', 'Noto Sans Arabic', sans-serif;
+    font-family: 'Inter', 'Cairo', sans-serif;
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
   
-  /* Premium Typography */
+  /* RTL Arabic Typography */
+  [dir="rtl"] body,
+  [lang="ar"] body {
+    font-family: 'Cairo', 'Tajawal', sans-serif;
+  }
+  
+  /* Premium Typography - English Headings */
   h1, h2, h3, h4, h5, h6 {
     font-family: 'Playfair Display', 'Amiri', serif;
     font-weight: 600;
     letter-spacing: -0.02em;
+    line-height: 1.2;
+  }
+  
+  /* Arabic Headings */
+  [dir="rtl"] h1,
+  [dir="rtl"] h2,
+  [dir="rtl"] h3,
+  [dir="rtl"] h4,
+  [dir="rtl"] h5,
+  [dir="rtl"] h6 {
+    font-family: 'Amiri', 'Cairo', serif;
+    letter-spacing: 0;
+    line-height: 1.4;
   }
   
   button:not(:disabled),

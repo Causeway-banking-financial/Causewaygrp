@@ -180,10 +180,10 @@ export default function Resources() {
             <span className="text-[#d4a84b] font-semibold text-sm uppercase tracking-wider">
               {language === 'ar' ? 'مركز الموارد' : 'Resource Hub'}
             </span>
-            <h1 className="text-4xl md:text-5xl font-serif text-[#faf9f6] mt-3 mb-6" style={{ fontFamily: "'Playfair Display', Georgia, serif" }}>
+            <h1 className="text-4xl md:text-5xl font-serif text-[#faf9f6] mt-3 mb-6" style={{ fontFamily: language === 'ar' ? "'Amiri', serif" : "'Playfair Display', serif" }}>
               {language === 'ar' ? 'المعايير والمراجع' : 'Standards & References'}
             </h1>
-            <p className="text-xl text-[#faf9f6]/80 leading-relaxed">
+            <p className="text-xl text-[#faf9f6]/80 leading-relaxed" style={{ fontFamily: language === 'ar' ? "'Cairo', sans-serif" : "'Inter', sans-serif" }}>
               {language === 'ar' 
                 ? 'روابط منسقة للمعايير واللوائح والأبحاث الرئيسية ذات الصلة بالتمويل الإسلامي والامتثال التنظيمي والقطاع المالي اليمني.'
                 : 'Curated links to key standards, regulations, and research relevant to Islamic finance, regulatory compliance, and Yemen\'s financial sector.'

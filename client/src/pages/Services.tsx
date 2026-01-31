@@ -199,10 +199,10 @@ export default function Services() {
             <span className="text-[#d4a84b] font-semibold text-sm uppercase tracking-wider">
               {language === 'ar' ? 'خدماتنا' : 'Our Services'}
             </span>
-            <h1 className="text-4xl md:text-5xl font-serif text-[#faf9f6] mt-3 mb-6" style={{ fontFamily: "'Playfair Display', Georgia, serif" }}>
+            <h1 className="text-4xl md:text-5xl font-serif text-[#faf9f6] mt-3 mb-6" style={{ fontFamily: language === 'ar' ? "'Amiri', serif" : "'Playfair Display', serif" }}>
               {language === 'ar' ? 'خدمات استشارية مالية شاملة' : 'Comprehensive Financial Advisory Services'}
             </h1>
-            <p className="text-xl text-[#faf9f6]/80 leading-relaxed">
+            <p className="text-xl text-[#faf9f6]/80 leading-relaxed" style={{ fontFamily: language === 'ar' ? "'Cairo', sans-serif" : "'Inter', sans-serif" }}>
               {language === 'ar' 
                 ? 'من هندسة التمويل الإسلامي إلى التحول الرقمي، نقدم حلولاً متكاملة تعزز المؤسسات وتبني بنية تحتية مالية مستدامة.'
                 : 'From Islamic finance engineering to digital transformation, we provide end-to-end solutions that strengthen institutions and build sustainable financial infrastructure.'

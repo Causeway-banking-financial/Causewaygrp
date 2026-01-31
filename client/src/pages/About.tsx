@@ -87,10 +87,10 @@ export default function About() {
             <span className="text-[#d4a84b] font-semibold text-sm uppercase tracking-wider">
               {language === 'ar' ? 'من نحن' : 'About Us'}
             </span>
-            <h1 className="text-4xl md:text-5xl font-serif text-[#faf9f6] mt-3 mb-6" style={{ fontFamily: "'Playfair Display', Georgia, serif" }}>
+            <h1 className="text-4xl md:text-5xl font-serif text-[#faf9f6] mt-3 mb-6" style={{ fontFamily: language === 'ar' ? "'Amiri', serif" : "'Playfair Display', serif" }}>
               {language === 'ar' ? 'بناء البنية التحتية المالية للغد' : 'Building Financial Infrastructure for Tomorrow'}
             </h1>
-            <p className="text-xl text-[#faf9f6]/80 leading-relaxed">
+            <p className="text-xl text-[#faf9f6]/80 leading-relaxed" style={{ fontFamily: language === 'ar' ? "'Cairo', sans-serif" : "'Inter', sans-serif" }}>
               {language === 'ar' 
                 ? 'كوزواي للاستشارات والخدمات والتطوير هي شركة استشارات مالية متخصصة مكرسة لتعزيز الأنظمة المصرفية وتعزيز التمويل الإسلامي وتعزيز الشفافية الاقتصادية في اليمن والمنطقة.'
                 : 'CauseWay Consulting, Services & Development Group is a specialized financial advisory firm dedicated to strengthening banking systems, promoting Islamic finance, and fostering economic transparency in Yemen and the region.'

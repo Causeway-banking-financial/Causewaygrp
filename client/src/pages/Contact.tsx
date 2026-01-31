@@ -124,10 +124,10 @@ export default function Contact() {
             <span className="text-[#d4a84b] font-semibold text-sm uppercase tracking-wider">
               {content.hero.label[language]}
             </span>
-            <h1 className="text-4xl md:text-5xl font-serif text-[#faf9f6] mt-3 mb-6" style={{ fontFamily: "'Playfair Display', Georgia, serif" }}>
+            <h1 className="text-4xl md:text-5xl font-serif text-[#faf9f6] mt-3 mb-6" style={{ fontFamily: language === 'ar' ? "'Amiri', serif" : "'Playfair Display', serif" }}>
               {content.hero.title[language]}
             </h1>
-            <p className="text-xl text-[#faf9f6]/80 leading-relaxed">
+            <p className="text-xl text-[#faf9f6]/80 leading-relaxed" style={{ fontFamily: language === 'ar' ? "'Cairo', sans-serif" : "'Inter', sans-serif" }}>
               {content.hero.description[language]}
             </p>
           </motion.div>
@@ -147,7 +147,7 @@ export default function Contact() {
               className="lg:col-span-2"
             >
               <div className="bg-white p-8 md:p-10 rounded-lg shadow-sm">
-                <h2 className="text-2xl font-serif text-[#133129] mb-6" style={{ fontFamily: "'Playfair Display', Georgia, serif" }}>
+                <h2 className="text-2xl font-serif text-[#133129] mb-6" style={{ fontFamily: language === 'ar' ? "'Amiri', serif" : "'Playfair Display', serif" }}>
                   {content.form.title[language]}
                 </h2>
                 

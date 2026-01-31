@@ -146,7 +146,7 @@ export default function Observatory() {
                 </span>
               </div>
               
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif text-[#faf9f6] mb-4" style={{ fontFamily: "'Playfair Display', Georgia, serif" }}>
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif text-[#faf9f6] mb-4" style={{ fontFamily: language === 'ar' ? "'Amiri', serif" : "'Playfair Display', serif" }}>
                 {language === 'ar' ? (
                   <>
                     <span className="block">كوزواي | CauseWay</span>
@@ -160,7 +160,7 @@ export default function Observatory() {
                 )}
               </h1>
               
-              <p className="text-xl md:text-2xl text-[#faf9f6]/80 mb-6" style={{ fontFamily: language === 'ar' ? "'Amiri', serif" : "'Source Sans Pro', sans-serif" }}>
+              <p className="text-xl md:text-2xl text-[#faf9f6]/80 mb-6" style={{ fontFamily: language === 'ar' ? "'Cairo', sans-serif" : "'Inter', sans-serif" }}>
                 {language === 'ar' 
                   ? '(Yemen Economic Transparency Observatory)'
                   : '(المرصد اليمني للشفافية الاقتصادية)'
