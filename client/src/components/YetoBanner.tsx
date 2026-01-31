@@ -34,10 +34,9 @@ export default function YetoBanner({ variant = 'top', onClose }: YetoBannerProps
   };
 
   if (!isVisible) return null;
-
   if (variant === 'top') {
     return (
-      <div className="bg-gradient-to-r from-causeway-gold via-causeway-gold-dark to-causeway-gold relative overflow-hidden">
+      <div className="bg-gradient-to-r from-causeway-gold via-causeway-gold-dark to-causeway-gold relative overflow-hidden sticky top-0 z-50">
         <div className="container py-2.5 sm:py-3 relative">
           <div className="flex items-center justify-between gap-2 sm:gap-4">
             <div className="flex items-center gap-2 sm:gap-3 min-w-0 flex-1">

@@ -156,8 +156,8 @@ export default function IslamicFinance() {
                 </h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   {products.map((product) => (
-                    <div key={product} className="flex items-center gap-3 bg-causeway-cream/50 p-4 rounded-lg">
-                      <CheckCircle className="w-5 h-5 text-causeway-teal flex-shrink-0" />
+                    <div key={product} className="flex items-center gap-3 bg-causeway-sage/20 p-4 rounded-lg">
+                      <CheckCircle className="w-5 h-5 text-causeway-sage flex-shrink-0" />
                       <span className="text-causeway-forest">{product}</span>
                     </div>
                   ))}

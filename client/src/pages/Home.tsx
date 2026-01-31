@@ -109,13 +109,6 @@ const insights = [
   }
 ];
 
-const stats = [
-  { value: '15+', label: 'Years Experience', labelAr: 'سنوات الخبرة' },
-  { value: '50+', label: 'Projects Delivered', labelAr: 'مشروع منجز' },
-  { value: '12', label: 'Banking Clients', labelAr: 'عميل مصرفي' },
-  { value: '100%', label: 'Sharia Compliance', labelAr: 'الامتثال الشرعي' }
-];
-
 const newsTicker = [
   { text: 'New AML/CFT Framework Released', type: 'update' },
   { text: 'Yemen Banking Sector Update', type: 'report' },
@@ -253,43 +246,6 @@ export default function Home() {
                 <ArrowRight className="w-4 h-4 ml-2" />
               </Button>
             </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* Stats Section - Enhanced with Yemen background */}
-      <section className="py-12 sm:py-16 bg-causeway-forest relative overflow-hidden">
-        <div className="absolute inset-0">
-          <div 
-            className="absolute inset-0 bg-cover bg-center"
-            style={{ 
-              backgroundImage: 'url(/images/aden-harbor.jpg)',
-              filter: 'brightness(0.2) saturate(0.5)'
-            }}
-          />
-        </div>
-        <div className="container relative z-10">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-8">
-            {stats.map((stat, index) => (
-              <motion.div
-                key={stat.label}
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                className="text-center py-4 sm:py-0"
-              >
-                <div className="text-3xl sm:text-4xl md:text-5xl font-display text-causeway-gold mb-1 sm:mb-2">
-                  {stat.value}
-                </div>
-                <div className="text-causeway-cream/80 text-xs sm:text-sm">
-                  {stat.label}
-                </div>
-                <div className="text-causeway-cream/50 text-xs font-body-ar mt-1">
-                  {stat.labelAr}
-                </div>
-              </motion.div>
-            ))}
           </div>
         </div>
       </section>

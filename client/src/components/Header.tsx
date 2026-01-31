@@ -77,13 +77,17 @@ export default function Header() {
     setExpandedSection(expandedSection === section ? null : section);
   };
 
+  // Calculate the banner height for proper positioning
+  const bannerHeight = 44; // Approximate height of the YETO banner
+
   return (
     <header 
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      className={`fixed left-0 right-0 z-40 transition-all duration-300 ${
         isScrolled 
-          ? 'bg-causeway-forest/98 backdrop-blur-md shadow-lg py-2 sm:py-3' 
-          : 'bg-causeway-forest/90 backdrop-blur-sm py-3 sm:py-5'
+          ? 'bg-causeway-forest/98 backdrop-blur-md shadow-lg py-2 sm:py-3 top-0' 
+          : 'bg-causeway-forest/90 backdrop-blur-sm py-3 sm:py-5 top-0'
       }`}
+      style={{ top: 0 }}
       dir={isRTL ? 'rtl' : 'ltr'}
     >
       <div className="container">
@@ -215,7 +219,7 @@ export default function Header() {
 
         {/* Mobile Menu - Full screen overlay */}
         {isMobileMenuOpen && (
-          <div className="lg:hidden fixed inset-0 top-[56px] bg-causeway-forest z-50 overflow-y-auto">
+          <div className="lg:hidden fixed inset-0 top-[60px] bg-causeway-forest z-[60] overflow-y-auto">
             <div className="container py-6">
               <div className="flex flex-col gap-2">
                 <Link 
