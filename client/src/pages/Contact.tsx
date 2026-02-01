@@ -3,7 +3,7 @@
  * CauseWay - Financial & Banking Consultancies
  */
 
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { 
   MapPin, 
@@ -11,13 +11,15 @@ import {
   Mail, 
   Clock, 
   Send,
-  Building2
+  Building2,
+  Navigation
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { toast } from 'sonner';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { MapView } from '@/components/Map';
 
 const topics = [
   { en: 'General Inquiry', ar: 'استفسار عام' },
@@ -32,8 +34,31 @@ const topics = [
   { en: 'Media Inquiry', ar: 'استفسار إعلامي' }
 ];
 
+// CauseWay office location in Aden, Yemen (Crater district - business area)
+const OFFICE_LOCATION = { lat: 12.7855, lng: 45.0367 };
+
+// Nearby landmarks for context
+const LANDMARKS = [
+  { 
+    name: { en: 'Central Bank of Yemen - Aden', ar: 'البنك المركزي اليمني - عدن' },
+    position: { lat: 12.7872, lng: 45.0345 },
+    type: 'bank'
+  },
+  { 
+    name: { en: 'Aden Port', ar: 'ميناء عدن' },
+    position: { lat: 12.7897, lng: 45.0289 },
+    type: 'port'
+  },
+  { 
+    name: { en: 'Crater Business District', ar: 'منطقة كريتر التجارية' },
+    position: { lat: 12.7845, lng: 45.0380 },
+    type: 'district'
+  }
+];
+
 export default function Contact() {
   const { language, isRTL } = useLanguage();
+  const mapRef = useRef<google.maps.Map | null>(null);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -44,6 +69,61 @@ export default function Contact() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
+
+  const handleMapReady = (map: google.maps.Map) => {
+    mapRef.current = map;
+    
+    // Add CauseWay office marker
+    const officeMarker = new google.maps.marker.AdvancedMarkerElement({
+      map,
+      position: OFFICE_LOCATION,
+      title: language === 'ar' ? 'مكتب كوزواي' : 'CauseWay Office',
+    });
+
+    // Create custom content for the office marker
+    const officeContent = document.createElement('div');
+    officeContent.innerHTML = `
+      <div style="background: #133129; color: #faf9f6; padding: 12px 16px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); max-width: 250px;">
+        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+          <div style="background: #d4a84b; width: 32px; height: 32px; border-radius: 6px; display: flex; align-items: center; justify-content: center;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#133129" stroke-width="2">
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+              <polyline points="9 22 9 12 15 12 15 22"></polyline>
+            </svg>
+          </div>
+          <div>
+            <strong style="font-size: 14px; display: block;">CauseWay</strong>
+            <span style="font-size: 11px; color: #d4a84b;">كوزواي</span>
+          </div>
+        </div>
+        <p style="font-size: 12px; margin: 0; color: #faf9f6cc; line-height: 1.4;">
+          ${language === 'ar' ? 'استشارات مالية ومصرفية' : 'Financial & Banking Consultancies'}
+        </p>
+        <p style="font-size: 11px; margin-top: 6px; color: #d4a84b;">
+          ${language === 'ar' ? 'عدن، اليمن' : 'Aden, Yemen'}
+        </p>
+      </div>
+    `;
+    officeMarker.content = officeContent;
+
+    // Add landmark markers with different styling
+    LANDMARKS.forEach((landmark) => {
+      const landmarkMarker = new google.maps.marker.AdvancedMarkerElement({
+        map,
+        position: landmark.position,
+        title: language === 'ar' ? landmark.name.ar : landmark.name.en,
+      });
+
+      // Create simple pin for landmarks
+      const pinContent = document.createElement('div');
+      pinContent.innerHTML = `
+        <div style="background: #406D61; color: white; padding: 6px 10px; border-radius: 4px; font-size: 11px; white-space: nowrap; box-shadow: 0 2px 6px rgba(0,0,0,0.2);">
+          ${language === 'ar' ? landmark.name.ar : landmark.name.en}
+        </div>
+      `;
+      landmarkMarker.content = pinContent;
+    });
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -76,6 +156,11 @@ export default function Contact() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const openDirections = () => {
+    const url = `https://www.google.com/maps/dir/?api=1&destination=${OFFICE_LOCATION.lat},${OFFICE_LOCATION.lng}`;
+    window.open(url, '_blank');
+  };
+
   const content = {
     hero: {
       label: { en: 'Contact Us', ar: 'اتصل بنا' },
@@ -103,8 +188,8 @@ export default function Contact() {
     office: {
       title: { en: 'Our Office', ar: 'مكتبنا' },
       address: { 
-        en: 'Aden, Republic of Yemen',
-        ar: 'عدن، الجمهورية اليمنية'
+        en: 'Crater District, Aden, Republic of Yemen',
+        ar: 'منطقة كريتر، عدن، الجمهورية اليمنية'
       },
       phone: '+967 2 236655',
       email: 'info@causewaygrp.com',
@@ -117,6 +202,11 @@ export default function Contact() {
         ar: 'للأسئلة حول مرصد الشفافية الاقتصادية اليمني'
       },
       email: 'yeto@causewaygrp.com'
+    },
+    map: {
+      title: { en: 'Find Us', ar: 'موقعنا' },
+      directions: { en: 'Get Directions', ar: 'احصل على الاتجاهات' },
+      nearbyLandmarks: { en: 'Nearby Landmarks', ar: 'المعالم القريبة' }
     }
   };
 
@@ -372,6 +462,89 @@ export default function Contact() {
               </div>
             </motion.div>
           </div>
+        </div>
+      </section>
+
+      {/* Map Section */}
+      <section className="py-16 bg-white">
+        <div className="container">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="text-center mb-10"
+          >
+            <span className="text-[#d4a84b] font-semibold text-sm uppercase tracking-wider">
+              {content.map.title[language]}
+            </span>
+            <h2 className="text-2xl md:text-3xl font-serif text-[#133129] mt-3" style={{ fontFamily: language === 'ar' ? "'Amiri', serif" : "'Playfair Display', serif" }}>
+              {language === 'ar' ? 'موقع مكتبنا في عدن' : 'Our Office Location in Aden'}
+            </h2>
+            <p className="text-[#406D61] mt-2 max-w-xl mx-auto">
+              {language === 'ar' 
+                ? 'نقع في قلب منطقة كريتر التجارية، بالقرب من البنك المركزي اليمني وميناء عدن.'
+                : 'Located in the heart of Crater Business District, near the Central Bank of Yemen and Aden Port.'
+              }
+            </p>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            viewport={{ once: true }}
+            className="relative"
+          >
+            {/* Map Container */}
+            <div className="rounded-xl overflow-hidden shadow-lg border border-[#e8e7e0]">
+              <MapView
+                className="h-[400px] md:h-[500px]"
+                initialCenter={OFFICE_LOCATION}
+                initialZoom={15}
+                onMapReady={handleMapReady}
+              />
+            </div>
+
+            {/* Get Directions Button */}
+            <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 z-10">
+              <Button
+                onClick={openDirections}
+                className="bg-[#133129] hover:bg-[#224B40] text-[#faf9f6] font-semibold px-6 py-3 shadow-lg"
+              >
+                <Navigation className={`w-4 h-4 ${isRTL ? 'ml-2' : 'mr-2'}`} />
+                {content.map.directions[language]}
+              </Button>
+            </div>
+          </motion.div>
+
+          {/* Nearby Landmarks */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            viewport={{ once: true }}
+            className="mt-8"
+          >
+            <h3 className="text-lg font-semibold text-[#133129] mb-4 text-center">
+              {content.map.nearbyLandmarks[language]}
+            </h3>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-3xl mx-auto">
+              {LANDMARKS.map((landmark, index) => (
+                <div 
+                  key={index}
+                  className="flex items-center gap-3 bg-[#faf9f6] p-4 rounded-lg border border-[#e8e7e0]"
+                >
+                  <div className="w-8 h-8 bg-[#406D61]/10 rounded-full flex items-center justify-center flex-shrink-0">
+                    <MapPin className="w-4 h-4 text-[#406D61]" />
+                  </div>
+                  <span className="text-[#133129] text-sm font-medium">
+                    {language === 'ar' ? landmark.name.ar : landmark.name.en}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </motion.div>
         </div>
       </section>
 
