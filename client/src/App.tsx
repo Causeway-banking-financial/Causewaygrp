@@ -25,6 +25,7 @@ import AMLDevelopmentFinance from "./pages/insights/AMLDevelopmentFinance";
 import TreasuryGovernance from "./pages/insights/TreasuryGovernance";
 import Contact from "./pages/Contact";
 import PrivacyPolicy from "./pages/legal/PrivacyPolicy";
+import Privacy from "./pages/Privacy";
 import TermsOfService from "./pages/legal/TermsOfService";
 import CookieNotice from "./pages/legal/CookieNotice";
 import HowWeWork from "./pages/HowWeWork";
@@ -71,6 +72,7 @@ function Router() {
       <Route path="/careers" component={Careers} />
       
       {/* Legal */}
+      <Route path="/privacy" component={Privacy} />
       <Route path="/privacy-policy" component={PrivacyPolicy} />
       <Route path="/terms-of-service" component={TermsOfService} />
       <Route path="/cookie-notice" component={CookieNotice} />

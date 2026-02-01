@@ -25,6 +25,7 @@ import {
   Shield
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { FileUpload } from '@/components/FileUpload';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
@@ -227,6 +228,7 @@ export default function Careers() {
     coverLetter: '',
     honeypot: ''
   });
+  const [resumeFile, setResumeFile] = useState<File | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
@@ -563,6 +565,18 @@ export default function Careers() {
                     onChange={(e) => setFormData(prev => ({ ...prev, linkedin: e.target.value }))}
                     className="bg-[#133129] border-[#406D61] text-[#faf9f6] placeholder:text-[#faf9f6]/40 focus:border-[#d4a84b]"
                     placeholder="https://linkedin.com/in/yourprofile"
+                  />
+                </div>
+
+                {/* Resume/CV Upload */}
+                <div className="bg-[#133129] border border-[#406D61] rounded-xl p-6">
+                  <FileUpload
+                    onFileSelect={(file) => setResumeFile(file)}
+                    acceptedTypes={['.pdf', '.doc', '.docx']}
+                    maxSizeMB={10}
+                    label="Upload your CV/Resume"
+                    labelAr="ارفع سيرتك الذاتية"
+                    required={true}
                   />
                 </div>
 
