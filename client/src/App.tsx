@@ -39,6 +39,7 @@ import Academy from "./pages/Academy";
 import Glossary from "./pages/Glossary";
 import RegulatoryCalendar from "./pages/RegulatoryCalendar";
 import CookieConsent from "./components/CookieConsent";
+import WhatsAppButton from "./components/WhatsAppButton";
 
 function Router() {
   return (
@@ -107,6 +108,7 @@ function App() {
           <TooltipProvider>
             <Toaster />
             <CookieConsent />
+            <WhatsAppButton />
             <Router />
           </TooltipProvider>
         </LanguageProvider>

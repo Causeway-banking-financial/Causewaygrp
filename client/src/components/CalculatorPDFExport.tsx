@@ -13,7 +13,8 @@ import {
   DialogTitle,
   DialogFooter 
 } from '@/components/ui/dialog';
-import { FileText, Download, Eye, Printer, CheckCircle2, AlertTriangle } from 'lucide-react';
+import { FileText, Download, Eye, Printer, CheckCircle2, AlertTriangle, Table2 } from 'lucide-react';
+import { previewAmortizationSchedule, AmortizationScheduleData } from '@/utils/amortizationSchedule';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { toast } from 'sonner';
 
@@ -32,6 +33,11 @@ export interface CalculationExportData {
   type: 'murabaha' | 'ijara' | 'sukuk' | 'zakat';
   inputs: Record<string, number | string>;
   results: Record<string, number | string>;
+}
+
+// Check if calculator type supports amortization schedule
+function supportsAmortization(type: string): boolean {
+  return type === 'murabaha' || type === 'ijara';
 }
 
 interface Props {
@@ -690,6 +696,34 @@ export default function CalculatorPDFExport({ data, disabled = false }: Props) {
     setIsGenerating(false);
   };
 
+  const handleAmortization = () => {
+    if (!supportsAmortization(data.type)) return;
+    
+    const principal = Number(data.inputs.costPrice || data.inputs.assetValue) || 0;
+    const profitRate = Number(data.inputs.profitRate || data.inputs.managementFee) || 0;
+    const termMonths = Number(data.inputs.period || data.inputs.leaseTerm) || 0;
+    const monthlyPayment = Number(data.results.monthlyPayment || data.results.monthlyRent) || 0;
+    const totalProfit = Number(data.results.profitAmount) || (monthlyPayment * termMonths - principal);
+    const totalPayments = monthlyPayment * termMonths;
+    
+    const scheduleData: AmortizationScheduleData = {
+      type: data.type as 'murabaha' | 'ijara',
+      language,
+      principal,
+      profitRate,
+      termMonths,
+      monthlyPayment,
+      totalProfit,
+      totalPayments,
+      startDate: new Date(),
+    };
+    
+    previewAmortizationSchedule(scheduleData);
+    toast.success(language === 'ar' ? 'تم إنشاء جدول الاستهلاك' : 'Amortization schedule generated');
+  };
+
+  const amortizationLabel = language === 'ar' ? 'جدول الاستهلاك' : 'Amortization Schedule';
+
   return (
     <div className={`flex flex-wrap gap-2 ${isRTL ? 'flex-row-reverse' : ''}`}>
       <Button
@@ -702,6 +736,19 @@ export default function CalculatorPDFExport({ data, disabled = false }: Props) {
         <Eye className="h-4 w-4" />
         {t.preview}
       </Button>
+      
+      {supportsAmortization(data.type) && (
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={handleAmortization}
+          disabled={disabled || isGenerating}
+          className="gap-2 border-amber-500 text-amber-600 hover:bg-amber-50"
+        >
+          <Table2 className="h-4 w-4" />
+          {amortizationLabel}
+        </Button>
+      )}
       
       <Button
         variant="default"
