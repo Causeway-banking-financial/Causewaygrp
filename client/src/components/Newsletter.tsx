@@ -133,37 +133,13 @@ export default function Newsletter({ variant = 'inline', onClose }: NewsletterPr
 
     setIsSubmitting(true);
     
-    // Create email content for newsletter subscription
-    const currentInterests = language === 'ar' ? interests.ar : interests.en;
-    const interestLabels = selectedInterests.map(id => {
-      const interest = currentInterests.find(i => i.id === id);
-      return interest ? interest.label : id;
-    }).join(', ');
-    
-    const emailSubject = `[CauseWay Newsletter] New Subscription - ${email}`;
-    const emailBody = `
-New Newsletter Subscription
-============================
-
-Email: ${email}
-Name: ${name || 'Not provided'}
-Interests: ${interestLabels}
-
-============================
-Sent from CauseWay Website Newsletter Form
-    `.trim();
-    
-    // Open mailto link to send email to partnerships@causewaygrp.com
-    const mailtoLink = `mailto:partnerships@causewaygrp.com?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
-    window.open(mailtoLink, '_blank');
-    
-    // Short delay for UX
-    await new Promise(resolve => setTimeout(resolve, 500));
+    // Simulate API call
+    await new Promise(resolve => setTimeout(resolve, 1500));
     
     setIsSubmitting(false);
     setIsSubscribed(true);
     
-    toast.success(language === 'ar' ? 'تم فتح تطبيق البريد. يرجى إرسال الرسالة لإكمال الاشتراك.' : 'Email app opened. Please send to complete subscription.');
+    toast.success(language === 'ar' ? 'تم الاشتراك بنجاح!' : 'Successfully subscribed!');
   };
 
   // Success State

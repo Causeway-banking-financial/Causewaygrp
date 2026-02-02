@@ -363,36 +363,7 @@ export default function Header() {
 
                 {/* Mobile Actions */}
                 <div className="flex flex-col gap-4 pt-6 mt-4 border-t border-[#224B40]/30">
-                  {/* Prominent Language Toggle for Mobile */}
-                  <div className="bg-[#224B40]/50 rounded-lg p-4">
-                    <p className="text-[#faf9f6]/70 text-sm mb-3 text-center">
-                      {language === 'ar' ? 'اختر اللغة' : 'Select Language'}
-                    </p>
-                    <div className="flex justify-center">
-                      <div className="flex items-center bg-[#133129] rounded-full p-1 border border-[#406D61]/30">
-                        <button
-                          onClick={() => { if (language !== 'en') toggleLanguage(); }}
-                          className={`px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-200 ${
-                            language === 'en'
-                              ? 'bg-[#d4a84b] text-[#133129] shadow-md'
-                              : 'text-[#faf9f6]/70 hover:text-[#faf9f6]'
-                          }`}
-                        >
-                          English
-                        </button>
-                        <button
-                          onClick={() => { if (language !== 'ar') toggleLanguage(); }}
-                          className={`px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-200 ${
-                            language === 'ar'
-                              ? 'bg-[#d4a84b] text-[#133129] shadow-md'
-                              : 'text-[#faf9f6]/70 hover:text-[#faf9f6]'
-                          }`}
-                        >
-                          العربية
-                        </button>
-                      </div>
-                    </div>
-                  </div>
+                  <LanguageSwitcher variant="toggle" />
                   
                   <Button 
                     onClick={handleClientPortal}

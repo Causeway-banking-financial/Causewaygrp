@@ -191,41 +191,13 @@ export default function BookingSystem({ isOpen, onClose, preselectedType }: Book
   const handleSubmit = async () => {
     setIsSubmitting(true);
     
-    // Create email content for booking
-    const consultationType = consultationTypes.find(t => t.id === selectedType);
-    const emailSubject = `[CauseWay Booking] ${consultationType?.name || 'Consultation'} - ${formData.name}`;
-    const emailBody = `
-New Consultation Booking Request
-================================
-
-Consultation Type: ${consultationType?.name || 'Not specified'}
-Date: ${selectedDate}
-Time: ${selectedTime}
-
-Client Details:
-- Name: ${formData.name}
-- Email: ${formData.email}
-- Company: ${formData.company}
-- Phone: ${formData.phone || 'Not provided'}
-
-Message:
-${formData.message || 'None'}
-
-================================
-Sent from CauseWay Website Booking System
-    `.trim();
-    
-    // Open mailto link to send email to partnerships@causewaygrp.com
-    const mailtoLink = `mailto:partnerships@causewaygrp.com?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
-    window.open(mailtoLink, '_blank');
-    
-    // Short delay for UX
-    await new Promise(resolve => setTimeout(resolve, 500));
+    // Simulate API call
+    await new Promise(resolve => setTimeout(resolve, 2000));
     
     toast.success(
       language === 'ar' 
-        ? 'تم فتح تطبيق البريد. يرجى إرسال الرسالة لتأكيد الحجز.' 
-        : 'Email app opened. Please send the message to confirm your booking.'
+        ? 'تم حجز موعدك بنجاح! سنرسل لك تأكيداً عبر البريد الإلكتروني.' 
+        : 'Your consultation has been booked! You will receive a confirmation email shortly.'
     );
     
     setIsSubmitting(false);

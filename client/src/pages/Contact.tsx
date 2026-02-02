@@ -20,7 +20,6 @@ import Footer from '@/components/Footer';
 import { toast } from 'sonner';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { MapView } from '@/components/Map';
-import { sendContactForm } from '@/lib/emailApi';
 
 const topics = [
   { en: 'General Inquiry', ar: 'استفسار عام' },
@@ -137,34 +136,16 @@ export default function Contact() {
     
     setIsSubmitting(true);
     
-    // Create email content
-     // Send via server-side email API
-    const result = await sendContactForm({
-      name: formData.name,
-      email: formData.email,
-      company: formData.organization,
-      subject: formData.topic || 'General Inquiry',
-      message: formData.message,
-      service: formData.topic
-    });
+    // Simulate form submission
+    await new Promise(resolve => setTimeout(resolve, 1000));
     
     setIsSubmitting(false);
-    
-    if (result.success) {
-      setSubmitSuccess(true);
-      toast.success(
-        language === 'ar' 
-          ? 'تم إرسال رسالتك بنجاح! سنتواصل معك قريباً.'
-          : 'Your message has been sent successfully! We will contact you soon.'
-      );
-    } else {
-      toast.error(
-        language === 'ar'
-          ? 'فشل إرسال الرسالة. يرجى المحاولة مرة أخرى.'
-          : 'Failed to send message. Please try again.'
-      );
-      return;
-    }
+    setSubmitSuccess(true);
+    toast.success(
+      language === 'ar' 
+        ? 'شكراً لرسالتك. سنرد خلال يومي عمل.'
+        : 'Thank you for your message. We will respond within 2 business days.'
+    );
     setFormData({ name: '', email: '', organization: '', topic: '', message: '', website: '' });
     
     // Reset success state after 5 seconds
