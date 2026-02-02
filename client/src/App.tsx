@@ -34,6 +34,7 @@ import FAQ from "./pages/FAQ";
 import Careers from "./pages/Careers";
 import Terms from "./pages/Terms";
 import IslamicFinanceCalculator from "./pages/IslamicFinanceCalculator";
+import Learning from "./pages/Learning";
 import CookieConsent from "./components/CookieConsent";
 
 function Router() {
@@ -47,6 +48,7 @@ function Router() {
       <Route path="/services" component={Services} />
       <Route path="/how-we-work" component={HowWeWork} />
       <Route path="/resources" component={Resources} />
+      <Route path="/learning" component={Learning} />
       <Route path="/faq" component={FAQ} />
       <Route path="/services/islamic-finance" component={IslamicFinance} />
       <Route path="/services/risk-compliance" component={RiskCompliance} />
