@@ -363,7 +363,7 @@ export default function Header() {
 
                 {/* Mobile Actions */}
                 <div className="flex flex-col gap-4 pt-6 mt-4 border-t border-[#224B40]/30">
-                  <LanguageSwitcher variant="toggle" />
+                  <LanguageSwitcher variant="mobile" />
                   
                   <Button 
                     onClick={handleClientPortal}

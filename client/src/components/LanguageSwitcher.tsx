@@ -4,12 +4,12 @@
  * Supports Arabic/English with persistent preference
  */
 
-import { Globe, Check } from 'lucide-react';
+import { Globe, Check, Languages } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { toast } from 'sonner';
 
 interface LanguageSwitcherProps {
-  variant?: 'default' | 'minimal' | 'toggle' | 'dropdown';
+  variant?: 'default' | 'minimal' | 'toggle' | 'dropdown' | 'mobile';
   showLabel?: boolean;
   className?: string;
 }
@@ -30,6 +30,44 @@ export default function LanguageSwitcher({
       );
     }
   };
+
+  // Mobile variant - large, prominent toggle for mobile menu
+  if (variant === 'mobile') {
+    return (
+      <div className={`w-full ${className}`}>
+        <div className="flex items-center justify-center gap-2 mb-3">
+          <Languages className="w-5 h-5 text-[#d4a84b]" />
+          <span className="text-[#faf9f6]/80 text-sm font-medium">
+            {language === 'ar' ? 'اختر اللغة' : 'Select Language'}
+          </span>
+        </div>
+        <div className="flex items-center justify-center bg-[#224B40]/50 rounded-xl p-1.5 border border-[#406D61]/30">
+          <button
+            onClick={() => handleLanguageChange('en')}
+            className={`flex-1 flex items-center justify-center gap-2 px-6 py-3 rounded-lg text-sm font-semibold transition-all duration-300 ${
+              language === 'en'
+                ? 'bg-[#d4a84b] text-[#133129] shadow-lg'
+                : 'text-[#faf9f6]/70 hover:text-[#faf9f6] hover:bg-[#224B40]/50'
+            }`}
+          >
+            <span className="text-lg">🇬🇧</span>
+            <span>English</span>
+          </button>
+          <button
+            onClick={() => handleLanguageChange('ar')}
+            className={`flex-1 flex items-center justify-center gap-2 px-6 py-3 rounded-lg text-sm font-semibold transition-all duration-300 ${
+              language === 'ar'
+                ? 'bg-[#d4a84b] text-[#133129] shadow-lg'
+                : 'text-[#faf9f6]/70 hover:text-[#faf9f6] hover:bg-[#224B40]/50'
+            }`}
+          >
+            <span className="text-lg">🇸🇦</span>
+            <span>العربية</span>
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   // Toggle variant - pill-shaped toggle switch
   if (variant === 'toggle') {

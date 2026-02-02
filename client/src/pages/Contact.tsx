@@ -12,8 +12,10 @@ import {
   Clock, 
   Send,
   Building2,
-  Navigation
+  Navigation,
+  AlertCircle
 } from 'lucide-react';
+import { validateContactForm, ValidationError, getFieldError } from '@/lib/formValidation';
 import { Button } from '@/components/ui/button';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -69,6 +71,7 @@ export default function Contact() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [validationErrors, setValidationErrors] = useState<ValidationError[]>([]);
 
   const handleMapReady = (map: google.maps.Map) => {
     mapRef.current = map;
@@ -134,26 +137,59 @@ export default function Contact() {
       return;
     }
     
+    // Validate form
+    const validation = validateContactForm(formData);
+    setValidationErrors(validation.errors);
+    
+    if (!validation.isValid) {
+      toast.error(
+        language === 'ar'
+          ? 'يرجى تصحيح الأخطاء في النموذج'
+          : 'Please fix the errors in the form'
+      );
+      return;
+    }
+    
     setIsSubmitting(true);
     
-    // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    
-    setIsSubmitting(false);
-    setSubmitSuccess(true);
-    toast.success(
-      language === 'ar' 
-        ? 'شكراً لرسالتك. سنرد خلال يومي عمل.'
-        : 'Thank you for your message. We will respond within 2 business days.'
-    );
-    setFormData({ name: '', email: '', organization: '', topic: '', message: '', website: '' });
-    
-    // Reset success state after 5 seconds
-    setTimeout(() => setSubmitSuccess(false), 5000);
+    // Send email to partnerships@causewaygrp.com
+    try {
+      const emailSubject = `Contact Form: ${formData.topic} - ${formData.name}`;
+      const emailBody = `Name: ${formData.name}\nEmail: ${formData.email}\nOrganization: ${formData.organization || 'Not provided'}\nTopic: ${formData.topic}\n\nMessage:\n${formData.message}`;
+      
+      // Open mailto link to send email
+      const mailtoLink = `mailto:partnerships@causewaygrp.com?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
+      window.open(mailtoLink, '_blank');
+      
+      setIsSubmitting(false);
+      setSubmitSuccess(true);
+      toast.success(
+        language === 'ar' 
+          ? 'شكراً لرسالتك. سنرد خلال يومي عمل.'
+          : 'Thank you for your message. We will respond within 2 business days.'
+      );
+      setFormData({ name: '', email: '', organization: '', topic: '', message: '', website: '' });
+      setValidationErrors([]);
+      
+      // Reset success state after 5 seconds
+      setTimeout(() => setSubmitSuccess(false), 5000);
+    } catch (error) {
+      setIsSubmitting(false);
+      toast.error(
+        language === 'ar'
+          ? 'حدث خطأ. يرجى المحاولة مرة أخرى.'
+          : 'An error occurred. Please try again.'
+      );
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+    // Clear validation error for this field when user starts typing
+    if (validationErrors.length > 0) {
+      setValidationErrors(validationErrors.filter(err => err.field !== name));
+    }
   };
 
   const openDirections = () => {
@@ -265,32 +301,50 @@ export default function Contact() {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
                       <label className="block text-sm font-medium text-[#133129] mb-2">
-                        {content.form.name[language]} {content.form.required[language]}
+                        {content.form.name[language]} <span className="text-red-500">*</span>
                       </label>
                       <input
                         type="text"
                         name="name"
                         value={formData.name}
                         onChange={handleChange}
-                        required
-                        className="w-full px-4 py-3 border border-[#133129]/20 rounded-lg focus:outline-none focus:border-[#d4a84b] text-[#133129]"
+                        className={`w-full px-4 py-3 border rounded-lg focus:outline-none transition-colors text-[#133129] ${
+                          getFieldError(validationErrors, 'name', language)
+                            ? 'border-red-500 focus:border-red-500 bg-red-50/30'
+                            : 'border-[#133129]/20 focus:border-[#d4a84b]'
+                        }`}
                         placeholder={content.form.namePlaceholder[language]}
                       />
+                      {getFieldError(validationErrors, 'name', language) && (
+                        <div className={`flex items-center gap-1.5 mt-2 text-red-600 text-sm ${isRTL ? 'flex-row-reverse' : ''}`}>
+                          <AlertCircle className="w-4 h-4 flex-shrink-0" />
+                          <span>{getFieldError(validationErrors, 'name', language)}</span>
+                        </div>
+                      )}
                     </div>
                     <div>
                       <label className="block text-sm font-medium text-[#133129] mb-2">
-                        {content.form.email[language]} {content.form.required[language]}
+                        {content.form.email[language]} <span className="text-red-500">*</span>
                       </label>
                       <input
                         type="email"
                         name="email"
                         value={formData.email}
                         onChange={handleChange}
-                        required
-                        className="w-full px-4 py-3 border border-[#133129]/20 rounded-lg focus:outline-none focus:border-[#d4a84b] text-[#133129]"
+                        className={`w-full px-4 py-3 border rounded-lg focus:outline-none transition-colors text-[#133129] ${
+                          getFieldError(validationErrors, 'email', language)
+                            ? 'border-red-500 focus:border-red-500 bg-red-50/30'
+                            : 'border-[#133129]/20 focus:border-[#d4a84b]'
+                        }`}
                         placeholder={content.form.emailPlaceholder[language]}
                         dir="ltr"
                       />
+                      {getFieldError(validationErrors, 'email', language) && (
+                        <div className={`flex items-center gap-1.5 mt-2 text-red-600 text-sm ${isRTL ? 'flex-row-reverse' : ''}`}>
+                          <AlertCircle className="w-4 h-4 flex-shrink-0" />
+                          <span>{getFieldError(validationErrors, 'email', language)}</span>
+                        </div>
+                      )}
                     </div>
                   </div>
 
@@ -310,14 +364,17 @@ export default function Contact() {
                     </div>
                     <div>
                       <label className="block text-sm font-medium text-[#133129] mb-2">
-                        {content.form.topic[language]} {content.form.required[language]}
+                        {content.form.topic[language]} <span className="text-red-500">*</span>
                       </label>
                       <select
                         name="topic"
                         value={formData.topic}
                         onChange={handleChange}
-                        required
-                        className="w-full px-4 py-3 border border-[#133129]/20 rounded-lg focus:outline-none focus:border-[#d4a84b] text-[#133129] bg-white"
+                        className={`w-full px-4 py-3 border rounded-lg focus:outline-none transition-colors text-[#133129] bg-white ${
+                          getFieldError(validationErrors, 'topic', language)
+                            ? 'border-red-500 focus:border-red-500 bg-red-50/30'
+                            : 'border-[#133129]/20 focus:border-[#d4a84b]'
+                        }`}
                       >
                         <option value="">{content.form.topicPlaceholder[language]}</option>
                         {topics.map((topic) => (
@@ -326,22 +383,37 @@ export default function Contact() {
                           </option>
                         ))}
                       </select>
+                      {getFieldError(validationErrors, 'topic', language) && (
+                        <div className={`flex items-center gap-1.5 mt-2 text-red-600 text-sm ${isRTL ? 'flex-row-reverse' : ''}`}>
+                          <AlertCircle className="w-4 h-4 flex-shrink-0" />
+                          <span>{getFieldError(validationErrors, 'topic', language)}</span>
+                        </div>
+                      )}
                     </div>
                   </div>
 
                   <div>
                     <label className="block text-sm font-medium text-[#133129] mb-2">
-                      {content.form.message[language]} {content.form.required[language]}
+                      {content.form.message[language]} <span className="text-red-500">*</span>
                     </label>
                     <textarea
                       name="message"
                       value={formData.message}
                       onChange={handleChange}
-                      required
                       rows={6}
-                      className="w-full px-4 py-3 border border-[#133129]/20 rounded-lg focus:outline-none focus:border-[#d4a84b] text-[#133129] resize-none"
+                      className={`w-full px-4 py-3 border rounded-lg focus:outline-none transition-colors text-[#133129] resize-none ${
+                        getFieldError(validationErrors, 'message', language)
+                          ? 'border-red-500 focus:border-red-500 bg-red-50/30'
+                          : 'border-[#133129]/20 focus:border-[#d4a84b]'
+                      }`}
                       placeholder={content.form.messagePlaceholder[language]}
                     />
+                    {getFieldError(validationErrors, 'message', language) && (
+                      <div className={`flex items-center gap-1.5 mt-2 text-red-600 text-sm ${isRTL ? 'flex-row-reverse' : ''}`}>
+                        <AlertCircle className="w-4 h-4 flex-shrink-0" />
+                        <span>{getFieldError(validationErrors, 'message', language)}</span>
+                      </div>
+                    )}
                   </div>
 
                   { /* Honeypot field - hidden from users, visible to bots */ }
