@@ -71,3 +71,15 @@
 - [ ] Verify exact color codes: #133129, #224B40, #406D61, #d4a84b
 - [ ] Verify "CauseWay" capitalization (not "Causeway")
 - [ ] Verify Arabic name "كوزواي" is used consistently
+
+## Phase 9: Creative Redesign & Email Configuration
+- [x] Redesign Capacity Building page with creative visuals and unique navigation
+- [x] Add modern animations and micro-interactions across service pages
+- [x] Configure email notifications for all forms to send to partnerships@causewaygrp.com
+  - [x] Contact form (Contact.tsx)
+  - [x] Booking system (BookingSystem.tsx)
+  - [x] Training registration (TrainingRegistration.tsx)
+  - [x] Newsletter subscription (Newsletter.tsx)
+  - [x] YETO notification (YetoBanner.tsx, Observatory.tsx)
+- [x] Add high-quality images and visual elements
+- [ ] Improve mobile responsiveness and language toggle visibility

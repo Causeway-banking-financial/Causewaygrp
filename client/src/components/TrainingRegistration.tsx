@@ -278,8 +278,35 @@ const TrainingRegistrationModal = () => {
 
   const handleSubmit = async () => {
     setIsSubmitting(true);
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 2000));
+    
+    // Create email content for training registration
+    const emailSubject = `[CauseWay Training] Registration - ${isArabic ? selectedProgramState?.titleAr : selectedProgramState?.titleEn} - ${formData.fullName}`;
+    const emailBody = `
+New Training Registration Request
+==================================
+
+Program: ${selectedProgramState?.titleEn} / ${selectedProgramState?.titleAr}
+Format: ${selectedProgramState?.formatEn}
+Duration: ${selectedProgramState?.durationEn}
+Price: ${selectedProgramState?.price}
+
+Participant Details:
+- Full Name: ${formData.fullName}
+- Email: ${formData.email}
+- Phone: ${formData.phone}
+- Organization: ${formData.organization}
+- Job Title: ${formData.jobTitle}
+
+==================================
+Sent from CauseWay Website Training Registration
+    `.trim();
+    
+    // Open mailto link to send email to partnerships@causewaygrp.com
+    const mailtoLink = `mailto:partnerships@causewaygrp.com?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
+    window.open(mailtoLink, '_blank');
+    
+    // Short delay for UX
+    await new Promise(resolve => setTimeout(resolve, 500));
     setIsSubmitting(false);
     setIsComplete(true);
   };

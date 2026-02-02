@@ -99,9 +99,26 @@ export default function Observatory() {
   const handleNotify = (e: React.FormEvent) => {
     e.preventDefault();
     if (email) {
+      // Create email content for YETO notification signup
+      const emailSubject = `[CauseWay YETO] Launch Notification Request - ${email}`;
+      const emailBody = `
+New YETO Launch Notification Request
+=====================================
+
+Email: ${email}
+Request: Please notify me when YETO (Yemen Economic Transparency Observatory) launches.
+
+=====================================
+Sent from CauseWay Website Observatory Page
+      `.trim();
+      
+      // Open mailto link to send email to partnerships@causewaygrp.com
+      const mailtoLink = `mailto:partnerships@causewaygrp.com?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
+      window.open(mailtoLink, '_blank');
+      
       toast.success(language === 'ar' 
-        ? 'شكراً لك! سنخبرك عند إطلاق يتو.'
-        : 'Thank you! We\'ll notify you when YETO launches.'
+        ? 'تم فتح تطبيق البريد. يرجى إرسال الرسالة للتسجيل.'
+        : 'Email app opened. Please send to register for YETO updates.'
       );
       setEmail('');
     }

@@ -136,15 +136,37 @@ export default function Contact() {
     
     setIsSubmitting(true);
     
-    // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 1000));
+    // Create email content
+    const emailSubject = `[CauseWay Contact] ${formData.topic || 'General Inquiry'} - ${formData.name}`;
+    const emailBody = `
+New Contact Form Submission
+============================
+
+Name: ${formData.name}
+Email: ${formData.email}
+Organization: ${formData.organization || 'Not provided'}
+Topic: ${formData.topic || 'General Inquiry'}
+
+Message:
+${formData.message}
+
+============================
+Sent from CauseWay Website Contact Form
+    `.trim();
+    
+    // Open mailto link to send email to partnerships@causewaygrp.com
+    const mailtoLink = `mailto:partnerships@causewaygrp.com?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
+    window.open(mailtoLink, '_blank');
+    
+    // Short delay for UX
+    await new Promise(resolve => setTimeout(resolve, 500));
     
     setIsSubmitting(false);
     setSubmitSuccess(true);
     toast.success(
       language === 'ar' 
-        ? 'شكراً لرسالتك. سنرد خلال يومي عمل.'
-        : 'Thank you for your message. We will respond within 2 business days.'
+        ? 'تم فتح تطبيق البريد الإلكتروني. يرجى إرسال الرسالة لإكمال الاتصال.'
+        : 'Email app opened. Please send the message to complete your inquiry.'
     );
     setFormData({ name: '', email: '', organization: '', topic: '', message: '', website: '' });
     
