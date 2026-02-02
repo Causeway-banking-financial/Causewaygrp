@@ -83,3 +83,9 @@
   - [x] YETO notification (YetoBanner.tsx, Observatory.tsx)
 - [x] Add high-quality images and visual elements
 - [ ] Improve mobile responsiveness and language toggle visibility
+
+## Phase 10: Email, Mobile Toggle & Loading Animations
+- [x] Add server-side email handling with email API (created server/email.ts and client/src/lib/emailApi.ts)
+- [x] Add visible language toggle in mobile hamburger menu (prominent toggle with English/العربية buttons)
+- [x] Add skeleton screens/loading animations for training tracks and dynamic content (Skeleton.tsx component)
+- [x] Test all new features on mobile and desktop

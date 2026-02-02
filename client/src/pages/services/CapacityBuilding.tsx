@@ -3,7 +3,7 @@
  * Redesigned with creative visuals, unique navigation, and modern animations
  */
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'wouter';
 import { 
@@ -33,6 +33,7 @@ import Footer from '@/components/Footer';
 import SEO from '@/components/SEO';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useBooking } from '@/App';
+import { TrainingTracksGridSkeleton, StatsGridSkeleton } from '@/components/Skeleton';
 
 // Training tracks with icons and detailed info
 const trainingTracks = [
@@ -132,6 +133,13 @@ export default function CapacityBuilding() {
   const { openBooking } = useBooking();
   const [selectedTrack, setSelectedTrack] = useState<string | null>(null);
   const [hoveredTrack, setHoveredTrack] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  // Simulate loading state for better UX
+  useEffect(() => {
+    const timer = setTimeout(() => setIsLoading(false), 800);
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
     <div className="min-h-screen bg-[#faf9f6]" dir={isRTL ? 'rtl' : 'ltr'}>
@@ -323,6 +331,9 @@ export default function CapacityBuilding() {
           </motion.div>
 
           {/* Interactive Track Grid */}
+          {isLoading ? (
+            <TrainingTracksGridSkeleton count={6} />
+          ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {trainingTracks.map((track, index) => (
               <motion.div
@@ -420,6 +431,7 @@ export default function CapacityBuilding() {
               </motion.div>
             ))}
           </div>
+          )}
         </div>
       </section>
 

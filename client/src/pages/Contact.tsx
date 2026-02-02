@@ -20,6 +20,7 @@ import Footer from '@/components/Footer';
 import { toast } from 'sonner';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { MapView } from '@/components/Map';
+import { sendContactForm } from '@/lib/emailApi';
 
 const topics = [
   { en: 'General Inquiry', ar: 'استفسار عام' },
@@ -137,37 +138,33 @@ export default function Contact() {
     setIsSubmitting(true);
     
     // Create email content
-    const emailSubject = `[CauseWay Contact] ${formData.topic || 'General Inquiry'} - ${formData.name}`;
-    const emailBody = `
-New Contact Form Submission
-============================
-
-Name: ${formData.name}
-Email: ${formData.email}
-Organization: ${formData.organization || 'Not provided'}
-Topic: ${formData.topic || 'General Inquiry'}
-
-Message:
-${formData.message}
-
-============================
-Sent from CauseWay Website Contact Form
-    `.trim();
-    
-    // Open mailto link to send email to partnerships@causewaygrp.com
-    const mailtoLink = `mailto:partnerships@causewaygrp.com?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
-    window.open(mailtoLink, '_blank');
-    
-    // Short delay for UX
-    await new Promise(resolve => setTimeout(resolve, 500));
+     // Send via server-side email API
+    const result = await sendContactForm({
+      name: formData.name,
+      email: formData.email,
+      company: formData.organization,
+      subject: formData.topic || 'General Inquiry',
+      message: formData.message,
+      service: formData.topic
+    });
     
     setIsSubmitting(false);
-    setSubmitSuccess(true);
-    toast.success(
-      language === 'ar' 
-        ? 'تم فتح تطبيق البريد الإلكتروني. يرجى إرسال الرسالة لإكمال الاتصال.'
-        : 'Email app opened. Please send the message to complete your inquiry.'
-    );
+    
+    if (result.success) {
+      setSubmitSuccess(true);
+      toast.success(
+        language === 'ar' 
+          ? 'تم إرسال رسالتك بنجاح! سنتواصل معك قريباً.'
+          : 'Your message has been sent successfully! We will contact you soon.'
+      );
+    } else {
+      toast.error(
+        language === 'ar'
+          ? 'فشل إرسال الرسالة. يرجى المحاولة مرة أخرى.'
+          : 'Failed to send message. Please try again.'
+      );
+      return;
+    }
     setFormData({ name: '', email: '', organization: '', topic: '', message: '', website: '' });
     
     // Reset success state after 5 seconds
