@@ -228,3 +228,26 @@
 - [ ] Add newsletter double opt-in email confirmation flow (backend)
 - [ ] Add database storage for newsletter subscriptions
 - [ ] Create email confirmation templates
+
+## Phase 18: Newsletter Double Opt-in Backend (COMPLETED)
+- [x] Created newsletterService.ts with localStorage storage
+- [x] Add fields: email, status (pending/confirmed/unsubscribed), confirmation_token, confirmed_at, created_at
+- [x] Generate unique confirmation tokens using nanoid
+- [x] Simulated confirmation email flow (console log for demo)
+- [x] Created confirmation page/route at /newsletter/confirm
+- [x] Updated Newsletter component to use newsletter service
+- [x] Add proper success/error messages in both languages
+- [x] Multi-step flow: Subscribe → Pending → Confirm → Confirmed
+- [x] GDPR-compliant double opt-in flow
+
+## Phase 19: Inquiry Form Modal (COMPLETED)
+- [x] Created InquiryModal component with contact form
+- [x] Pre-fill service name when opened from service cards
+- [x] Add form fields: name, email, phone (optional), company (optional), message (optional)
+- [x] Add inline validation for all required fields
+- [x] Created inquiryService.ts with localStorage storage
+- [x] Console notification on new inquiry (for demo)
+- [x] Integrated modal into CoreBanking and Branding pages
+- [x] Full bilingual support (Arabic/English)
+- [x] Proper RTL layout for Arabic
+- [x] Success confirmation with checkmark animation

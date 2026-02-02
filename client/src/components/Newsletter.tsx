@@ -1,6 +1,6 @@
 /**
  * CauseWay Newsletter Component with Double Opt-In
- * Features: Email validation, confirmation flow, interest selection
+ * Features: Email validation, confirmation flow, interest selection, localStorage storage
  * Brand Colors: #133129 (forest), #224B40 (teal), #406D61 (sage), #d4a84b (gold), #faf9f6 (cream)
  */
 
@@ -12,10 +12,12 @@ import {
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
+import { subscribe, confirmSubscription, findByToken, type SubscribeResult } from '@/lib/newsletterService';
 
 interface NewsletterProps {
   variant?: 'inline' | 'modal' | 'footer' | 'hero';
   onClose?: () => void;
+  source?: string;
 }
 
 // Newsletter categories/interests
@@ -42,7 +44,7 @@ const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 // Subscription steps for double opt-in
 type SubscriptionStep = 'email' | 'interests' | 'confirmation_sent' | 'confirmed';
 
-export default function Newsletter({ variant = 'inline', onClose }: NewsletterProps) {
+export default function Newsletter({ variant = 'inline', onClose, source = 'footer' }: NewsletterProps) {
   const { language, isRTL } = useLanguage();
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
@@ -51,6 +53,24 @@ export default function Newsletter({ variant = 'inline', onClose }: NewsletterPr
   const [step, setStep] = useState<SubscriptionStep>('email');
   const [emailError, setEmailError] = useState<string | null>(null);
   const [emailTouched, setEmailTouched] = useState(false);
+  const [confirmationToken, setConfirmationToken] = useState<string | null>(null);
+
+  // Check for confirmation token in URL on mount
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const token = urlParams.get('confirm_newsletter');
+    if (token) {
+      const result = confirmSubscription(token);
+      if (result.success) {
+        setStep('confirmed');
+        toast.success(language === 'ar' ? result.messageAr : result.message);
+        // Clean up URL
+        window.history.replaceState({}, '', window.location.pathname);
+      } else {
+        toast.error(language === 'ar' ? result.messageAr : result.message);
+      }
+    }
+  }, [language]);
 
   const content = {
     en: {
@@ -68,10 +88,12 @@ export default function Newsletter({ variant = 'inline', onClose }: NewsletterPr
       confirmationTitle: 'Check Your Inbox!',
       confirmationMessage: 'We\'ve sent a confirmation email to',
       confirmationNote: 'Click the link in the email to confirm your subscription and start receiving updates.',
+      confirmationDemo: 'Demo Mode: Click below to simulate email confirmation',
+      confirmButton: 'Confirm Subscription (Demo)',
       resendButton: 'Resend Confirmation',
       changeEmailButton: 'Change Email',
       successTitle: 'Welcome to the Network!',
-      successMessage: 'Your subscription is now active.',
+      successMessage: 'Your subscription is now active. You\'ll receive our next newsletter soon.',
       emailRequired: 'Email is required',
       emailInvalid: 'Please enter a valid email address',
       stats: {
@@ -106,10 +128,12 @@ export default function Newsletter({ variant = 'inline', onClose }: NewsletterPr
       confirmationTitle: 'تحقق من بريدك!',
       confirmationMessage: 'لقد أرسلنا رسالة تأكيد إلى',
       confirmationNote: 'انقر على الرابط في البريد الإلكتروني لتأكيد اشتراكك والبدء في تلقي التحديثات.',
+      confirmationDemo: 'وضع العرض: انقر أدناه لمحاكاة تأكيد البريد الإلكتروني',
+      confirmButton: 'تأكيد الاشتراك (عرض)',
       resendButton: 'إعادة إرسال التأكيد',
       changeEmailButton: 'تغيير البريد الإلكتروني',
       successTitle: 'مرحباً بك في الشبكة!',
-      successMessage: 'اشتراكك نشط الآن.',
+      successMessage: 'اشتراكك نشط الآن. ستتلقى نشرتنا الإخبارية القادمة قريباً.',
       emailRequired: 'البريد الإلكتروني مطلوب',
       emailInvalid: 'يرجى إدخال بريد إلكتروني صحيح',
       stats: {
@@ -168,12 +192,44 @@ export default function Newsletter({ variant = 'inline', onClose }: NewsletterPr
     );
   };
 
+  // Handle subscription using the service
+  const handleSubscribe = () => {
+    const result = subscribe(email, language as 'en' | 'ar', source);
+    
+    if (result.success) {
+      setConfirmationToken(result.confirmationToken || null);
+      setStep('confirmation_sent');
+      toast.success(language === 'ar' ? 'تم إرسال رسالة التأكيد!' : 'Confirmation email sent!');
+    } else {
+      if (result.alreadySubscribed) {
+        toast.info(language === 'ar' ? result.messageAr : result.message);
+      } else {
+        toast.error(language === 'ar' ? result.messageAr : result.message);
+      }
+    }
+  };
+
+  // Handle demo confirmation (simulates clicking email link)
+  const handleDemoConfirm = () => {
+    if (confirmationToken) {
+      const result = confirmSubscription(confirmationToken);
+      if (result.success) {
+        setStep('confirmed');
+        toast.success(language === 'ar' ? result.messageAr : result.message);
+      }
+    }
+  };
+
   // Handle resend confirmation
   const handleResendConfirmation = async () => {
     setIsSubmitting(true);
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1500));
+    // Re-subscribe to get a new token
+    const result = subscribe(email, language as 'en' | 'ar', source);
     setIsSubmitting(false);
+    
+    if (result.confirmationToken) {
+      setConfirmationToken(result.confirmationToken);
+    }
     toast.success(language === 'ar' ? 'تم إعادة إرسال رسالة التأكيد' : 'Confirmation email resent');
   };
 
@@ -182,6 +238,7 @@ export default function Newsletter({ variant = 'inline', onClose }: NewsletterPr
     setStep('email');
     setEmailTouched(false);
     setEmailError(null);
+    setConfirmationToken(null);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -203,13 +260,11 @@ export default function Newsletter({ variant = 'inline', onClose }: NewsletterPr
     if (step === 'interests') {
       setIsSubmitting(true);
       
-      // Simulate API call for double opt-in
-      await new Promise(resolve => setTimeout(resolve, 1500));
+      // Small delay for UX
+      await new Promise(resolve => setTimeout(resolve, 500));
       
+      handleSubscribe();
       setIsSubmitting(false);
-      setStep('confirmation_sent');
-      
-      toast.success(language === 'ar' ? 'تم إرسال رسالة التأكيد!' : 'Confirmation email sent!');
       return;
     }
   };
@@ -230,7 +285,19 @@ export default function Newsletter({ variant = 'inline', onClose }: NewsletterPr
           <h3 className="text-2xl font-bold text-white mb-2">{t.confirmationTitle}</h3>
           <p className="text-gray-300 mb-2">{t.confirmationMessage}</p>
           <p className="text-[#d4a84b] font-medium mb-4" dir="ltr">{email}</p>
-          <p className="text-gray-400 text-sm mb-6 max-w-md mx-auto">{t.confirmationNote}</p>
+          <p className="text-gray-400 text-sm mb-4 max-w-md mx-auto">{t.confirmationNote}</p>
+          
+          {/* Demo confirmation button */}
+          <div className="bg-[#d4a84b]/10 border border-[#d4a84b]/30 rounded-xl p-4 mb-6">
+            <p className="text-[#d4a84b] text-sm mb-3">{t.confirmationDemo}</p>
+            <Button 
+              onClick={handleDemoConfirm}
+              className="bg-[#d4a84b] hover:bg-[#c49a40] text-[#133129] font-semibold"
+            >
+              <CheckCircle2 className={`w-4 h-4 ${isRTL ? 'ml-2' : 'mr-2'}`} />
+              {t.confirmButton}
+            </Button>
+          </div>
           
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Button 
@@ -273,11 +340,20 @@ export default function Newsletter({ variant = 'inline', onClose }: NewsletterPr
           </button>
         )}
         <div className="text-center">
-          <div className="w-16 h-16 rounded-full bg-green-500/20 flex items-center justify-center mx-auto mb-4">
-            <CheckCircle2 className="w-8 h-8 text-green-500" />
+          <div className="w-20 h-20 rounded-full bg-green-500/20 flex items-center justify-center mx-auto mb-6">
+            <CheckCircle2 className="w-10 h-10 text-green-500" />
           </div>
           <h3 className="text-2xl font-bold text-white mb-2">{t.successTitle}</h3>
-          <p className="text-gray-400">{t.successMessage}</p>
+          <p className="text-gray-400 mb-6">{t.successMessage}</p>
+          
+          {onClose && (
+            <Button 
+              onClick={onClose}
+              className="bg-[#d4a84b] hover:bg-[#c49a40] text-[#133129] font-semibold"
+            >
+              {language === 'ar' ? 'إغلاق' : 'Close'}
+            </Button>
+          )}
         </div>
       </div>
     );
@@ -441,12 +517,10 @@ export default function Newsletter({ variant = 'inline', onClose }: NewsletterPr
           setEmailError(error);
           if (!error) {
             setIsSubmitting(true);
-            // Simulate API call
             setTimeout(() => {
+              handleSubscribe();
               setIsSubmitting(false);
-              setStep('confirmation_sent');
-              toast.success(language === 'ar' ? 'تم إرسال رسالة التأكيد!' : 'Confirmation email sent!');
-            }, 1500);
+            }, 500);
           }
         }}>
           <div className={`flex gap-2 ${isRTL ? 'flex-row-reverse' : ''}`}>
@@ -498,10 +572,9 @@ export default function Newsletter({ variant = 'inline', onClose }: NewsletterPr
         if (!error) {
           setIsSubmitting(true);
           setTimeout(() => {
+            handleSubscribe();
             setIsSubmitting(false);
-            setStep('confirmation_sent');
-            toast.success(language === 'ar' ? 'تم إرسال رسالة التأكيد!' : 'Confirmation email sent!');
-          }, 1500);
+          }, 500);
         }
       }}>
         <div className={`flex flex-col sm:flex-row gap-2 ${isRTL ? 'sm:flex-row-reverse' : ''}`}>
@@ -549,7 +622,7 @@ export function NewsletterModal({ isOpen, onClose }: { isOpen: boolean; onClose:
         <button onClick={onClose} className={`absolute top-4 ${isRTL ? 'left-4' : 'right-4'} text-gray-400 hover:text-white z-10`}>
           <X className="w-6 h-6" />
         </button>
-        <Newsletter variant="hero" onClose={onClose} />
+        <Newsletter variant="hero" onClose={onClose} source="modal" />
       </div>
     </div>
   );

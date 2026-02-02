@@ -5,6 +5,7 @@
  */
 
 import { useState } from 'react';
+import InquiryModal from '@/components/InquiryModal';
 import { motion } from 'framer-motion';
 import { Link } from 'wouter';
 import { 
@@ -352,6 +353,7 @@ export default function Branding() {
   const { language, isRTL } = useLanguage();
   const { openBooking } = useBooking();
   const [expandedCard, setExpandedCard] = useState<string | null>(null);
+  const [inquiryModal, setInquiryModal] = useState<{ isOpen: boolean; serviceName: string; serviceNameAr: string }>({ isOpen: false, serviceName: '', serviceNameAr: '' });
 
   return (
     <div className="min-h-screen" dir={isRTL ? 'rtl' : 'ltr'}>
@@ -667,7 +669,7 @@ export default function Branding() {
                       <Button 
                         onClick={(e) => {
                           e.stopPropagation();
-                          openBooking('consultation');
+                          setInquiryModal({ isOpen: true, serviceName: service.titleEn, serviceNameAr: service.titleAr });
                         }}
                         className={`mt-4 bg-gradient-to-r ${service.color} text-white hover:opacity-90`}
                       >
@@ -837,6 +839,14 @@ export default function Branding() {
       </section>
 
       <Footer />
+
+      {/* Inquiry Modal */}
+      <InquiryModal
+        isOpen={inquiryModal.isOpen}
+        onClose={() => setInquiryModal({ isOpen: false, serviceName: '', serviceNameAr: '' })}
+        serviceName={inquiryModal.serviceName}
+        serviceNameAr={inquiryModal.serviceNameAr}
+      />
     </div>
   );
 }
