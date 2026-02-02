@@ -41,6 +41,7 @@ import RegulatoryCalendar from "./pages/RegulatoryCalendar";
 import CookieConsent from "./components/CookieConsent";
 import WhatsAppButton from "./components/WhatsAppButton";
 import BookingSystem, { useBookingSystem } from "./components/BookingSystem";
+import { TrainingRegistrationProvider } from "./components/TrainingRegistration";
 
 function Router() {
   return (
@@ -126,6 +127,7 @@ function App() {
       <ThemeProvider defaultTheme="light">
         <LanguageProvider>
           <BookingContext.Provider value={{ openBooking: booking.openBooking }}>
+            <TrainingRegistrationProvider>
             <TooltipProvider>
               <Toaster />
               <CookieConsent />
@@ -137,6 +139,7 @@ function App() {
               />
               <Router />
             </TooltipProvider>
+            </TrainingRegistrationProvider>
           </BookingContext.Provider>
         </LanguageProvider>
       </ThemeProvider>

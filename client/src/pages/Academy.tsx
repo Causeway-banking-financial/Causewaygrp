@@ -15,6 +15,7 @@ import {
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'wouter';
+import { useTrainingRegistration } from '@/components/TrainingRegistration';
 
 // Executive Training Tracks based on CauseWay's actual services
 const trainingTracks = {
