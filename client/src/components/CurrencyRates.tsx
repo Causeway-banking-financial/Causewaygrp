@@ -25,15 +25,15 @@ import { Button } from '@/components/ui/button';
 // Content translations
 const content = {
   en: {
-    title: 'Live Exchange Rates',
-    subtitle: 'Yemeni Rial (YER) Market Rates',
+    title: 'Exchange Rates',
+    subtitle: 'Yemeni Rial (YER) Indicative Rates',
     lastUpdated: 'Last updated',
     refresh: 'Refresh',
     buy: 'Buy',
     sell: 'Sell',
     change: 'Change',
     source: 'Source: Central Bank indicative rates',
-    disclaimer: 'Rates are indicative only. Contact banks for actual trading rates.',
+    disclaimer: 'Sample indicative rates for illustration. Contact licensed banks for actual trading rates.',
     loading: 'Loading rates...',
     error: 'Unable to fetch live rates',
     usd: 'US Dollar',
@@ -44,15 +44,15 @@ const content = {
     gold: 'Gold (per gram)',
   },
   ar: {
-    title: 'أسعار الصرف الحية',
-    subtitle: 'أسعار السوق للريال اليمني',
+    title: 'أسعار الصرف',
+    subtitle: 'أسعار استرشادية للريال اليمني',
     lastUpdated: 'آخر تحديث',
     refresh: 'تحديث',
     buy: 'شراء',
     sell: 'بيع',
     change: 'التغيير',
     source: 'المصدر: أسعار البنك المركزي الاسترشادية',
-    disclaimer: 'الأسعار استرشادية فقط. تواصل مع البنوك للأسعار الفعلية.',
+    disclaimer: 'أسعار استرشادية للتوضيح فقط. تواصل مع البنوك المرخصة للأسعار الفعلية.',
     loading: 'جاري تحميل الأسعار...',
     error: 'تعذر جلب الأسعار الحية',
     usd: 'الدولار الأمريكي',
@@ -248,7 +248,7 @@ export default function CurrencyRates() {
             </div>
             <div className="flex items-center gap-1">
               <AlertCircle className="h-3 w-3" />
-              <span>{isRTL ? 'أسعار استرشادية' : 'Indicative rates'}</span>
+              <span>{isRTL ? 'أسعار توضيحية فقط' : 'Sample rates only'}</span>
             </div>
           </div>
         </div>
