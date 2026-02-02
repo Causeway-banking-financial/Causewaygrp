@@ -16,8 +16,8 @@ import { useLocation } from 'wouter';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { MessageCircle, X, Send, Phone, Clock, CheckCircle2 } from 'lucide-react';
 
-// CauseWay WhatsApp Business Number (placeholder - replace with actual)
-const WHATSAPP_NUMBER = '+967777000000';
+// CauseWay WhatsApp Business Number
+const WHATSAPP_NUMBER = '+201111971916';
 
 // Brand Colors
 const COLORS = {
