@@ -38,8 +38,8 @@ const externalResources = [
 ];
 
 const legal = [
-  { name: 'Privacy Policy', nameAr: 'سياسة الخصوصية', href: '/privacy-policy' },
-  { name: 'Terms of Service', nameAr: 'شروط الخدمة', href: '/terms-of-service' },
+  { name: 'Privacy Policy', nameAr: 'سياسة الخصوصية', href: '/privacy' },
+  { name: 'Terms of Service', nameAr: 'شروط الخدمة', href: '/terms' },
 ];
 
 export default function Footer() {

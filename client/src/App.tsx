@@ -32,6 +32,7 @@ import HowWeWork from "./pages/HowWeWork";
 import Resources from "./pages/Resources";
 import FAQ from "./pages/FAQ";
 import Careers from "./pages/Careers";
+import Terms from "./pages/Terms";
 
 function Router() {
   return (
@@ -76,6 +77,7 @@ function Router() {
       <Route path="/privacy-policy" component={PrivacyPolicy} />
       <Route path="/terms-of-service" component={TermsOfService} />
       <Route path="/cookie-notice" component={CookieNotice} />
+      <Route path="/terms" component={Terms} />
       
       {/* 404 */}
       <Route path="/404" component={NotFound} />
