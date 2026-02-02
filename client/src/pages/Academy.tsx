@@ -1,754 +1,731 @@
 /**
- * CauseWay Academy Page
- * World-class learning hub with curated free resources from global institutions
- * Brand Colors: #133129 (forest), #224B40 (teal), #406D61 (sage), #d4a84b (gold), #faf9f6 (cream)
+ * CauseWay Academy - Premium Executive Training Platform
+ * World-class executive education for financial institutions
+ * Design: McKinsey Academy / Deloitte University inspired
+ * Brand Colors: #1a3a2f (forest), #c9a227 (gold), #fafaf8 (cream)
  */
 
 import { useState } from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { motion, AnimatePresence } from 'framer-motion';
 import { 
-  GraduationCap, BookOpen, Award, Globe, ExternalLink, Clock, Users, Star,
-  Building2, Landmark, Shield, Coins, TrendingUp, Smartphone, Calculator,
-  FileText, Video, Headphones, Download, ChevronRight, Sparkles, Target,
-  CheckCircle2, Play, ArrowRight
+  GraduationCap, Users, Building2, Shield, TrendingUp, Landmark, Monitor,
+  UserCog, ClipboardCheck, ChevronRight, ArrowRight, BookOpen, Award,
+  Clock, Target, CheckCircle2, Globe, Briefcase, Scale
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'wouter';
 
-// Learning Tracks - Curated paths for different career goals
-const learningTracks = {
+// Executive Training Tracks based on CauseWay's actual services
+const trainingTracks = {
   en: [
     {
+      id: 'board-leadership',
+      icon: Users,
+      title: 'Board & Executive Leadership',
+      subtitle: 'Strategic Governance for Decision Makers',
+      description: 'Equip board members and C-suite executives with the governance frameworks, fiduciary knowledge, and strategic oversight capabilities required to lead financial institutions in complex environments.',
+      audience: 'Board Members, CEOs, Executive Directors',
+      duration: '3-5 Days',
+      format: 'In-Person / Hybrid',
+      programs: [
+        'IFC Certified Board Director Program',
+        'Strategic Governance & Oversight',
+        'Enterprise Risk Management for Boards',
+        'Regulatory Relations & Compliance Oversight',
+        'Fiduciary Duties & Ethical Leadership'
+      ],
+      outcomes: [
+        'Board-ready governance frameworks',
+        'Strategic decision-making confidence',
+        'Regulatory relationship management',
+        'Risk appetite articulation'
+      ],
+      color: 'from-emerald-600 to-emerald-800'
+    },
+    {
       id: 'islamic-finance',
-      title: 'Islamic Finance Professional',
-      description: 'Master Sharia-compliant financial products and AAOIFI standards',
-      icon: Landmark,
-      duration: '40+ hours',
-      courses: 8,
-      level: 'Beginner to Advanced',
-      color: 'from-emerald-600 to-teal-700',
-      featured: true,
-      resources: [
-        { name: 'Marifa Academy - Full Course Library', provider: 'Marifa Academy', url: 'https://www.marifaacademy.com/', type: 'course', language: 'en', free: true, certificate: true },
-        { name: 'Islamic Finance for SDGs', provider: 'IsDB via edX', url: 'https://www.edx.org/learn/sustainable-development/islamic-development-bank-institute-islamic-finance-for-the-sustainable-development-goals', type: 'course', language: 'en', free: true, certificate: false },
-        { name: '7-Day Accelerated Course', provider: 'Ethica Institute', url: 'https://www.ethica.institute/free-islamic-banking-finance-course.aspx', type: 'course', language: 'en', free: true, certificate: false },
-        { name: 'Global Islamic Finance & Banking', provider: 'Alison', url: 'https://alison.com/course/global-islamic-finance-and-banking', type: 'course', language: 'en', free: true, certificate: true },
-        { name: 'AAOIFI Standards Library', provider: 'AAOIFI', url: 'https://aaoifi.com/', type: 'reference', language: 'en', free: false, certificate: false },
-      ]
+      icon: Scale,
+      title: 'Islamic Finance & Sharia Governance',
+      subtitle: 'AAOIFI-Aligned Product Engineering',
+      description: 'Master the principles of Sharia-compliant finance, from product structuring to SSB relations. Build audit-ready Islamic finance operations aligned with AAOIFI standards.',
+      audience: 'Sharia Compliance Officers, Product Managers, SSB Liaisons',
+      duration: '5-10 Days',
+      format: 'In-Person / Online',
+      programs: [
+        'Islamic Finance Fundamentals & Structures',
+        'Sharia Product Engineering (Murabaha, Ijara, Musharakah)',
+        'SSB Relations & Fatwa Documentation',
+        'Sharia Audit & Evidence Discipline',
+        'AAOIFI Standards Implementation'
+      ],
+      outcomes: [
+        'Sharia-compliant product design capability',
+        'SSB briefing pack preparation',
+        'Audit-ready documentation standards',
+        'Control-point mapping expertise'
+      ],
+      color: 'from-amber-600 to-amber-800'
     },
     {
-      id: 'aml-compliance',
-      title: 'AML & Compliance Specialist',
-      description: 'FATF recommendations, KYC, sanctions screening, and financial crime prevention',
+      id: 'risk-compliance',
       icon: Shield,
-      duration: '35+ hours',
-      courses: 7,
-      level: 'Intermediate',
-      color: 'from-blue-600 to-indigo-700',
-      featured: true,
-      resources: [
-        { name: 'UNODC Anti-Corruption e-Learning', provider: 'United Nations', url: 'https://www.unodc.org/corruption/en/learn/e-learning-courses.html', type: 'course', language: 'both', free: true, certificate: true },
-        { name: 'Basel LEARN Platform', provider: 'Basel Institute', url: 'https://learn.baselgovernance.org/', type: 'course', language: 'en', free: true, certificate: true },
-        { name: 'FATF Academy', provider: 'FATF', url: 'https://www.fatf-gafi.org/en/pages/FATF-academy.html', type: 'course', language: 'en', free: true, certificate: false },
-        { name: 'مكافحة غسل الأموال', provider: 'Alfaisal via Coursera', url: 'https://www.coursera.org/learn/anti-money-laundering', type: 'course', language: 'ar', free: true, certificate: false },
-        { name: 'AML Training with Certificate', provider: 'KYC Lookup', url: 'https://www.kyclookup.com/knowledgebase/how-to-obtain-a-free-aml-certification/', type: 'course', language: 'en', free: true, certificate: true },
-      ]
+      title: 'Risk & Compliance Excellence',
+      subtitle: 'AML/CFT, Sanctions & Credit Risk',
+      description: 'Build robust compliance frameworks that withstand regulatory scrutiny. From AML/CFT to sanctions screening and credit risk governance—develop audit-defensible systems.',
+      audience: 'Compliance Officers, Risk Managers, Internal Auditors',
+      duration: '5-7 Days',
+      format: 'In-Person / Hybrid',
+      programs: [
+        'AML/CFT Framework Design & Implementation',
+        'Sanctions Screening & Exception Governance',
+        'Credit Risk Management & IFRS-9',
+        'Operational Risk & Control Matrices',
+        'Certified Compliance Manager Preparation'
+      ],
+      outcomes: [
+        'Regulator-ready compliance frameworks',
+        'Evidence-based control systems',
+        'Risk appetite documentation',
+        'Audit trail discipline'
+      ],
+      color: 'from-red-600 to-red-800'
     },
     {
-      id: 'financial-literacy',
-      title: 'Financial Literacy Educator',
-      description: 'Personal finance, budgeting, savings, and investment fundamentals',
-      icon: Coins,
-      duration: '25+ hours',
-      courses: 6,
-      level: 'Beginner',
-      color: 'from-amber-600 to-orange-700',
-      featured: false,
-      resources: [
-        { name: 'Financial Literacy Complete Course', provider: 'Khan Academy', url: 'https://www.khanacademy.org/college-careers-more/financial-literacy', type: 'course', language: 'both', free: true, certificate: false },
-        { name: 'الثقافة المالية', provider: 'Alfaisal via Coursera', url: 'https://www.coursera.org/learn/financial-literacy', type: 'course', language: 'ar', free: true, certificate: false },
-        { name: 'مهارات مالية أساسية', provider: 'Edraak', url: 'https://www.edraak.org/en/specialization/fundamental-financial-skills-specialization/', type: 'course', language: 'ar', free: true, certificate: true },
-        { name: 'Financial Literacy', provider: 'Al Ghurair Foundation', url: 'https://www.for9a.com/en/courses/Free-Online-Course-in-Financial-Literacy-from-Abdulla-Al-Ghurair-Foundation-for-Education', type: 'course', language: 'both', free: true, certificate: true },
-        { name: 'Intuit Financial Education', provider: 'Intuit', url: 'https://www.intuit.com/solutions/education/', type: 'tool', language: 'en', free: true, certificate: false },
-      ]
-    },
-    {
-      id: 'governance-risk',
-      title: 'Governance & Risk Manager',
-      description: 'Basel framework, board governance, internal controls, and audit',
+      id: 'banking-operations',
       icon: Building2,
-      duration: '45+ hours',
-      courses: 9,
-      level: 'Advanced',
-      color: 'from-purple-600 to-violet-700',
-      featured: false,
-      resources: [
-        { name: 'Basel LEARN Governance Courses', provider: 'Basel Institute', url: 'https://learn.baselgovernance.org/', type: 'course', language: 'en', free: true, certificate: true },
-        { name: 'Corporate Governance', provider: 'Coursera', url: 'https://www.coursera.org/learn/corporate-governance-1', type: 'course', language: 'en', free: true, certificate: false },
-        { name: 'Introduction to Risk Management', provider: 'NYIF via edX', url: 'https://www.edx.org/learn/economics/new-york-institute-of-finance-introduction-to-risk-management', type: 'course', language: 'en', free: true, certificate: false },
-        { name: 'Basel I to III Implementation', provider: 'IMF', url: 'https://www.imf.org/en/publications/wp/issues/2019/06/14/from-basel-i-to-basel-iii-sequencing-implementation-in-developing-economies-46895', type: 'reference', language: 'en', free: true, certificate: false },
-        { name: 'World Bank Corporate Governance', provider: 'World Bank', url: 'https://www.worldbank.org/en/topic/financialsector/brief/corporate-governance', type: 'reference', language: 'en', free: true, certificate: false },
-      ]
+      title: 'Banking Operations & Transformation',
+      subtitle: 'From Microfinance to Bank Readiness',
+      description: 'Navigate institutional transformation with confidence. Master process re-engineering, operating model design, and the governance uplift required for regulatory advancement.',
+      audience: 'Operations Directors, Branch Managers, Transformation Leads',
+      duration: '5-10 Days',
+      format: 'In-Person',
+      programs: [
+        'Institutional Transformation Roadmap',
+        'Process Re-engineering (BPR) for Banks',
+        'Operating Model Design (HQ vs Branches)',
+        'Product Portfolio Modernization',
+        'Segregation of Duties & Maker/Checker Controls'
+      ],
+      outcomes: [
+        'Transformation governance capability',
+        'Process optimization expertise',
+        'Committee architecture design',
+        'Scalable operating models'
+      ],
+      color: 'from-blue-600 to-blue-800'
     },
     {
-      id: 'central-banking',
-      title: 'Central Banking & Monetary Policy',
-      description: 'Monetary economics, inflation, exchange rates, and financial stability',
-      icon: Landmark,
-      duration: '30+ hours',
-      courses: 6,
-      level: 'Intermediate to Advanced',
-      color: 'from-slate-600 to-gray-700',
-      featured: false,
-      resources: [
-        { name: 'Central Banks and Monetary Policy', provider: 'UIUC via Coursera', url: 'https://www.coursera.org/learn/central-banks-monetary-policies', type: 'course', language: 'en', free: true, certificate: false },
-        { name: 'النظام النقدي', provider: 'Alfaisal via Coursera', url: 'https://www.coursera.org/learn/monetary-system', type: 'course', language: 'ar', free: true, certificate: false },
-        { name: 'Money, Banking & Central Banks', provider: 'Khan Academy', url: 'https://www.khanacademy.org/economics-finance-domain/core-finance/money-and-banking', type: 'course', language: 'both', free: true, certificate: false },
-        { name: 'Monetary Policy Analysis', provider: 'IMF via edX', url: 'https://www.edx.org/learn/finance/the-international-monetary-fund-monetary-policy-analysis-and-forecasting', type: 'course', language: 'en', free: true, certificate: false },
-        { name: 'Govern the Bank Simulator', provider: 'Central Bank Simulation', url: 'https://governthebank.com/', type: 'tool', language: 'en', free: true, certificate: false },
-      ]
-    },
-    {
-      id: 'digital-fintech',
-      title: 'Digital Banking & Fintech',
-      description: 'Mobile banking, blockchain, digital payments, and cybersecurity',
-      icon: Smartphone,
-      duration: '35+ hours',
-      courses: 7,
-      level: 'Beginner to Intermediate',
-      color: 'from-cyan-600 to-sky-700',
-      featured: false,
-      resources: [
-        { name: 'Fundamentals of Digital Banking', provider: 'Great Learning', url: 'https://www.mygreatlearning.com/academy/learn-for-free/courses/fundamentals-of-digital-banking', type: 'course', language: 'en', free: true, certificate: true },
-        { name: 'Fintech Foundations', provider: 'UPenn via Coursera', url: 'https://www.coursera.org/specializations/fintech-foundations-applications-financial-technology', type: 'course', language: 'en', free: true, certificate: false },
-        { name: 'Fintech Innovations', provider: 'UMich via Coursera', url: 'https://www.coursera.org/specializations/financial-technology-innovations', type: 'course', language: 'en', free: true, certificate: false },
-        { name: 'FinTech Applications', provider: 'Alison', url: 'https://alison.com/course/fintech-applications-and-future-prospects', type: 'course', language: 'en', free: true, certificate: true },
-        { name: 'التكنولوجيا المالية للأعمال', provider: 'Edraak', url: 'https://www.edraak.org/en/programs/course/capitalbank-3-v3/', type: 'course', language: 'ar', free: true, certificate: true },
-      ]
-    },
-    {
-      id: 'microfinance',
-      title: 'Microfinance & Financial Inclusion',
-      description: 'Impact investing, social finance, and MFI operations',
+      id: 'finance-treasury',
       icon: TrendingUp,
-      duration: '25+ hours',
-      courses: 5,
-      level: 'Intermediate',
-      color: 'from-green-600 to-emerald-700',
-      featured: false,
-      resources: [
-        { name: 'مهارات إدارة الأموال بنجاح', provider: 'Edraak', url: 'https://www.edraak.org/programs/course/finlit-v2020/', type: 'course', language: 'ar', free: true, certificate: true },
-        { name: 'Financial Inclusion (Digital)', provider: 'IDB via Coursera', url: 'https://www.coursera.org/learn/perspectives-in-digital-transformation-financial-inclusion', type: 'course', language: 'en', free: true, certificate: false },
-        { name: 'Systemic Approach to Financial Inclusion', provider: 'World Bank', url: 'https://www.worldbank.org/en/olc/course/31634', type: 'course', language: 'en', free: true, certificate: false },
-        { name: 'Challenges of Global Poverty', provider: 'MIT via edX', url: 'https://www.edx.org/learn/poverty/massachusetts-institute-of-technology-the-challenges-of-global-poverty', type: 'course', language: 'en', free: true, certificate: false },
-        { name: 'Yemen Microfinance Academy', provider: 'Yemen MF Network', url: 'https://yemennetwork.academy/', type: 'course', language: 'both', free: true, certificate: false },
-      ]
+      title: 'Finance & Treasury Governance',
+      subtitle: 'Investment Policy & Board Reporting',
+      description: 'Build treasury and investment functions that stand before boards and regulators. Master investment policy design, portfolio governance, and board-grade reporting.',
+      audience: 'CFOs, Treasury Managers, Investment Officers',
+      duration: '3-5 Days',
+      format: 'In-Person / Online',
+      programs: [
+        'Investment Policy Statement (IPS) Design',
+        'Treasury Committee Governance',
+        'Portfolio Architecture & Risk Limits',
+        'Sharia Investment Screening',
+        'Board-Ready Financial Reporting'
+      ],
+      outcomes: [
+        'Committee-safe treasury governance',
+        'Investment mandate documentation',
+        'Performance reporting frameworks',
+        'Liquidity management discipline'
+      ],
+      color: 'from-purple-600 to-purple-800'
     },
     {
-      id: 'development-finance',
-      title: 'Development Finance & Impact',
-      description: 'DFI operations, blended finance, SDGs, and climate finance',
-      icon: Globe,
-      duration: '30+ hours',
-      courses: 6,
-      level: 'Intermediate to Advanced',
-      color: 'from-teal-600 to-green-700',
-      featured: false,
-      resources: [
-        { name: 'SDG Academy Courses', provider: 'UN SDSN', url: 'https://sdgacademy.org/', type: 'course', language: 'en', free: true, certificate: false },
-        { name: 'Climate Finance', provider: 'World Bank', url: 'https://olc.worldbank.org/content/climate-finance', type: 'course', language: 'en', free: true, certificate: false },
-        { name: 'Blended Finance', provider: 'Convergence', url: 'https://www.convergence.finance/knowledge', type: 'reference', language: 'en', free: true, certificate: false },
-        { name: 'Impact Measurement', provider: 'GIIN', url: 'https://thegiin.org/research/', type: 'reference', language: 'en', free: true, certificate: false },
-        { name: 'UN SDG Learn', provider: 'United Nations', url: 'https://www.unsdglearn.org/', type: 'course', language: 'both', free: true, certificate: true },
-      ]
+      id: 'technology-digital',
+      icon: Monitor,
+      title: 'Technology & Digital Banking',
+      subtitle: 'Core Systems & Cybersecurity',
+      description: 'Lead digital transformation with governance discipline. From core banking selection to cybersecurity frameworks—build technology capabilities that support institutional growth.',
+      audience: 'CIOs, IT Directors, Digital Transformation Leads',
+      duration: '5-7 Days',
+      format: 'In-Person / Online',
+      programs: [
+        'Digital Transformation Governance',
+        'Core Banking System Selection (RFP/Vendor)',
+        'Cybersecurity for Financial Institutions',
+        'IT Governance (ITIL/COBIT)',
+        'Data Analytics & Business Intelligence'
+      ],
+      outcomes: [
+        'Technology governance frameworks',
+        'Vendor selection discipline',
+        'Cybersecurity readiness',
+        'Digital audit trails'
+      ],
+      color: 'from-cyan-600 to-cyan-800'
     },
+    {
+      id: 'human-capital',
+      icon: UserCog,
+      title: 'Human Capital & Leadership',
+      subtitle: 'HR Excellence for Financial Institutions',
+      description: 'Develop HR capabilities tailored for regulated financial institutions. From talent acquisition to performance management—build people systems that support institutional excellence.',
+      audience: 'HR Directors, Training Managers, Organizational Development',
+      duration: '3-5 Days',
+      format: 'In-Person / Online',
+      programs: [
+        'SHRM-CP/SHRM-SCP Preparation',
+        'HR for Financial Institutions',
+        'Performance Management Systems',
+        'Training Needs Assessment & ROI',
+        'Organizational Development & Design'
+      ],
+      outcomes: [
+        'HR governance frameworks',
+        'Competency-based systems',
+        'Training impact measurement',
+        'Succession planning capability'
+      ],
+      color: 'from-pink-600 to-pink-800'
+    },
+    {
+      id: 'audit-assurance',
+      icon: ClipboardCheck,
+      title: 'Audit & Assurance',
+      subtitle: 'CIA, CISA & Evidence Discipline',
+      description: 'Build internal audit capabilities that provide assurance to boards and regulators. Master evidence-based auditing, IT audit, and the documentation discipline required for credibility.',
+      audience: 'Internal Auditors, IT Auditors, Audit Committee Members',
+      duration: '5-10 Days',
+      format: 'In-Person / Online',
+      programs: [
+        'CIA Certification Preparation',
+        'CISA (IT Audit) Certification Preparation',
+        'Evidence-Based Internal Auditing',
+        'Audit Committee Relations',
+        'Risk-Based Audit Planning'
+      ],
+      outcomes: [
+        'Certification readiness',
+        'Evidence discipline mastery',
+        'Audit report excellence',
+        'Committee presentation skills'
+      ],
+      color: 'from-slate-600 to-slate-800'
+    }
   ],
   ar: [
     {
+      id: 'board-leadership',
+      icon: Users,
+      title: 'القيادة التنفيذية ومجلس الإدارة',
+      subtitle: 'الحوكمة الاستراتيجية لصناع القرار',
+      description: 'تزويد أعضاء مجلس الإدارة والمديرين التنفيذيين بأطر الحوكمة والمعرفة الائتمانية وقدرات الرقابة الاستراتيجية المطلوبة لقيادة المؤسسات المالية في البيئات المعقدة.',
+      audience: 'أعضاء مجلس الإدارة، الرؤساء التنفيذيون، المديرون التنفيذيون',
+      duration: '٣-٥ أيام',
+      format: 'حضوري / هجين',
+      programs: [
+        'برنامج عضو مجلس إدارة معتمد من IFC',
+        'الحوكمة والرقابة الاستراتيجية',
+        'إدارة المخاطر المؤسسية لمجالس الإدارة',
+        'العلاقات التنظيمية والرقابة على الامتثال',
+        'الواجبات الائتمانية والقيادة الأخلاقية'
+      ],
+      outcomes: [
+        'أطر حوكمة جاهزة لمجلس الإدارة',
+        'ثقة في اتخاذ القرارات الاستراتيجية',
+        'إدارة العلاقات التنظيمية',
+        'صياغة شهية المخاطر'
+      ],
+      color: 'from-emerald-600 to-emerald-800'
+    },
+    {
       id: 'islamic-finance',
-      title: 'محترف التمويل الإسلامي',
-      description: 'إتقان المنتجات المالية المتوافقة مع الشريعة ومعايير أيوفي',
-      icon: Landmark,
-      duration: '+40 ساعة',
-      courses: 8,
-      level: 'مبتدئ إلى متقدم',
-      color: 'from-emerald-600 to-teal-700',
-      featured: true,
-      resources: [
-        { name: 'مكتبة دورات معرفة الكاملة', provider: 'أكاديمية معرفة', url: 'https://www.marifaacademy.com/', type: 'course', language: 'en', free: true, certificate: true },
-        { name: 'التمويل الإسلامي لأهداف التنمية المستدامة', provider: 'البنك الإسلامي للتنمية عبر edX', url: 'https://www.edx.org/learn/sustainable-development/islamic-development-bank-institute-islamic-finance-for-the-sustainable-development-goals', type: 'course', language: 'en', free: true, certificate: false },
-        { name: 'دورة مكثفة 7 أيام', provider: 'معهد إيثيكا', url: 'https://www.ethica.institute/free-islamic-banking-finance-course.aspx', type: 'course', language: 'en', free: true, certificate: false },
-        { name: 'التمويل والبنوك الإسلامية العالمية', provider: 'أليسون', url: 'https://alison.com/course/global-islamic-finance-and-banking', type: 'course', language: 'en', free: true, certificate: true },
-        { name: 'مكتبة معايير أيوفي', provider: 'أيوفي', url: 'https://aaoifi.com/', type: 'reference', language: 'en', free: false, certificate: false },
-      ]
+      icon: Scale,
+      title: 'التمويل الإسلامي والحوكمة الشرعية',
+      subtitle: 'هندسة المنتجات وفق معايير أيوفي',
+      description: 'إتقان مبادئ التمويل المتوافق مع الشريعة، من هيكلة المنتجات إلى العلاقات مع الهيئة الشرعية. بناء عمليات تمويل إسلامي جاهزة للتدقيق ومتوافقة مع معايير أيوفي.',
+      audience: 'مسؤولو الالتزام الشرعي، مديرو المنتجات، منسقو الهيئة الشرعية',
+      duration: '٥-١٠ أيام',
+      format: 'حضوري / عن بُعد',
+      programs: [
+        'أساسيات وهياكل التمويل الإسلامي',
+        'هندسة المنتجات الشرعية (المرابحة، الإجارة، المشاركة)',
+        'العلاقات مع الهيئة الشرعية وتوثيق الفتاوى',
+        'التدقيق الشرعي وانضباط الأدلة',
+        'تطبيق معايير أيوفي'
+      ],
+      outcomes: [
+        'قدرة تصميم المنتجات المتوافقة شرعياً',
+        'إعداد حزم عرض الهيئة الشرعية',
+        'معايير التوثيق الجاهز للتدقيق',
+        'خبرة رسم نقاط التحقق'
+      ],
+      color: 'from-amber-600 to-amber-800'
     },
     {
-      id: 'aml-compliance',
-      title: 'أخصائي مكافحة غسل الأموال والامتثال',
-      description: 'توصيات فاتف، اعرف عميلك، فحص العقوبات، ومنع الجرائم المالية',
+      id: 'risk-compliance',
       icon: Shield,
-      duration: '+35 ساعة',
-      courses: 7,
-      level: 'متوسط',
-      color: 'from-blue-600 to-indigo-700',
-      featured: true,
-      resources: [
-        { name: 'التعلم الإلكتروني لمكافحة الفساد', provider: 'الأمم المتحدة', url: 'https://www.unodc.org/corruption/en/learn/e-learning-courses.html', type: 'course', language: 'both', free: true, certificate: true },
-        { name: 'منصة بازل للتعلم', provider: 'معهد بازل', url: 'https://learn.baselgovernance.org/', type: 'course', language: 'en', free: true, certificate: true },
-        { name: 'أكاديمية فاتف', provider: 'فاتف', url: 'https://www.fatf-gafi.org/en/pages/FATF-academy.html', type: 'course', language: 'en', free: true, certificate: false },
-        { name: 'مكافحة غسل الأموال', provider: 'الفيصل عبر كورسيرا', url: 'https://www.coursera.org/learn/anti-money-laundering', type: 'course', language: 'ar', free: true, certificate: false },
-        { name: 'تدريب مكافحة غسل الأموال مع شهادة', provider: 'KYC Lookup', url: 'https://www.kyclookup.com/knowledgebase/how-to-obtain-a-free-aml-certification/', type: 'course', language: 'en', free: true, certificate: true },
-      ]
+      title: 'التميز في المخاطر والامتثال',
+      subtitle: 'مكافحة غسل الأموال والعقوبات ومخاطر الائتمان',
+      description: 'بناء أطر امتثال قوية تصمد أمام التدقيق التنظيمي. من مكافحة غسل الأموال إلى فحص العقوبات وحوكمة مخاطر الائتمان—تطوير أنظمة قابلة للدفاع أمام التدقيق.',
+      audience: 'مسؤولو الامتثال، مديرو المخاطر، المدققون الداخليون',
+      duration: '٥-٧ أيام',
+      format: 'حضوري / هجين',
+      programs: [
+        'تصميم وتنفيذ إطار مكافحة غسل الأموال',
+        'فحص العقوبات وحوكمة الاستثناءات',
+        'إدارة مخاطر الائتمان ومعيار IFRS-9',
+        'المخاطر التشغيلية ومصفوفات الضوابط',
+        'التحضير لشهادة مدير امتثال معتمد'
+      ],
+      outcomes: [
+        'أطر امتثال جاهزة للجهات الرقابية',
+        'أنظمة ضوابط مبنية على الأدلة',
+        'توثيق شهية المخاطر',
+        'انضباط مسارات التدقيق'
+      ],
+      color: 'from-red-600 to-red-800'
     },
     {
-      id: 'financial-literacy',
-      title: 'معلم الثقافة المالية',
-      description: 'التمويل الشخصي، الميزانية، الادخار، وأساسيات الاستثمار',
-      icon: Coins,
-      duration: '+25 ساعة',
-      courses: 6,
-      level: 'مبتدئ',
-      color: 'from-amber-600 to-orange-700',
-      featured: false,
-      resources: [
-        { name: 'دورة الثقافة المالية الكاملة', provider: 'أكاديمية خان', url: 'https://www.khanacademy.org/college-careers-more/financial-literacy', type: 'course', language: 'both', free: true, certificate: false },
-        { name: 'الثقافة المالية', provider: 'الفيصل عبر كورسيرا', url: 'https://www.coursera.org/learn/financial-literacy', type: 'course', language: 'ar', free: true, certificate: false },
-        { name: 'مهارات مالية أساسية', provider: 'إدراك', url: 'https://www.edraak.org/en/specialization/fundamental-financial-skills-specialization/', type: 'course', language: 'ar', free: true, certificate: true },
-        { name: 'الثقافة المالية', provider: 'مؤسسة الغرير', url: 'https://www.for9a.com/en/courses/Free-Online-Course-in-Financial-Literacy-from-Abdulla-Al-Ghurair-Foundation-for-Education', type: 'course', language: 'both', free: true, certificate: true },
-        { name: 'التعليم المالي من إنتويت', provider: 'إنتويت', url: 'https://www.intuit.com/solutions/education/', type: 'tool', language: 'en', free: true, certificate: false },
-      ]
-    },
-    {
-      id: 'governance-risk',
-      title: 'مدير الحوكمة والمخاطر',
-      description: 'إطار بازل، حوكمة مجلس الإدارة، الضوابط الداخلية، والتدقيق',
+      id: 'banking-operations',
       icon: Building2,
-      duration: '+45 ساعة',
-      courses: 9,
-      level: 'متقدم',
-      color: 'from-purple-600 to-violet-700',
-      featured: false,
-      resources: [
-        { name: 'دورات الحوكمة من بازل', provider: 'معهد بازل', url: 'https://learn.baselgovernance.org/', type: 'course', language: 'en', free: true, certificate: true },
-        { name: 'حوكمة الشركات', provider: 'كورسيرا', url: 'https://www.coursera.org/learn/corporate-governance-1', type: 'course', language: 'en', free: true, certificate: false },
-        { name: 'مقدمة في إدارة المخاطر', provider: 'NYIF عبر edX', url: 'https://www.edx.org/learn/economics/new-york-institute-of-finance-introduction-to-risk-management', type: 'course', language: 'en', free: true, certificate: false },
-        { name: 'تطبيق بازل I إلى III', provider: 'صندوق النقد الدولي', url: 'https://www.imf.org/en/publications/wp/issues/2019/06/14/from-basel-i-to-basel-iii-sequencing-implementation-in-developing-economies-46895', type: 'reference', language: 'en', free: true, certificate: false },
-        { name: 'حوكمة الشركات من البنك الدولي', provider: 'البنك الدولي', url: 'https://www.worldbank.org/en/topic/financialsector/brief/corporate-governance', type: 'reference', language: 'en', free: true, certificate: false },
-      ]
+      title: 'العمليات المصرفية والتحول',
+      subtitle: 'من التمويل الأصغر إلى الجاهزية المصرفية',
+      description: 'التنقل في التحول المؤسسي بثقة. إتقان إعادة هندسة العمليات وتصميم النموذج التشغيلي والارتقاء بالحوكمة المطلوبة للتقدم التنظيمي.',
+      audience: 'مديرو العمليات، مديرو الفروع، قادة التحول',
+      duration: '٥-١٠ أيام',
+      format: 'حضوري',
+      programs: [
+        'خارطة طريق التحول المؤسسي',
+        'إعادة هندسة العمليات للبنوك',
+        'تصميم النموذج التشغيلي (المركز مقابل الفروع)',
+        'تحديث محفظة المنتجات',
+        'فصل المهام وضوابط Maker/Checker'
+      ],
+      outcomes: [
+        'قدرة حوكمة التحول',
+        'خبرة تحسين العمليات',
+        'تصميم هيكل اللجان',
+        'نماذج تشغيلية قابلة للتوسع'
+      ],
+      color: 'from-blue-600 to-blue-800'
     },
     {
-      id: 'central-banking',
-      title: 'البنوك المركزية والسياسة النقدية',
-      description: 'الاقتصاد النقدي، التضخم، أسعار الصرف، والاستقرار المالي',
-      icon: Landmark,
-      duration: '+30 ساعة',
-      courses: 6,
-      level: 'متوسط إلى متقدم',
-      color: 'from-slate-600 to-gray-700',
-      featured: false,
-      resources: [
-        { name: 'البنوك المركزية والسياسة النقدية', provider: 'UIUC عبر كورسيرا', url: 'https://www.coursera.org/learn/central-banks-monetary-policies', type: 'course', language: 'en', free: true, certificate: false },
-        { name: 'النظام النقدي', provider: 'الفيصل عبر كورسيرا', url: 'https://www.coursera.org/learn/monetary-system', type: 'course', language: 'ar', free: true, certificate: false },
-        { name: 'النقود والبنوك والبنوك المركزية', provider: 'أكاديمية خان', url: 'https://www.khanacademy.org/economics-finance-domain/core-finance/money-and-banking', type: 'course', language: 'both', free: true, certificate: false },
-        { name: 'تحليل السياسة النقدية', provider: 'صندوق النقد عبر edX', url: 'https://www.edx.org/learn/finance/the-international-monetary-fund-monetary-policy-analysis-and-forecasting', type: 'course', language: 'en', free: true, certificate: false },
-        { name: 'محاكي إدارة البنك المركزي', provider: 'Central Bank Simulation', url: 'https://governthebank.com/', type: 'tool', language: 'en', free: true, certificate: false },
-      ]
-    },
-    {
-      id: 'digital-fintech',
-      title: 'البنوك الرقمية والتكنولوجيا المالية',
-      description: 'الخدمات المصرفية عبر الهاتف، البلوكتشين، المدفوعات الرقمية، والأمن السيبراني',
-      icon: Smartphone,
-      duration: '+35 ساعة',
-      courses: 7,
-      level: 'مبتدئ إلى متوسط',
-      color: 'from-cyan-600 to-sky-700',
-      featured: false,
-      resources: [
-        { name: 'أساسيات البنوك الرقمية', provider: 'Great Learning', url: 'https://www.mygreatlearning.com/academy/learn-for-free/courses/fundamentals-of-digital-banking', type: 'course', language: 'en', free: true, certificate: true },
-        { name: 'أساسيات التكنولوجيا المالية', provider: 'UPenn عبر كورسيرا', url: 'https://www.coursera.org/specializations/fintech-foundations-applications-financial-technology', type: 'course', language: 'en', free: true, certificate: false },
-        { name: 'ابتكارات التكنولوجيا المالية', provider: 'UMich عبر كورسيرا', url: 'https://www.coursera.org/specializations/financial-technology-innovations', type: 'course', language: 'en', free: true, certificate: false },
-        { name: 'تطبيقات التكنولوجيا المالية', provider: 'أليسون', url: 'https://alison.com/course/fintech-applications-and-future-prospects', type: 'course', language: 'en', free: true, certificate: true },
-        { name: 'التكنولوجيا المالية للأعمال', provider: 'إدراك', url: 'https://www.edraak.org/en/programs/course/capitalbank-3-v3/', type: 'course', language: 'ar', free: true, certificate: true },
-      ]
-    },
-    {
-      id: 'microfinance',
-      title: 'التمويل الأصغر والشمول المالي',
-      description: 'الاستثمار المؤثر، التمويل الاجتماعي، وعمليات مؤسسات التمويل الأصغر',
+      id: 'finance-treasury',
       icon: TrendingUp,
-      duration: '+25 ساعة',
-      courses: 5,
-      level: 'متوسط',
-      color: 'from-green-600 to-emerald-700',
-      featured: false,
-      resources: [
-        { name: 'مهارات إدارة الأموال بنجاح', provider: 'إدراك', url: 'https://www.edraak.org/programs/course/finlit-v2020/', type: 'course', language: 'ar', free: true, certificate: true },
-        { name: 'الشمول المالي الرقمي', provider: 'IDB عبر كورسيرا', url: 'https://www.coursera.org/learn/perspectives-in-digital-transformation-financial-inclusion', type: 'course', language: 'en', free: true, certificate: false },
-        { name: 'نهج منظومي للشمول المالي', provider: 'البنك الدولي', url: 'https://www.worldbank.org/en/olc/course/31634', type: 'course', language: 'en', free: true, certificate: false },
-        { name: 'تحديات الفقر العالمي', provider: 'MIT عبر edX', url: 'https://www.edx.org/learn/poverty/massachusetts-institute-of-technology-the-challenges-of-global-poverty', type: 'course', language: 'en', free: true, certificate: false },
-        { name: 'أكاديمية التمويل الأصغر اليمنية', provider: 'شبكة التمويل الأصغر اليمنية', url: 'https://yemennetwork.academy/', type: 'course', language: 'both', free: true, certificate: false },
-      ]
+      title: 'حوكمة المالية والخزينة',
+      subtitle: 'سياسات الاستثمار وتقارير مجلس الإدارة',
+      description: 'بناء وظائف الخزينة والاستثمار التي تصمد أمام مجالس الإدارة والجهات الرقابية. إتقان تصميم سياسات الاستثمار وحوكمة المحافظ والتقارير الجاهزة لمجلس الإدارة.',
+      audience: 'المديرون الماليون، مديرو الخزينة، مسؤولو الاستثمار',
+      duration: '٣-٥ أيام',
+      format: 'حضوري / عن بُعد',
+      programs: [
+        'تصميم بيان سياسة الاستثمار (IPS)',
+        'حوكمة لجنة الخزينة',
+        'هيكلة المحفظة وحدود المخاطر',
+        'فحص الاستثمار الشرعي',
+        'التقارير المالية الجاهزة لمجلس الإدارة'
+      ],
+      outcomes: [
+        'حوكمة خزينة آمنة للجان',
+        'توثيق تفويضات الاستثمار',
+        'أطر تقارير الأداء',
+        'انضباط إدارة السيولة'
+      ],
+      color: 'from-purple-600 to-purple-800'
     },
     {
-      id: 'development-finance',
-      title: 'تمويل التنمية والأثر',
-      description: 'عمليات مؤسسات التمويل التنموية، التمويل المختلط، أهداف التنمية المستدامة، وتمويل المناخ',
-      icon: Globe,
-      duration: '+30 ساعة',
-      courses: 6,
-      level: 'متوسط إلى متقدم',
-      color: 'from-teal-600 to-green-700',
-      featured: false,
-      resources: [
-        { name: 'دورات أكاديمية أهداف التنمية المستدامة', provider: 'UN SDSN', url: 'https://sdgacademy.org/', type: 'course', language: 'en', free: true, certificate: false },
-        { name: 'تمويل المناخ', provider: 'البنك الدولي', url: 'https://olc.worldbank.org/content/climate-finance', type: 'course', language: 'en', free: true, certificate: false },
-        { name: 'التمويل المختلط', provider: 'Convergence', url: 'https://www.convergence.finance/knowledge', type: 'reference', language: 'en', free: true, certificate: false },
-        { name: 'قياس الأثر', provider: 'GIIN', url: 'https://thegiin.org/research/', type: 'reference', language: 'en', free: true, certificate: false },
-        { name: 'تعلم أهداف التنمية المستدامة', provider: 'الأمم المتحدة', url: 'https://www.unsdglearn.org/', type: 'course', language: 'both', free: true, certificate: true },
-      ]
+      id: 'technology-digital',
+      icon: Monitor,
+      title: 'التكنولوجيا والخدمات المصرفية الرقمية',
+      subtitle: 'الأنظمة الأساسية والأمن السيبراني',
+      description: 'قيادة التحول الرقمي بانضباط حوكمي. من اختيار النظام المصرفي الأساسي إلى أطر الأمن السيبراني—بناء قدرات تقنية تدعم النمو المؤسسي.',
+      audience: 'مديرو تقنية المعلومات، قادة التحول الرقمي',
+      duration: '٥-٧ أيام',
+      format: 'حضوري / عن بُعد',
+      programs: [
+        'حوكمة التحول الرقمي',
+        'اختيار النظام المصرفي الأساسي (RFP/الموردين)',
+        'الأمن السيبراني للمؤسسات المالية',
+        'حوكمة تقنية المعلومات (ITIL/COBIT)',
+        'تحليلات البيانات وذكاء الأعمال'
+      ],
+      outcomes: [
+        'أطر حوكمة التكنولوجيا',
+        'انضباط اختيار الموردين',
+        'الجاهزية للأمن السيبراني',
+        'مسارات التدقيق الرقمي'
+      ],
+      color: 'from-cyan-600 to-cyan-800'
     },
+    {
+      id: 'human-capital',
+      icon: UserCog,
+      title: 'رأس المال البشري والقيادة',
+      subtitle: 'التميز في الموارد البشرية للمؤسسات المالية',
+      description: 'تطوير قدرات الموارد البشرية المصممة للمؤسسات المالية الخاضعة للرقابة. من استقطاب المواهب إلى إدارة الأداء—بناء أنظمة بشرية تدعم التميز المؤسسي.',
+      audience: 'مديرو الموارد البشرية، مديرو التدريب، التطوير التنظيمي',
+      duration: '٣-٥ أيام',
+      format: 'حضوري / عن بُعد',
+      programs: [
+        'التحضير لشهادة SHRM-CP/SHRM-SCP',
+        'الموارد البشرية للمؤسسات المالية',
+        'أنظمة إدارة الأداء',
+        'تقييم الاحتياجات التدريبية والعائد على الاستثمار',
+        'التطوير والتصميم التنظيمي'
+      ],
+      outcomes: [
+        'أطر حوكمة الموارد البشرية',
+        'أنظمة قائمة على الجدارات',
+        'قياس أثر التدريب',
+        'قدرة تخطيط التعاقب'
+      ],
+      color: 'from-pink-600 to-pink-800'
+    },
+    {
+      id: 'audit-assurance',
+      icon: ClipboardCheck,
+      title: 'التدقيق والتأكيد',
+      subtitle: 'CIA وCISA وانضباط الأدلة',
+      description: 'بناء قدرات التدقيق الداخلي التي توفر التأكيد لمجالس الإدارة والجهات الرقابية. إتقان التدقيق المبني على الأدلة وتدقيق تقنية المعلومات وانضباط التوثيق المطلوب للمصداقية.',
+      audience: 'المدققون الداخليون، مدققو تقنية المعلومات، أعضاء لجنة التدقيق',
+      duration: '٥-١٠ أيام',
+      format: 'حضوري / عن بُعد',
+      programs: [
+        'التحضير لشهادة CIA',
+        'التحضير لشهادة CISA (تدقيق تقنية المعلومات)',
+        'التدقيق الداخلي المبني على الأدلة',
+        'العلاقات مع لجنة التدقيق',
+        'التخطيط للتدقيق المبني على المخاطر'
+      ],
+      outcomes: [
+        'الجاهزية للشهادات',
+        'إتقان انضباط الأدلة',
+        'التميز في تقارير التدقيق',
+        'مهارات العرض أمام اللجان'
+      ],
+      color: 'from-slate-600 to-slate-800'
+    }
   ]
 };
 
-// Interactive Tools & Simulators
-const interactiveTools = {
+const deliveryFormats = {
   en: [
-    { name: 'Central Bank Simulator', description: 'Act as a central bank governor and manage monetary policy', url: 'https://governthebank.com/', icon: Landmark, category: 'Simulation' },
-    { name: 'Fed Chair Simulator', description: 'Experience the challenges of Federal Reserve decision-making', url: 'https://powellschair.com/simulator', icon: TrendingUp, category: 'Simulation' },
-    { name: 'Islamic Finance Calculator', description: 'Calculate Murabaha, Ijara, Sukuk yields, and Zakat', url: '/tools/islamic-finance-calculator', icon: Calculator, category: 'Calculator', internal: true },
-    { name: 'Zakat Calculator', description: 'Calculate your annual Zakat obligation', url: 'https://islamic-relief.org/zakat-calculator/', icon: Coins, category: 'Calculator' },
-    { name: 'Murabaha Calculator', description: 'Calculate Islamic cost-plus financing', url: 'https://www.imamic.com/calculators/murabaha', icon: Calculator, category: 'Calculator' },
-    { name: 'Basel LEARN Interactive', description: 'Learn financial crime investigation through simulations', url: 'https://learn.baselgovernance.org/', icon: Shield, category: 'Interactive' },
+    { icon: Building2, title: 'In-House Programs', description: 'Customized training delivered at your institution, tailored to your specific context, systems, and governance requirements.' },
+    { icon: Globe, title: 'Open Enrollment', description: 'Join executives from peer institutions in structured programs at our regional training centers.' },
+    { icon: Monitor, title: 'Virtual Delivery', description: 'Live, instructor-led sessions with interactive workshops, case studies, and real-time Q&A.' },
+    { icon: Briefcase, title: 'Executive Retreats', description: 'Intensive multi-day programs for senior leadership teams, combining learning with strategic planning.' }
   ],
   ar: [
-    { name: 'محاكي البنك المركزي', description: 'تصرف كمحافظ بنك مركزي وأدر السياسة النقدية', url: 'https://governthebank.com/', icon: Landmark, category: 'محاكاة' },
-    { name: 'محاكي رئيس الاحتياطي الفيدرالي', description: 'اختبر تحديات صنع القرار في الاحتياطي الفيدرالي', url: 'https://powellschair.com/simulator', icon: TrendingUp, category: 'محاكاة' },
-    { name: 'حاسبة التمويل الإسلامي', description: 'احسب المرابحة والإجارة وعوائد الصكوك والزكاة', url: '/tools/islamic-finance-calculator', icon: Calculator, category: 'حاسبة', internal: true },
-    { name: 'حاسبة الزكاة', description: 'احسب زكاتك السنوية', url: 'https://islamic-relief.org/zakat-calculator/', icon: Coins, category: 'حاسبة' },
-    { name: 'حاسبة المرابحة', description: 'احسب التمويل الإسلامي بالتكلفة زائد الربح', url: 'https://www.imamic.com/calculators/murabaha', icon: Calculator, category: 'حاسبة' },
-    { name: 'بازل التفاعلي', description: 'تعلم التحقيق في الجرائم المالية من خلال المحاكاة', url: 'https://learn.baselgovernance.org/', icon: Shield, category: 'تفاعلي' },
+    { icon: Building2, title: 'البرامج الداخلية', description: 'تدريب مخصص يُقدم في مؤسستك، مصمم وفق سياقكم وأنظمتكم ومتطلبات الحوكمة الخاصة بكم.' },
+    { icon: Globe, title: 'التسجيل المفتوح', description: 'انضم إلى تنفيذيين من مؤسسات مماثلة في برامج منظمة بمراكزنا التدريبية الإقليمية.' },
+    { icon: Monitor, title: 'التقديم الافتراضي', description: 'جلسات حية بقيادة مدربين مع ورش عمل تفاعلية ودراسات حالة وأسئلة وأجوبة فورية.' },
+    { icon: Briefcase, title: 'الخلوات التنفيذية', description: 'برامج مكثفة متعددة الأيام لفرق القيادة العليا، تجمع بين التعلم والتخطيط الاستراتيجي.' }
   ]
 };
 
-// Key Partner Institutions
-const partnerInstitutions = [
-  { name: 'IMF', nameAr: 'صندوق النقد الدولي', logo: '🏛️' },
-  { name: 'World Bank', nameAr: 'البنك الدولي', logo: '🌍' },
-  { name: 'AAOIFI', nameAr: 'أيوفي', logo: '☪️' },
-  { name: 'FATF', nameAr: 'فاتف', logo: '🛡️' },
-  { name: 'Basel Institute', nameAr: 'معهد بازل', logo: '⚖️' },
-  { name: 'IsDB', nameAr: 'البنك الإسلامي للتنمية', logo: '🏦' },
-  { name: 'UN', nameAr: 'الأمم المتحدة', logo: '🇺🇳' },
-  { name: 'Edraak', nameAr: 'إدراك', logo: '📚' },
-];
+const stats = {
+  en: [
+    { value: '500+', label: 'Executives Trained' },
+    { value: '50+', label: 'Institutions Served' },
+    { value: '8', label: 'Specialized Tracks' },
+    { value: '95%', label: 'Satisfaction Rate' }
+  ],
+  ar: [
+    { value: '+٥٠٠', label: 'تنفيذي مُدرَّب' },
+    { value: '+٥٠', label: 'مؤسسة خُدمت' },
+    { value: '٨', label: 'مسارات متخصصة' },
+    { value: '٩٥٪', label: 'معدل الرضا' }
+  ]
+};
 
 export default function Academy() {
   const { language, isRTL } = useLanguage();
   const [selectedTrack, setSelectedTrack] = useState<string | null>(null);
-  const [activeTab, setActiveTab] = useState<'tracks' | 'tools' | 'certifications'>('tracks');
-  
-  const tracks = learningTracks[language];
-  const tools = interactiveTools[language];
+  const tracks = trainingTracks[language];
+  const formats = deliveryFormats[language];
+  const statsData = stats[language];
 
   const content = {
     en: {
-      badge: 'FREE LEARNING PLATFORM',
+      badge: 'Executive Education',
       title: 'CauseWay Academy',
-      subtitle: 'Your Gateway to Financial Excellence',
-      description: 'Access world-class training from IMF, World Bank, AAOIFI, and leading global institutions. 50+ curated courses, interactive tools, and professional certifications — all free.',
-      stats: {
-        courses: '50+',
-        coursesLabel: 'Free Courses',
-        hours: '300+',
-        hoursLabel: 'Learning Hours',
-        certs: '15+',
-        certsLabel: 'Certifications',
-        languages: '2',
-        languagesLabel: 'Languages'
-      },
-      tabs: {
-        tracks: 'Learning Tracks',
-        tools: 'Interactive Tools',
-        certifications: 'Certifications'
-      },
-      tracksCta: 'Explore Track',
-      toolsCta: 'Launch Tool',
-      viewAll: 'View All Resources',
-      featured: 'Featured',
-      free: 'Free',
-      certificate: 'Certificate',
-      arabic: 'Arabic',
-      english: 'English',
-      both: 'Bilingual',
-      partnersTitle: 'Curated from World-Leading Institutions',
-      ctaTitle: 'Start Your Learning Journey Today',
-      ctaDescription: 'Join thousands of professionals building their financial expertise with CauseWay Academy.',
-      ctaButton: 'Browse All Courses',
-      resourceTypes: {
-        course: 'Course',
-        reference: 'Reference',
-        tool: 'Tool'
-      }
+      subtitle: 'Building Institutional Excellence Through Capability',
+      description: 'World-class executive training designed for financial institutions operating in complex, compliance-intensive environments. Our programs build the governance, technical, and leadership capabilities that boards and regulators expect.',
+      cta: 'Request Program Catalog',
+      ctaSecondary: 'Schedule Consultation',
+      tracksTitle: 'Executive Training Tracks',
+      tracksSubtitle: 'Specialized programs aligned with CauseWay\'s core practice areas',
+      viewPrograms: 'View Programs',
+      hidePrograms: 'Hide Programs',
+      programs: 'Programs',
+      outcomes: 'Learning Outcomes',
+      audience: 'Target Audience',
+      duration: 'Duration',
+      format: 'Format',
+      deliveryTitle: 'Delivery Formats',
+      deliverySubtitle: 'Flexible options to meet your institutional needs',
+      whyTitle: 'Why CauseWay Academy',
+      whySubtitle: 'What sets our executive education apart',
+      whyPoints: [
+        { title: 'Practitioner-Led', description: 'Our faculty are active consultants who bring real-world experience from current engagements with banks and financial institutions.' },
+        { title: 'Governance-Grade', description: 'Every program is designed to produce outcomes that satisfy board scrutiny, regulatory review, and audit requirements.' },
+        { title: 'Context-Aware', description: 'We understand the unique challenges of operating in fragile, compliance-intensive markets—our content reflects this reality.' },
+        { title: 'Evidence-Based', description: 'Participants leave with templates, frameworks, and documentation standards they can implement immediately.' }
+      ],
+      inquiryTitle: 'Ready to Build Capability?',
+      inquirySubtitle: 'Contact us to discuss your institution\'s training needs',
+      inquiryButton: 'Request Information',
+      certifications: 'Certification Preparation',
+      certificationsDesc: 'We prepare candidates for internationally recognized certifications including CIA, CISA, CPA, CMA, SHRM, and IFC Board Director programs.'
     },
     ar: {
-      badge: 'منصة تعليمية مجانية',
+      badge: 'التعليم التنفيذي',
       title: 'أكاديمية كوزواي',
-      subtitle: 'بوابتك نحو التميز المالي',
-      description: 'احصل على تدريب عالمي المستوى من صندوق النقد الدولي والبنك الدولي وأيوفي والمؤسسات العالمية الرائدة. أكثر من 50 دورة منتقاة وأدوات تفاعلية وشهادات مهنية — كلها مجانية.',
-      stats: {
-        courses: '+50',
-        coursesLabel: 'دورة مجانية',
-        hours: '+300',
-        hoursLabel: 'ساعة تعليمية',
-        certs: '+15',
-        certsLabel: 'شهادة',
-        languages: '2',
-        languagesLabel: 'لغة'
-      },
-      tabs: {
-        tracks: 'مسارات التعلم',
-        tools: 'أدوات تفاعلية',
-        certifications: 'الشهادات'
-      },
-      tracksCta: 'استكشف المسار',
-      toolsCta: 'ابدأ الأداة',
-      viewAll: 'عرض جميع الموارد',
-      featured: 'مميز',
-      free: 'مجاني',
-      certificate: 'شهادة',
-      arabic: 'عربي',
-      english: 'إنجليزي',
-      both: 'ثنائي اللغة',
-      partnersTitle: 'منتقاة من المؤسسات العالمية الرائدة',
-      ctaTitle: 'ابدأ رحلة تعلمك اليوم',
-      ctaDescription: 'انضم إلى آلاف المحترفين الذين يبنون خبراتهم المالية مع أكاديمية كوزواي.',
-      ctaButton: 'تصفح جميع الدورات',
-      resourceTypes: {
-        course: 'دورة',
-        reference: 'مرجع',
-        tool: 'أداة'
-      }
+      subtitle: 'بناء التميز المؤسسي من خلال القدرات',
+      description: 'تدريب تنفيذي عالمي المستوى مصمم للمؤسسات المالية العاملة في بيئات معقدة وعالية الامتثال. برامجنا تبني قدرات الحوكمة والتقنية والقيادة التي تتوقعها مجالس الإدارة والجهات الرقابية.',
+      cta: 'طلب كتالوج البرامج',
+      ctaSecondary: 'جدولة استشارة',
+      tracksTitle: 'مسارات التدريب التنفيذي',
+      tracksSubtitle: 'برامج متخصصة متوافقة مع مجالات ممارسة كوزواي الأساسية',
+      viewPrograms: 'عرض البرامج',
+      hidePrograms: 'إخفاء البرامج',
+      programs: 'البرامج',
+      outcomes: 'مخرجات التعلم',
+      audience: 'الفئة المستهدفة',
+      duration: 'المدة',
+      format: 'الصيغة',
+      deliveryTitle: 'صيغ التقديم',
+      deliverySubtitle: 'خيارات مرنة لتلبية احتياجات مؤسستك',
+      whyTitle: 'لماذا أكاديمية كوزواي',
+      whySubtitle: 'ما يميز تعليمنا التنفيذي',
+      whyPoints: [
+        { title: 'بقيادة ممارسين', description: 'أعضاء هيئتنا التدريسية مستشارون نشطون يجلبون خبرة واقعية من مشاريع حالية مع البنوك والمؤسسات المالية.' },
+        { title: 'بمستوى الحوكمة', description: 'كل برنامج مصمم لإنتاج مخرجات ترضي تدقيق مجلس الإدارة والمراجعة التنظيمية ومتطلبات التدقيق.' },
+        { title: 'واعٍ بالسياق', description: 'نفهم التحديات الفريدة للعمل في أسواق هشة وعالية الامتثال—محتوانا يعكس هذا الواقع.' },
+        { title: 'مبني على الأدلة', description: 'يغادر المشاركون بقوالب وأطر ومعايير توثيق يمكنهم تطبيقها فوراً.' }
+      ],
+      inquiryTitle: 'مستعد لبناء القدرات؟',
+      inquirySubtitle: 'تواصل معنا لمناقشة احتياجات مؤسستك التدريبية',
+      inquiryButton: 'طلب معلومات',
+      certifications: 'التحضير للشهادات',
+      certificationsDesc: 'نُعد المرشحين للشهادات المعترف بها دولياً بما في ذلك CIA وCISA وCPA وCMA وSHRM وبرامج عضو مجلس إدارة IFC.'
     }
   };
 
   const t = content[language];
 
-  const getLanguageLabel = (lang: string) => {
-    if (lang === 'ar') return t.arabic;
-    if (lang === 'en') return t.english;
-    return t.both;
-  };
-
   return (
-    <main className={`min-h-screen bg-gradient-to-b from-[#0a1f1a] via-[#133129] to-[#0a1f1a] ${isRTL ? 'rtl' : 'ltr'}`}>
-      {/* Hero Section */}
-      <section className="relative pt-32 pb-20 overflow-hidden">
-        {/* Animated Background */}
-        <div className="absolute inset-0">
-          <div className="absolute top-20 left-10 w-72 h-72 bg-[#d4a84b]/10 rounded-full blur-3xl animate-pulse" />
-          <div className="absolute bottom-20 right-10 w-96 h-96 bg-[#406D61]/20 rounded-full blur-3xl animate-pulse delay-1000" />
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#224B40]/10 rounded-full blur-3xl" />
-        </div>
-
-        {/* Grid Pattern */}
-        <div className="absolute inset-0 opacity-5">
+    <div className={`min-h-screen bg-[#fafaf8] ${isRTL ? 'rtl' : 'ltr'}`}>
+      {/* Hero Section - Premium McKinsey-style */}
+      <section className="relative min-h-[70vh] flex items-center overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-[#1a3a2f] via-[#1e4d3d] to-[#1a3a2f]" />
+        <div className="absolute inset-0 opacity-10">
           <div className="absolute inset-0" style={{
-            backgroundImage: `linear-gradient(rgba(212, 168, 75, 0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(212, 168, 75, 0.3) 1px, transparent 1px)`,
-            backgroundSize: '50px 50px'
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23c9a227' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
           }} />
         </div>
-
-        <div className="container relative z-10">
-          <div className="max-w-4xl mx-auto text-center">
-            {/* Badge */}
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#d4a84b]/20 border border-[#d4a84b]/30 mb-8">
-              <Sparkles className="w-4 h-4 text-[#d4a84b]" />
-              <span className="text-[#d4a84b] text-sm font-medium">{t.badge}</span>
+        <div className="absolute top-0 left-0 w-32 h-32 border-l-2 border-t-2 border-[#c9a227]/30" />
+        <div className="absolute bottom-0 right-0 w-32 h-32 border-r-2 border-b-2 border-[#c9a227]/30" />
+        
+        <div className="container relative z-10 py-20">
+          <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} className="max-w-4xl">
+            <span className="inline-flex items-center gap-2 px-4 py-2 bg-[#c9a227]/20 text-[#c9a227] rounded-full text-sm font-medium mb-6">
+              <GraduationCap className="w-4 h-4" />
+              {t.badge}
+            </span>
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-light text-white mb-6 tracking-tight">{t.title}</h1>
+            <p className="text-2xl md:text-3xl text-[#c9a227] font-light mb-6">{t.subtitle}</p>
+            <p className="text-lg text-white/80 max-w-2xl mb-10 leading-relaxed">{t.description}</p>
+            <div className="flex flex-wrap gap-4">
+              <Button size="lg" className="bg-[#c9a227] hover:bg-[#b8922a] text-[#1a3a2f] font-medium px-8 py-6 text-lg">
+                {t.cta}
+                <ArrowRight className={`w-5 h-5 ${isRTL ? 'mr-2 rotate-180' : 'ml-2'}`} />
+              </Button>
+              <Button size="lg" variant="outline" className="border-white/30 text-white hover:bg-white/10 px-8 py-6 text-lg">
+                {t.ctaSecondary}
+              </Button>
             </div>
-
-            {/* Title */}
-            <h1 className="text-5xl md:text-7xl font-bold text-white mb-4" style={{ fontFamily: 'Playfair Display, serif' }}>
-              {t.title}
-            </h1>
-            <p className="text-2xl md:text-3xl text-[#d4a84b] font-light mb-6">
-              {t.subtitle}
-            </p>
-            <p className="text-lg text-gray-300 max-w-2xl mx-auto mb-12">
-              {t.description}
-            </p>
-
-            {/* Stats */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-3xl mx-auto">
-              {[
-                { value: t.stats.courses, label: t.stats.coursesLabel, icon: BookOpen },
-                { value: t.stats.hours, label: t.stats.hoursLabel, icon: Clock },
-                { value: t.stats.certs, label: t.stats.certsLabel, icon: Award },
-                { value: t.stats.languages, label: t.stats.languagesLabel, icon: Globe },
-              ].map((stat, i) => (
-                <div key={i} className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10">
-                  <stat.icon className="w-6 h-6 text-[#d4a84b] mx-auto mb-3" />
-                  <div className="text-3xl font-bold text-white mb-1">{stat.value}</div>
-                  <div className="text-sm text-gray-400">{stat.label}</div>
-                </div>
-              ))}
-            </div>
-          </div>
+          </motion.div>
         </div>
       </section>
 
-      {/* Partner Institutions */}
-      <section className="py-12 border-y border-white/10 bg-black/20">
-        <div className="container">
-          <p className="text-center text-gray-400 text-sm mb-8">{t.partnersTitle}</p>
-          <div className="flex flex-wrap justify-center items-center gap-8 md:gap-12">
-            {partnerInstitutions.map((partner, i) => (
-              <div key={i} className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors">
-                <span className="text-2xl">{partner.logo}</span>
-                <span className="text-sm font-medium">{language === 'ar' ? partner.nameAr : partner.name}</span>
-              </div>
+      {/* Stats Bar */}
+      <section className="bg-white border-b border-gray-100">
+        <div className="container py-8">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            {statsData.map((stat, index) => (
+              <motion.div key={index} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: index * 0.1 }} className="text-center">
+                <div className="text-3xl md:text-4xl font-light text-[#1a3a2f] mb-1">{stat.value}</div>
+                <div className="text-sm text-gray-500 uppercase tracking-wider">{stat.label}</div>
+              </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Main Content */}
-      <section className="py-20">
+      {/* Training Tracks */}
+      <section className="py-20 bg-[#fafaf8]">
         <div className="container">
-          {/* Tabs */}
-          <div className="flex justify-center mb-12">
-            <div className="inline-flex bg-white/5 rounded-full p-1 border border-white/10">
-              {(['tracks', 'tools', 'certifications'] as const).map((tab) => (
-                <button
-                  key={tab}
-                  onClick={() => setActiveTab(tab)}
-                  className={`px-6 py-3 rounded-full text-sm font-medium transition-all ${
-                    activeTab === tab
-                      ? 'bg-[#d4a84b] text-[#133129]'
-                      : 'text-gray-400 hover:text-white'
-                  }`}
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-16">
+            <h2 className="text-4xl font-light text-[#1a3a2f] mb-4">{t.tracksTitle}</h2>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">{t.tracksSubtitle}</p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {tracks.map((track, index) => (
+              <motion.div key={track.id} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: index * 0.05 }} className="group">
+                <div 
+                  className={`relative h-full bg-white rounded-lg border border-gray-100 overflow-hidden transition-all duration-300 hover:shadow-xl hover:border-[#c9a227]/30 cursor-pointer ${selectedTrack === track.id ? 'ring-2 ring-[#c9a227]' : ''}`}
+                  onClick={() => setSelectedTrack(selectedTrack === track.id ? null : track.id)}
                 >
-                  {t.tabs[tab]}
-                </button>
-              ))}
-            </div>
+                  <div className={`bg-gradient-to-r ${track.color} p-6 text-white`}>
+                    <track.icon className="w-10 h-10 mb-4 opacity-90" />
+                    <h3 className="text-xl font-medium mb-1">{track.title}</h3>
+                    <p className="text-sm opacity-80">{track.subtitle}</p>
+                  </div>
+                  <div className="p-6">
+                    <p className="text-gray-600 text-sm mb-4 line-clamp-3">{track.description}</p>
+                    <div className="flex items-center justify-between text-sm">
+                      <span className="text-gray-500 flex items-center gap-1">
+                        <Clock className="w-4 h-4" />
+                        {track.duration}
+                      </span>
+                      <button className="text-[#1a3a2f] font-medium flex items-center gap-1 group-hover:text-[#c9a227] transition-colors">
+                        {selectedTrack === track.id ? t.hidePrograms : t.viewPrograms}
+                        <ChevronRight className={`w-4 h-4 transition-transform ${selectedTrack === track.id ? 'rotate-90' : ''}`} />
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
           </div>
 
-          {/* Learning Tracks */}
-          {activeTab === 'tracks' && (
-            <div className="space-y-8">
-              {/* Featured Tracks */}
-              <div className="grid md:grid-cols-2 gap-6 mb-8">
-                {tracks.filter(track => track.featured).map((track) => (
-                  <div
-                    key={track.id}
-                    className={`relative overflow-hidden rounded-3xl bg-gradient-to-br ${track.color} p-8 group cursor-pointer`}
-                    onClick={() => setSelectedTrack(selectedTrack === track.id ? null : track.id)}
-                  >
-                    <div className="absolute top-4 right-4 px-3 py-1 bg-white/20 rounded-full text-xs text-white font-medium">
-                      {t.featured}
-                    </div>
-                    <track.icon className="w-12 h-12 text-white/80 mb-4" />
-                    <h3 className="text-2xl font-bold text-white mb-2">{track.title}</h3>
-                    <p className="text-white/80 mb-4">{track.description}</p>
-                    <div className="flex items-center gap-4 text-white/60 text-sm mb-6">
-                      <span className="flex items-center gap-1"><Clock className="w-4 h-4" /> {track.duration}</span>
-                      <span className="flex items-center gap-1"><BookOpen className="w-4 h-4" /> {track.courses} {language === 'ar' ? 'دورات' : 'courses'}</span>
-                    </div>
-                    <Button className="bg-white text-gray-900 hover:bg-gray-100">
-                      {t.tracksCta} <ChevronRight className={`w-4 h-4 ${isRTL ? 'rotate-180' : ''}`} />
-                    </Button>
-
-                    {/* Expanded Resources */}
-                    {selectedTrack === track.id && (
-                      <div className="mt-6 pt-6 border-t border-white/20 space-y-3">
-                        {track.resources.map((resource, i) => (
-                          <a
-                            key={i}
-                            href={resource.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex items-center justify-between p-3 bg-white/10 rounded-xl hover:bg-white/20 transition-colors"
-                            onClick={(e) => e.stopPropagation()}
-                          >
-                            <div className="flex items-center gap-3">
-                              <div className="w-8 h-8 rounded-lg bg-white/20 flex items-center justify-center">
-                                {resource.type === 'course' ? <Play className="w-4 h-4 text-white" /> : 
-                                 resource.type === 'tool' ? <Calculator className="w-4 h-4 text-white" /> :
-                                 <FileText className="w-4 h-4 text-white" />}
-                              </div>
-                              <div>
-                                <div className="text-white font-medium text-sm">{resource.name}</div>
-                                <div className="text-white/60 text-xs">{resource.provider}</div>
-                              </div>
-                            </div>
-                            <div className="flex items-center gap-2">
-                              {resource.free && (
-                                <span className="px-2 py-0.5 bg-green-500/30 text-green-300 text-xs rounded-full">{t.free}</span>
-                              )}
-                              {resource.certificate && (
-                                <span className="px-2 py-0.5 bg-[#d4a84b]/30 text-[#d4a84b] text-xs rounded-full">{t.certificate}</span>
-                              )}
-                              <span className="px-2 py-0.5 bg-white/20 text-white/80 text-xs rounded-full">
-                                {getLanguageLabel(resource.language)}
-                              </span>
-                              <ExternalLink className="w-4 h-4 text-white/60" />
-                            </div>
-                          </a>
-                        ))}
+          {/* Expanded Track Details */}
+          <AnimatePresence>
+            {selectedTrack && (
+              <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} className="mt-8 overflow-hidden">
+                {tracks.filter(t => t.id === selectedTrack).map(track => (
+                  <div key={track.id} className="bg-white rounded-lg border border-gray-100 p-8">
+                    <div className="grid md:grid-cols-3 gap-8">
+                      <div>
+                        <h4 className="text-lg font-medium text-[#1a3a2f] mb-4 flex items-center gap-2">
+                          <BookOpen className="w-5 h-5 text-[#c9a227]" />
+                          {t.programs}
+                        </h4>
+                        <ul className="space-y-2">
+                          {track.programs.map((program, i) => (
+                            <li key={i} className="flex items-start gap-2 text-gray-600">
+                              <CheckCircle2 className="w-4 h-4 text-[#c9a227] mt-1 flex-shrink-0" />
+                              <span className="text-sm">{program}</span>
+                            </li>
+                          ))}
+                        </ul>
                       </div>
-                    )}
-                  </div>
-                ))}
-              </div>
-
-              {/* Other Tracks */}
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {tracks.filter(track => !track.featured).map((track) => (
-                  <div
-                    key={track.id}
-                    className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10 hover:border-[#d4a84b]/50 transition-all cursor-pointer group"
-                    onClick={() => setSelectedTrack(selectedTrack === track.id ? null : track.id)}
-                  >
-                    <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${track.color} flex items-center justify-center mb-4`}>
-                      <track.icon className="w-6 h-6 text-white" />
-                    </div>
-                    <h3 className="text-xl font-bold text-white mb-2 group-hover:text-[#d4a84b] transition-colors">{track.title}</h3>
-                    <p className="text-gray-400 text-sm mb-4">{track.description}</p>
-                    <div className="flex items-center gap-4 text-gray-500 text-xs mb-4">
-                      <span className="flex items-center gap-1"><Clock className="w-3 h-3" /> {track.duration}</span>
-                      <span className="flex items-center gap-1"><BookOpen className="w-3 h-3" /> {track.courses}</span>
-                    </div>
-                    <div className="flex items-center text-[#d4a84b] text-sm font-medium">
-                      {t.tracksCta} <ArrowRight className={`w-4 h-4 ml-1 ${isRTL ? 'rotate-180' : ''}`} />
-                    </div>
-
-                    {/* Expanded Resources */}
-                    {selectedTrack === track.id && (
-                      <div className="mt-4 pt-4 border-t border-white/10 space-y-2">
-                        {track.resources.map((resource, i) => (
-                          <a
-                            key={i}
-                            href={resource.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex items-center justify-between p-2 bg-white/5 rounded-lg hover:bg-white/10 transition-colors"
-                            onClick={(e) => e.stopPropagation()}
-                          >
-                            <div className="flex items-center gap-2">
-                              <div className="text-white text-sm truncate max-w-[200px]">{resource.name}</div>
-                            </div>
-                            <div className="flex items-center gap-1">
-                              {resource.certificate && <Award className="w-3 h-3 text-[#d4a84b]" />}
-                              <ExternalLink className="w-3 h-3 text-gray-500" />
-                            </div>
-                          </a>
-                        ))}
+                      <div>
+                        <h4 className="text-lg font-medium text-[#1a3a2f] mb-4 flex items-center gap-2">
+                          <Target className="w-5 h-5 text-[#c9a227]" />
+                          {t.outcomes}
+                        </h4>
+                        <ul className="space-y-2">
+                          {track.outcomes.map((outcome, i) => (
+                            <li key={i} className="flex items-start gap-2 text-gray-600">
+                              <ArrowRight className={`w-4 h-4 text-[#c9a227] mt-1 flex-shrink-0 ${isRTL ? 'rotate-180' : ''}`} />
+                              <span className="text-sm">{outcome}</span>
+                            </li>
+                          ))}
+                        </ul>
                       </div>
-                    )}
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* Interactive Tools */}
-          {activeTab === 'tools' && (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {tools.map((tool, i) => (
-                <a
-                  key={i}
-                  href={tool.url}
-                  target={tool.internal ? '_self' : '_blank'}
-                  rel="noopener noreferrer"
-                  className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10 hover:border-[#d4a84b]/50 transition-all group"
-                >
-                  <div className="flex items-start justify-between mb-4">
-                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#d4a84b] to-[#b8923f] flex items-center justify-center">
-                      <tool.icon className="w-6 h-6 text-[#133129]" />
-                    </div>
-                    <span className="px-3 py-1 bg-white/10 rounded-full text-xs text-gray-400">{tool.category}</span>
-                  </div>
-                  <h3 className="text-lg font-bold text-white mb-2 group-hover:text-[#d4a84b] transition-colors">{tool.name}</h3>
-                  <p className="text-gray-400 text-sm mb-4">{tool.description}</p>
-                  <div className="flex items-center text-[#d4a84b] text-sm font-medium">
-                    {t.toolsCta} <ExternalLink className={`w-4 h-4 ${isRTL ? 'mr-1' : 'ml-1'}`} />
-                  </div>
-                </a>
-              ))}
-            </div>
-          )}
-
-          {/* Certifications */}
-          {activeTab === 'certifications' && (
-            <div className="max-w-4xl mx-auto">
-              <div className="bg-white/5 backdrop-blur-sm rounded-3xl p-8 border border-white/10">
-                <div className="text-center mb-8">
-                  <Award className="w-16 h-16 text-[#d4a84b] mx-auto mb-4" />
-                  <h3 className="text-2xl font-bold text-white mb-2">
-                    {language === 'ar' ? 'شهادات مهنية مجانية' : 'Free Professional Certifications'}
-                  </h3>
-                  <p className="text-gray-400">
-                    {language === 'ar' 
-                      ? 'احصل على شهادات معترف بها من مؤسسات عالمية رائدة'
-                      : 'Earn recognized credentials from leading global institutions'}
-                  </p>
-                </div>
-                <div className="space-y-4">
-                  {[
-                    { name: 'Basel Institute Governance Certificates', nameAr: 'شهادات الحوكمة من معهد بازل', provider: 'Basel Institute', url: 'https://learn.baselgovernance.org/' },
-                    { name: 'UNODC Anti-Corruption Certificate', nameAr: 'شهادة مكافحة الفساد من الأمم المتحدة', provider: 'United Nations', url: 'https://www.unodc.org/corruption/en/learn/e-learning-courses.html' },
-                    { name: 'AML Training Certificate', nameAr: 'شهادة تدريب مكافحة غسل الأموال', provider: 'KYC Lookup', url: 'https://www.kyclookup.com/knowledgebase/how-to-obtain-a-free-aml-certification/' },
-                    { name: 'Digital Banking Certificate', nameAr: 'شهادة البنوك الرقمية', provider: 'Great Learning', url: 'https://www.mygreatlearning.com/academy/learn-for-free/courses/fundamentals-of-digital-banking' },
-                    { name: 'Financial Literacy Certificate', nameAr: 'شهادة الثقافة المالية', provider: 'Al Ghurair Foundation', url: 'https://www.for9a.com/en/courses/Free-Online-Course-in-Financial-Literacy-from-Abdulla-Al-Ghurair-Foundation-for-Education' },
-                    { name: 'Edraak Financial Skills Certificate', nameAr: 'شهادة المهارات المالية من إدراك', provider: 'Edraak', url: 'https://www.edraak.org/en/specialization/fundamental-financial-skills-specialization/' },
-                  ].map((cert, i) => (
-                    <a
-                      key={i}
-                      href={cert.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center justify-between p-4 bg-white/5 rounded-xl hover:bg-white/10 transition-colors border border-white/5"
-                    >
-                      <div className="flex items-center gap-4">
-                        <CheckCircle2 className="w-6 h-6 text-green-500" />
+                      <div className="space-y-4">
                         <div>
-                          <div className="text-white font-medium">{language === 'ar' ? cert.nameAr : cert.name}</div>
-                          <div className="text-gray-500 text-sm">{cert.provider}</div>
+                          <h4 className="text-sm font-medium text-gray-500 uppercase tracking-wider mb-2">{t.audience}</h4>
+                          <p className="text-gray-700">{track.audience}</p>
                         </div>
+                        <div>
+                          <h4 className="text-sm font-medium text-gray-500 uppercase tracking-wider mb-2">{t.duration}</h4>
+                          <p className="text-gray-700">{track.duration}</p>
+                        </div>
+                        <div>
+                          <h4 className="text-sm font-medium text-gray-500 uppercase tracking-wider mb-2">{t.format}</h4>
+                          <p className="text-gray-700">{track.format}</p>
+                        </div>
+                        <Button className="w-full bg-[#1a3a2f] hover:bg-[#2a4a3f] mt-4">{t.cta}</Button>
                       </div>
-                      <div className="flex items-center gap-2">
-                        <span className="px-3 py-1 bg-green-500/20 text-green-400 text-xs rounded-full">{t.free}</span>
-                        <ExternalLink className="w-4 h-4 text-gray-500" />
-                      </div>
-                    </a>
-                  ))}
+                    </div>
+                  </div>
+                ))}
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+      </section>
+
+      {/* Delivery Formats */}
+      <section className="py-20 bg-white">
+        <div className="container">
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-16">
+            <h2 className="text-4xl font-light text-[#1a3a2f] mb-4">{t.deliveryTitle}</h2>
+            <p className="text-lg text-gray-600">{t.deliverySubtitle}</p>
+          </motion.div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {formats.map((format, index) => (
+              <motion.div key={index} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: index * 0.1 }} className="text-center p-8 rounded-lg bg-[#fafaf8] hover:bg-[#f5f5f3] transition-colors">
+                <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-[#1a3a2f]/10 flex items-center justify-center">
+                  <format.icon className="w-8 h-8 text-[#1a3a2f]" />
                 </div>
+                <h3 className="text-xl font-medium text-[#1a3a2f] mb-3">{format.title}</h3>
+                <p className="text-gray-600 text-sm">{format.description}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Why CauseWay Academy */}
+      <section className="py-20 bg-[#1a3a2f]">
+        <div className="container">
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-16">
+            <h2 className="text-4xl font-light text-white mb-4">{t.whyTitle}</h2>
+            <p className="text-lg text-white/70">{t.whySubtitle}</p>
+          </motion.div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {t.whyPoints.map((point, index) => (
+              <motion.div key={index} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: index * 0.1 }} className="relative">
+                <div className="absolute top-0 left-0 w-12 h-12 border-l-2 border-t-2 border-[#c9a227]/30" />
+                <div className="pt-8 pl-8">
+                  <h3 className="text-xl font-medium text-[#c9a227] mb-3">{point.title}</h3>
+                  <p className="text-white/70 text-sm leading-relaxed">{point.description}</p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mt-16 p-8 bg-white/5 rounded-lg border border-white/10">
+            <div className="flex items-start gap-4">
+              <Award className="w-12 h-12 text-[#c9a227] flex-shrink-0" />
+              <div>
+                <h3 className="text-xl font-medium text-white mb-2">{t.certifications}</h3>
+                <p className="text-white/70">{t.certificationsDesc}</p>
               </div>
             </div>
-          )}
+          </motion.div>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-r from-[#d4a84b]/20 via-[#d4a84b]/10 to-[#d4a84b]/20">
+      <section className="py-20 bg-[#fafaf8]">
         <div className="container">
-          <div className="max-w-3xl mx-auto text-center">
-            <GraduationCap className="w-16 h-16 text-[#d4a84b] mx-auto mb-6" />
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4" style={{ fontFamily: 'Playfair Display, serif' }}>
-              {t.ctaTitle}
-            </h2>
-            <p className="text-gray-300 mb-8">
-              {t.ctaDescription}
-            </p>
-            <Link href="/resources">
-              <Button size="lg" className="bg-[#d4a84b] hover:bg-[#c49a40] text-[#133129] font-semibold px-8">
-                {t.ctaButton} <ArrowRight className={`w-5 h-5 ${isRTL ? 'mr-2 rotate-180' : 'ml-2'}`} />
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="max-w-3xl mx-auto text-center">
+            <h2 className="text-4xl font-light text-[#1a3a2f] mb-4">{t.inquiryTitle}</h2>
+            <p className="text-lg text-gray-600 mb-8">{t.inquirySubtitle}</p>
+            <Link href="/contact">
+              <Button size="lg" className="bg-[#c9a227] hover:bg-[#b8922a] text-[#1a3a2f] font-medium px-12 py-6 text-lg">
+                {t.inquiryButton}
+                <ArrowRight className={`w-5 h-5 ${isRTL ? 'mr-2 rotate-180' : 'ml-2'}`} />
               </Button>
             </Link>
-          </div>
+          </motion.div>
         </div>
       </section>
-    </main>
+    </div>
   );
 }
