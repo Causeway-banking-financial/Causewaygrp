@@ -77,8 +77,8 @@ export default function Footer() {
               </div>
               <div className={`flex items-center gap-3 text-[#faf9f6]/70 text-sm ${isRTL ? 'flex-row-reverse' : ''}`}>
                 <Mail className="w-4 h-4 text-[#d4a84b] flex-shrink-0" />
-                <a href="mailto:info@causewaygrp.com" className="hover:text-[#d4a84b] transition-colors" dir="ltr">
-                  info@causewaygrp.com
+                <a href="mailto:partnerships@causewaygrp.com" className="hover:text-[#d4a84b] transition-colors" dir="ltr">
+                  partnerships@causewaygrp.com
                 </a>
               </div>
             </div>
