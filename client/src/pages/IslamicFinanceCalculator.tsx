@@ -30,6 +30,7 @@ import {
   Coins,
   FileText
 } from 'lucide-react';
+import CalculatorPDFExport from '@/components/CalculatorPDFExport';
 
 // ============================================
 // CONTENT TRANSLATIONS
@@ -480,6 +481,26 @@ function MurabahaCalculator({ t, isRTL }: { t: typeof content.en; isRTL: boolean
               <p className="text-2xl font-bold text-blue-600">{formatNumber(results.effectiveRate)}%</p>
             </div>
           </div>
+          
+          {/* Export Button */}
+          <div className="mt-6 flex justify-center">
+            <CalculatorPDFExport 
+              data={{
+                type: 'murabaha',
+                inputs: {
+                  costPrice: parseFloat(costPrice) || 0,
+                  profitRate: parseFloat(profitRate) || 0,
+                  period: parseFloat(period) || 0,
+                },
+                results: {
+                  totalSalePrice: results.totalSalePrice,
+                  profitAmount: results.profitAmount,
+                  monthlyPayment: results.monthlyPayment,
+                  effectiveRate: results.effectiveRate,
+                }
+              }}
+            />
+          </div>
         </CardContent>
       </Card>
       
@@ -660,6 +681,27 @@ function IjaraCalculator({ t, isRTL }: { t: typeof content.en; isRTL: boolean })
               <p className="text-2xl font-bold text-amber-600">${formatNumber(results.residualValue)}</p>
             </div>
           </div>
+          
+          {/* Export Button */}
+          <div className="mt-6 flex justify-center">
+            <CalculatorPDFExport 
+              data={{
+                type: 'ijara',
+                inputs: {
+                  assetValue: parseFloat(assetValue) || 0,
+                  leaseTerm: parseFloat(leaseTerm) || 0,
+                  residualPercent: parseFloat(residualPercent) || 0,
+                  managementFee: parseFloat(managementFee) || 0,
+                },
+                results: {
+                  monthlyRent: results.monthlyRent,
+                  totalPayments: results.totalPayments,
+                  implicitRate: results.implicitRate,
+                  ownershipTransfer: results.residualValue,
+                }
+              }}
+            />
+          </div>
         </CardContent>
       </Card>
       
@@ -837,6 +879,27 @@ function SukukCalculator({ t, isRTL }: { t: typeof content.en; isRTL: boolean })
               <p className="text-sm text-muted-foreground mb-1">{t.totalReturn}</p>
               <p className="text-2xl font-bold text-amber-600">${formatNumber(results.totalReturn)}</p>
             </div>
+          </div>
+          
+          {/* Export Button */}
+          <div className="mt-6 flex justify-center">
+            <CalculatorPDFExport 
+              data={{
+                type: 'sukuk',
+                inputs: {
+                  faceValue: parseFloat(faceValue) || 0,
+                  couponRate: parseFloat(couponRate) || 0,
+                  currentPrice: parseFloat(currentPrice) || 0,
+                  yearsToMaturity: parseFloat(yearsToMaturity) || 0,
+                },
+                results: {
+                  currentYield: results.currentYield,
+                  ytm: results.ytm,
+                  annualCoupon: results.annualCoupon,
+                  totalReturn: results.totalReturn,
+                }
+              }}
+            />
           </div>
         </CardContent>
       </Card>
@@ -1108,6 +1171,31 @@ function ZakatCalculator({ t, isRTL }: { t: typeof content.en; isRTL: boolean })
                 <span className="font-semibold text-slate-600 dark:text-slate-300">{t.zakatNotRequired}</span>
               </>
             )}
+          </div>
+          
+          {/* Export Button */}
+          <div className="mt-6 flex justify-center">
+            <CalculatorPDFExport 
+              data={{
+                type: 'zakat',
+                inputs: {
+                  cash: parseFloat(cash) || 0,
+                  gold: parseFloat(gold) || 0,
+                  silver: parseFloat(silver) || 0,
+                  investments: parseFloat(investments) || 0,
+                  businessAssets: parseFloat(businessAssets) || 0,
+                  liabilities: parseFloat(liabilities) || 0,
+                  goldPrice: parseFloat(goldPrice) || 0,
+                },
+                results: {
+                  totalAssets: results.totalAssets,
+                  netWealth: results.netWealth,
+                  nisab: results.nisab,
+                  zakatDue: results.zakatDue,
+                  isZakatRequired: results.isZakatRequired ? 1 : 0,
+                }
+              }}
+            />
           </div>
         </CardContent>
       </Card>

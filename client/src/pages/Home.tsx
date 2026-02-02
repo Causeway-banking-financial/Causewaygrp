@@ -24,6 +24,7 @@ import { Button } from '@/components/ui/button';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import YetoBanner from '@/components/YetoBanner';
+import CurrencyRates from '@/components/CurrencyRates';
 import { useLanguage } from '@/contexts/LanguageContext';
 
 const services = [
@@ -427,8 +428,101 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Observatory Preview */}
-      <section className="py-16 md:py-24 bg-[#133129] relative overflow-hidden">
+       {/* Currency Rates Section */}
+      <section className="py-12 md:py-16 bg-[#faf9f6] border-t border-[#133129]/10">
+        <div className="container">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8 items-start">
+            {/* Currency Widget */}
+            <div className="lg:col-span-1">
+              <CurrencyRates />
+            </div>
+            
+            {/* Quick Links */}
+            <div className="lg:col-span-2">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <Link href="/tools/islamic-finance-calculator">
+                  <div className="group p-5 bg-white rounded-lg border border-[#133129]/10 hover:border-[#d4a84b]/50 hover:shadow-lg transition-all">
+                    <div className="flex items-center gap-3 mb-2">
+                      <div className="w-10 h-10 rounded-lg bg-[#133129]/5 flex items-center justify-center group-hover:bg-[#d4a84b]/10 transition-colors">
+                        <TrendingUp className="w-5 h-5 text-[#133129]" />
+                      </div>
+                      <h4 className="font-semibold text-[#133129]">
+                        {language === 'ar' ? 'حاسبة التمويل الإسلامي' : 'Islamic Finance Calculator'}
+                      </h4>
+                    </div>
+                    <p className="text-sm text-[#406D61]">
+                      {language === 'ar' 
+                        ? 'حسابات المرابحة، الإجارة، الصكوك، والزكاة'
+                        : 'Murabaha, Ijara, Sukuk & Zakat calculations'
+                      }
+                    </p>
+                  </div>
+                </Link>
+                
+                <Link href="/glossary">
+                  <div className="group p-5 bg-white rounded-lg border border-[#133129]/10 hover:border-[#d4a84b]/50 hover:shadow-lg transition-all">
+                    <div className="flex items-center gap-3 mb-2">
+                      <div className="w-10 h-10 rounded-lg bg-[#133129]/5 flex items-center justify-center group-hover:bg-[#d4a84b]/10 transition-colors">
+                        <GraduationCap className="w-5 h-5 text-[#133129]" />
+                      </div>
+                      <h4 className="font-semibold text-[#133129]">
+                        {language === 'ar' ? 'قاموس المصطلحات المالية' : 'Financial Glossary'}
+                      </h4>
+                    </div>
+                    <p className="text-sm text-[#406D61]">
+                      {language === 'ar' 
+                        ? '٥٠+ مصطلح مالي ومصرفي بالعربية والإنجليزية'
+                        : '50+ financial & banking terms in Arabic & English'
+                      }
+                    </p>
+                  </div>
+                </Link>
+                
+                <Link href="/regulatory-calendar">
+                  <div className="group p-5 bg-white rounded-lg border border-[#133129]/10 hover:border-[#d4a84b]/50 hover:shadow-lg transition-all">
+                    <div className="flex items-center gap-3 mb-2">
+                      <div className="w-10 h-10 rounded-lg bg-[#133129]/5 flex items-center justify-center group-hover:bg-[#d4a84b]/10 transition-colors">
+                        <Calendar className="w-5 h-5 text-[#133129]" />
+                      </div>
+                      <h4 className="font-semibold text-[#133129]">
+                        {language === 'ar' ? 'التقويم التنظيمي' : 'Regulatory Calendar'}
+                      </h4>
+                    </div>
+                    <p className="text-sm text-[#406D61]">
+                      {language === 'ar' 
+                        ? 'مواعيد الامتثال والتقارير التنظيمية'
+                        : 'Compliance deadlines & regulatory reporting dates'
+                      }
+                    </p>
+                  </div>
+                </Link>
+                
+                <Link href="/academy">
+                  <div className="group p-5 bg-white rounded-lg border border-[#133129]/10 hover:border-[#d4a84b]/50 hover:shadow-lg transition-all">
+                    <div className="flex items-center gap-3 mb-2">
+                      <div className="w-10 h-10 rounded-lg bg-[#133129]/5 flex items-center justify-center group-hover:bg-[#d4a84b]/10 transition-colors">
+                        <Palette className="w-5 h-5 text-[#133129]" />
+                      </div>
+                      <h4 className="font-semibold text-[#133129]">
+                        {language === 'ar' ? 'أكاديمية كوزواي' : 'CauseWay Academy'}
+                      </h4>
+                    </div>
+                    <p className="text-sm text-[#406D61]">
+                      {language === 'ar' 
+                        ? 'دورات مجانية من صندوق النقد والبنك الدولي'
+                        : 'Free courses from IMF, World Bank & more'
+                      }
+                    </p>
+                  </div>
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Observatory Section */}
+      <section className="py-16 md:py-24 relative overflow-hidden">
         <div className="absolute inset-0">
           <div 
             className="absolute inset-0 bg-cover bg-center"
