@@ -208,10 +208,11 @@ const toolsAndCalculators = [
     icon: Calculator,
     title: 'Islamic Finance Calculator',
     titleAr: 'حاسبة التمويل الإسلامي',
-    description: 'Calculate Murabaha, Ijara, and Sukuk structures',
-    descriptionAr: 'احسب هياكل المرابحة والإجارة والصكوك',
-    status: 'coming-soon',
-    statusAr: 'قريباً'
+    description: 'Calculate Murabaha, Ijara, Sukuk, and Zakat with full methodology',
+    descriptionAr: 'احسب المرابحة والإجارة والصكوك والزكاة مع المنهجية الكاملة',
+    status: 'active',
+    statusAr: 'متاح',
+    url: '/tools/islamic-finance-calculator'
   },
   {
     icon: BarChart3,
@@ -456,35 +457,61 @@ export default function Resources() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-              {toolsAndCalculators.map((tool, index) => (
-                <motion.div
-                  key={tool.title}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.4, delay: index * 0.1 }}
-                  viewport={{ once: true }}
-                  className={`bg-white p-6 rounded-xl shadow-sm border border-[#133129]/10 ${isRTL ? 'text-right' : ''}`}
-                >
+              {toolsAndCalculators.map((tool, index) => {
+                const isActive = tool.status === 'active' && 'url' in tool;
+                
+                const content = (
                   <div className={`flex items-start gap-4 ${isRTL ? 'flex-row-reverse' : ''}`}>
-                    <div className="w-12 h-12 bg-[#d4a84b]/10 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <tool.icon className="w-6 h-6 text-[#d4a84b]" />
+                    <div className={`w-12 h-12 ${isActive ? 'bg-[#133129]' : 'bg-[#d4a84b]/10'} rounded-lg flex items-center justify-center flex-shrink-0`}>
+                      <tool.icon className={`w-6 h-6 ${isActive ? 'text-[#d4a84b]' : 'text-[#d4a84b]'}`} />
                     </div>
                     <div className="flex-1">
                       <div className={`flex items-center gap-2 mb-2 ${isRTL ? 'flex-row-reverse' : ''}`}>
                         <h3 className="text-lg font-semibold text-[#133129]">
                           {language === 'ar' ? tool.titleAr : tool.title}
                         </h3>
-                        <span className="px-2 py-0.5 bg-[#d4a84b]/20 text-[#d4a84b] text-xs font-medium rounded-full">
-                          {language === 'ar' ? tool.statusAr : tool.status}
+                        <span className={`px-2 py-0.5 text-xs font-medium rounded-full ${isActive ? 'bg-emerald-100 text-emerald-700' : 'bg-[#d4a84b]/20 text-[#d4a84b]'}`}>
+                          {language === 'ar' ? tool.statusAr : (isActive ? 'Live' : tool.status)}
                         </span>
                       </div>
                       <p className="text-[#406D61] text-sm">
                         {language === 'ar' ? tool.descriptionAr : tool.description}
                       </p>
+                      {isActive && (
+                        <div className={`flex items-center gap-1 mt-3 text-[#133129] font-medium text-sm ${isRTL ? 'flex-row-reverse' : ''}`}>
+                          {language === 'ar' ? 'افتح الحاسبة' : 'Open Calculator'}
+                          <ArrowRight className={`w-4 h-4 ${isRTL ? 'rotate-180' : ''}`} />
+                        </div>
+                      )}
                     </div>
                   </div>
-                </motion.div>
-              ))}
+                );
+                
+                return (
+                  <motion.div
+                    key={tool.title}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.4, delay: index * 0.1 }}
+                    viewport={{ once: true }}
+                  >
+                    {isActive && 'url' in tool ? (
+                      <Link
+                        href={tool.url as string}
+                        className={`block bg-white p-6 rounded-xl shadow-sm border border-[#d4a84b]/30 hover:border-[#d4a84b] hover:shadow-md cursor-pointer transition-all ${isRTL ? 'text-right' : ''}`}
+                      >
+                        {content}
+                      </Link>
+                    ) : (
+                      <div
+                        className={`block bg-white p-6 rounded-xl shadow-sm border border-[#133129]/10 transition-all ${isRTL ? 'text-right' : ''}`}
+                      >
+                        {content}
+                      </div>
+                    )}
+                  </motion.div>
+                );
+              })}
             </div>
 
             <div className="text-center mt-12">

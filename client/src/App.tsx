@@ -33,6 +33,7 @@ import Resources from "./pages/Resources";
 import FAQ from "./pages/FAQ";
 import Careers from "./pages/Careers";
 import Terms from "./pages/Terms";
+import IslamicFinanceCalculator from "./pages/IslamicFinanceCalculator";
 import CookieConsent from "./components/CookieConsent";
 
 function Router() {
@@ -72,6 +73,9 @@ function Router() {
       
       {/* Careers */}
       <Route path="/careers" component={Careers} />
+      
+      {/* Tools */}
+      <Route path="/tools/islamic-finance-calculator" component={IslamicFinanceCalculator} />
       
       {/* Legal */}
       <Route path="/privacy" component={Privacy} />
