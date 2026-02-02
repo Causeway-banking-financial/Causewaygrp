@@ -37,7 +37,7 @@ const insights = [
 const resources = [
   { name: 'How We Work', nameAr: 'كيف نعمل', href: '/how-we-work' },
   { name: 'Resource Hub', nameAr: 'مركز الموارد', href: '/resources' },
-  { name: 'Learning Hub', nameAr: 'مركز التعلم', href: '/learning' },
+  { name: 'CauseWay Academy', nameAr: 'أكاديمية كوزواي', href: '/academy' },
   { name: 'FAQ', nameAr: 'الأسئلة الشائعة', href: '/faq' },
   { name: 'Careers', nameAr: 'الوظائف', href: '/careers' },
 ];

@@ -7,6 +7,7 @@
 import { Link } from 'wouter';
 import Logo from './Logo';
 import { ExternalLink, Mail, Phone, MapPin } from 'lucide-react';
+import Newsletter from './Newsletter';
 import { useLanguage } from '@/contexts/LanguageContext';
 
 const expertise = [
@@ -162,6 +163,11 @@ export default function Footer() {
                 </li>
               ))}
             </ul>
+            
+            {/* Newsletter */}
+            <div className="mt-8">
+              <Newsletter variant="footer" />
+            </div>
           </div>
         </div>
       </div>
