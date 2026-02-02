@@ -26,6 +26,7 @@ import Footer from '@/components/Footer';
 import YetoBanner from '@/components/YetoBanner';
 import CurrencyRates from '@/components/CurrencyRates';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { useBooking } from '@/App';
 
 const services = [
   {
@@ -153,6 +154,7 @@ const yetoSectors = [
 
 export default function Home() {
   const { language, isRTL } = useLanguage();
+  const { openBooking } = useBooking();
 
   return (
     <div className="min-h-screen" id="main-content" role="main" dir={isRTL ? 'rtl' : 'ltr'}>
@@ -213,11 +215,13 @@ export default function Home() {
                   <ArrowRight className={`w-5 h-5 ${isRTL ? 'mr-2 rotate-180' : 'ml-2'}`} />
                 </Button>
               </Link>
-              <Link href="/contact">
-                <Button variant="outline" className="border-[#faf9f6]/60 text-[#faf9f6] hover:bg-[#faf9f6]/10 hover:border-[#faf9f6] text-base px-8 py-6 min-w-[200px]">
-                  {language === 'ar' ? 'طلب إحاطة' : 'Request a Briefing'}
-                </Button>
-              </Link>
+              <Button 
+                onClick={() => openBooking('discovery')}
+                variant="outline" 
+                className="border-[#faf9f6]/60 text-[#faf9f6] hover:bg-[#faf9f6]/10 hover:border-[#faf9f6] text-base px-8 py-6 min-w-[200px]"
+              >
+                {language === 'ar' ? 'طلب إحاطة' : 'Request a Briefing'}
+              </Button>
             </div>
           </motion.div>
         </div>

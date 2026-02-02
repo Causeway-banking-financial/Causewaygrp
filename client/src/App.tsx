@@ -40,6 +40,7 @@ import Glossary from "./pages/Glossary";
 import RegulatoryCalendar from "./pages/RegulatoryCalendar";
 import CookieConsent from "./components/CookieConsent";
 import WhatsAppButton from "./components/WhatsAppButton";
+import BookingSystem, { useBookingSystem } from "./components/BookingSystem";
 
 function Router() {
   return (
@@ -100,17 +101,43 @@ function Router() {
   );
 }
 
+// Create a context for booking system
+import { createContext, useContext } from 'react';
+
+interface BookingContextType {
+  openBooking: (type?: string) => void;
+}
+
+export const BookingContext = createContext<BookingContextType | null>(null);
+
+export function useBooking() {
+  const context = useContext(BookingContext);
+  if (!context) {
+    throw new Error('useBooking must be used within BookingProvider');
+  }
+  return context;
+}
+
 function App() {
+  const booking = useBookingSystem();
+
   return (
     <ErrorBoundary>
       <ThemeProvider defaultTheme="light">
         <LanguageProvider>
-          <TooltipProvider>
-            <Toaster />
-            <CookieConsent />
-            <WhatsAppButton />
-            <Router />
-          </TooltipProvider>
+          <BookingContext.Provider value={{ openBooking: booking.openBooking }}>
+            <TooltipProvider>
+              <Toaster />
+              <CookieConsent />
+              <WhatsAppButton />
+              <BookingSystem 
+                isOpen={booking.isOpen} 
+                onClose={booking.closeBooking} 
+                preselectedType={booking.preselectedType}
+              />
+              <Router />
+            </TooltipProvider>
+          </BookingContext.Provider>
         </LanguageProvider>
       </ThemeProvider>
     </ErrorBoundary>
