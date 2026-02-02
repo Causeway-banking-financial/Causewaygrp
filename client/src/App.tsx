@@ -33,6 +33,7 @@ import Resources from "./pages/Resources";
 import FAQ from "./pages/FAQ";
 import Careers from "./pages/Careers";
 import Terms from "./pages/Terms";
+import CookieConsent from "./components/CookieConsent";
 
 function Router() {
   return (
@@ -93,6 +94,7 @@ function App() {
         <LanguageProvider>
           <TooltipProvider>
             <Toaster />
+            <CookieConsent />
             <Router />
           </TooltipProvider>
         </LanguageProvider>
