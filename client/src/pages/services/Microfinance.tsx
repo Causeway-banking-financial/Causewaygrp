@@ -30,6 +30,7 @@ import { Button } from '@/components/ui/button';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import SEO from '@/components/SEO';
+import SEOHead from '@/components/SEOHead';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useBooking } from '@/App';
 
@@ -219,6 +220,7 @@ export default function Microfinance() {
 
   return (
     <div className="min-h-screen" dir={isRTL ? 'rtl' : 'ltr'}>
+      <SEOHead pageKey="microfinance" />
       <SEO 
         title={language === 'ar' ? 'تطوير التمويل الأصغر' : 'Microfinance Development'}
         description={language === 'ar' 

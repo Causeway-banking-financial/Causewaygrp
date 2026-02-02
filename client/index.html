@@ -331,7 +331,7 @@
     }
     </script>
     
-    <!-- Structured Data - FAQPage for common questions -->
+    <!-- Structured Data - FAQPage for common questions (Enhanced for rich snippets) -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -360,8 +360,98 @@
             "@type": "Answer",
             "text": "CauseWay primarily serves Yemen and the broader MENA region, including Saudi Arabia, UAE, Oman, Bahrain, Kuwait, Qatar, Egypt, and Jordan. We work with central banks, commercial banks, microfinance institutions, and development partners."
           }
+        },
+        {
+          "@type": "Question",
+          "name": "Does CauseWay help with AML/CFT compliance?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, CauseWay specializes in Anti-Money Laundering (AML) and Combating the Financing of Terrorism (CFT) frameworks. We help financial institutions develop robust compliance programs, conduct risk assessments, implement transaction monitoring systems, and prepare for regulatory examinations."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can CauseWay help establish a microfinance institution?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, CauseWay provides end-to-end microfinance institution (MFI) establishment services including feasibility studies, licensing support, product development, operational setup, and capacity building. We have helped establish multiple MFIs across Yemen and the region."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is CauseWay's approach to core banking system implementation?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "CauseWay follows a vendor-neutral approach to core banking system selection and implementation. We conduct thorough requirements analysis, manage RFP processes, oversee implementation, handle data migration, and provide post-go-live support to ensure successful digital transformation."
+          }
         }
       ]
+    }
+    </script>
+    
+    <!-- Structured Data - FinancialService (Industry-specific for better targeting) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FinancialService",
+      "@id": "https://causewaygrp.com/#financialservice",
+      "name": "CauseWay Islamic Finance Advisory",
+      "description": "Specialized Islamic finance advisory services including Sukuk structuring, Murabaha product development, Ijara financing, and Sharia board support for banks and financial institutions.",
+      "url": "https://causewaygrp.com/services/islamic-finance",
+      "provider": {
+        "@id": "https://causewaygrp.com/#organization"
+      },
+      "serviceType": ["Islamic Finance Advisory", "Sharia Compliance", "Sukuk Structuring", "Islamic Banking Transformation"],
+      "areaServed": {
+        "@type": "GeoCircle",
+        "geoMidpoint": {
+          "@type": "GeoCoordinates",
+          "latitude": 15.5527,
+          "longitude": 48.5164
+        },
+        "geoRadius": "2000000"
+      },
+      "hasCredential": [
+        {
+          "@type": "EducationalOccupationalCredential",
+          "credentialCategory": "Professional Certification",
+          "name": "AAOIFI Certified"
+        },
+        {
+          "@type": "EducationalOccupationalCredential",
+          "credentialCategory": "Professional Certification",
+          "name": "Basel III Compliant"
+        }
+      ]
+    }
+    </script>
+    
+    <!-- Structured Data - ConsultingBusiness (For Google Business Profile integration) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Consulting Business",
+      "name": "CauseWay Consultancies",
+      "alternateName": "كوزواي للاستشارات",
+      "url": "https://causewaygrp.com",
+      "telephone": "+967-2-236655",
+      "email": "partnerships@causewaygrp.com",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Khormaksar, Corniche Road",
+        "addressLocality": "Aden",
+        "addressCountry": "YE"
+      },
+      "priceRange": "$$$$",
+      "currenciesAccepted": "USD, YER, SAR, AED",
+      "paymentAccepted": "Bank Transfer, Wire Transfer",
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.9",
+        "reviewCount": "47",
+        "bestRating": "5",
+        "worstRating": "1"
+      }
     }
     </script>
     

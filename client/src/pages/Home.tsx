@@ -27,6 +27,7 @@ import YetoBanner from '@/components/YetoBanner';
 import CurrencyRates from '@/components/CurrencyRates';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useBooking } from '@/App';
+import SEOHead from '@/components/SEOHead';
 
 const services = [
   {
@@ -160,6 +161,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen" id="main-content" role="main" dir={isRTL ? 'rtl' : 'ltr'}>
+      <SEOHead pageKey="home" />
       <YetoBanner variant="top" />
       <Header />
       

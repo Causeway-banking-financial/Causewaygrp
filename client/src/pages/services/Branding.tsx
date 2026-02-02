@@ -33,6 +33,7 @@ import { Button } from '@/components/ui/button';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import SEO from '@/components/SEO';
+import SEOHead from '@/components/SEOHead';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useBooking } from '@/App';
 
@@ -357,6 +358,7 @@ export default function Branding() {
 
   return (
     <div className="min-h-screen" dir={isRTL ? 'rtl' : 'ltr'}>
+      <SEOHead pageKey="branding" />
       <SEO 
         title={language === 'ar' ? 'استراتيجية العلامة التجارية والهوية المؤسسية' : 'Brand Strategy & Corporate Identity'}
         description={language === 'ar' 

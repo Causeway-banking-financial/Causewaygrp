@@ -34,6 +34,7 @@ import { Button } from '@/components/ui/button';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import SEO from '@/components/SEO';
+import SEOHead from '@/components/SEOHead';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useBooking } from '@/App';
 
@@ -182,6 +183,7 @@ export default function IslamicFinance() {
 
   return (
     <div className="min-h-screen" dir={isRTL ? 'rtl' : 'ltr'}>
+      <SEOHead pageKey="islamicFinance" />
       <SEO 
         title={language === 'ar' ? 'هندسة التمويل الإسلامي | كوزواي' : 'Islamic Finance Engineering | CauseWay'}
         description={language === 'ar' 

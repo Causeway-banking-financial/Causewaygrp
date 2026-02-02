@@ -258,3 +258,24 @@
 - [x] Shortened meta description from 278 to physiotherapy145 characters:
   - "CauseWay: Leading Islamic finance and banking consultancy in Yemen & MENA. Expert AML/CFT compliance, risk management, and Sharia-compliant solutions."
 - [x] Meta tags properly formatted and optimized
+
+## Phase 21: Expert-Level SEO Optimizations (COMPLETED)
+- [x] Verified meta tags are properly applied:
+  - Keywords reduced from 18 to 6: Islamic Finance Yemen, Banking Consultancy, AML/CFT Compliance, Risk Management, Sharia Compliance, MENA Finance
+  - Description shortened to 145 characters
+- [x] Added FAQ structured data schema with 5 industry-specific questions:
+  - What is Islamic finance engineering?
+  - How does CauseWay ensure Sharia compliance?
+  - What AML/CFT services does CauseWay offer?
+  - Does CauseWay work with central banks?
+  - What regions does CauseWay serve?
+- [x] Added BreadcrumbList schema for navigation
+- [x] Added enhanced Service schema for 6 service offerings
+- [x] Added page-specific meta tags for all service pages:
+  - Created seoConfig.ts with unique meta for each page
+  - Created SEOHead component for dynamic meta updates
+  - Integrated SEOHead into Home, Islamic Finance, Risk & Compliance, Core Banking, Microfinance, Capacity Building, and Branding pages
+- [x] Implemented semantic HTML improvements (lang, dir attributes, proper heading hierarchy)
+- [x] Added preload hints for critical resources (fonts, hero image)
+- [x] Optimized for Core Web Vitals with preconnect hints
+- [x] Added industry-specific keywords targeting financial institutions and central banks
