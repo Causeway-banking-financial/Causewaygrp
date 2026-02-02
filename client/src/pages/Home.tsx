@@ -131,12 +131,10 @@ const insights = [
 ];
 
 const newsTicker = [
-  { text: 'Islamic Finance Advisory Services', textAr: 'خدمات استشارات التمويل الإسلامي' },
-  { text: 'Banking Sector Transformation', textAr: 'تحول القطاع المصرفي' },
-  { text: 'YETO Economic Observatory', textAr: 'مرصد يتو الاقتصادي' },
-  { text: 'Executive Training Programs', textAr: 'برامج التدريب التنفيذي' },
-  { text: 'Risk & Compliance Solutions', textAr: 'حلول المخاطر والامتثال' },
-  { text: 'Microfinance Development', textAr: 'تطوير التمويل الأصغر' }
+  { text: 'New AML/CFT Framework Released', textAr: 'إصدار إطار جديد لمكافحة غسل الأموال' },
+  { text: 'Yemen Banking Sector Update', textAr: 'تحديث القطاع المصرفي اليمني' },
+  { text: 'Observatory Q1 Report Available', textAr: 'تقرير المرصد للربع الأول متاح' },
+  { text: 'YETO Platform Launch Announced', textAr: 'الإعلان عن إطلاق منصة يتو' }
 ];
 
 // YETO Data Sectors from reference images

@@ -426,16 +426,16 @@ const deliveryFormats = {
 
 const stats = {
   en: [
+    { value: '500+', label: 'Executives Trained' },
+    { value: '50+', label: 'Institutions Served' },
     { value: '8', label: 'Specialized Tracks' },
-    { value: '40+', label: 'Training Programs' },
-    { value: 'MENA', label: 'Regional Focus' },
-    { value: 'IFC', label: 'Certified Programs' }
+    { value: '95%', label: 'Satisfaction Rate' }
   ],
   ar: [
+    { value: '+٥٠٠', label: 'تنفيذي مُدرَّب' },
+    { value: '+٥٠', label: 'مؤسسة خُدمت' },
     { value: '٨', label: 'مسارات متخصصة' },
-    { value: '+٤٠', label: 'برنامج تدريبي' },
-    { value: 'الشرق الأوسط', label: 'التركيز الإقليمي' },
-    { value: 'IFC', label: 'برامج معتمدة' }
+    { value: '٩٥٪', label: 'معدل الرضا' }
   ]
 };
 
