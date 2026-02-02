@@ -36,6 +36,8 @@ import Terms from "./pages/Terms";
 import IslamicFinanceCalculator from "./pages/IslamicFinanceCalculator";
 import Learning from "./pages/Learning";
 import Academy from "./pages/Academy";
+import Glossary from "./pages/Glossary";
+import RegulatoryCalendar from "./pages/RegulatoryCalendar";
 import CookieConsent from "./components/CookieConsent";
 
 function Router() {
@@ -80,6 +82,8 @@ function Router() {
       
       {/* Tools */}
       <Route path="/tools/islamic-finance-calculator" component={IslamicFinanceCalculator} />
+      <Route path="/glossary" component={Glossary} />
+      <Route path="/regulatory-calendar" component={RegulatoryCalendar} />
       
       {/* Legal */}
       <Route path="/privacy" component={Privacy} />

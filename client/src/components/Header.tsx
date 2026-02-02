@@ -7,7 +7,8 @@
 
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'wouter';
-import { Menu, X, ChevronDown, Lock, Globe, ChevronRight } from 'lucide-react';
+import { Menu, X, ChevronDown, Lock, ChevronRight } from 'lucide-react';
+import LanguageSwitcher from './LanguageSwitcher';
 import Logo from './Logo';
 import { Button } from '@/components/ui/button';
 import {
@@ -38,6 +39,8 @@ const resources = [
   { name: 'How We Work', nameAr: 'كيف نعمل', href: '/how-we-work' },
   { name: 'Resource Hub', nameAr: 'مركز الموارد', href: '/resources' },
   { name: 'CauseWay Academy', nameAr: 'أكاديمية كوزواي', href: '/academy' },
+  { name: 'Financial Glossary', nameAr: 'القاموس المالي', href: '/glossary' },
+  { name: 'Regulatory Calendar', nameAr: 'التقويم التنظيمي', href: '/regulatory-calendar' },
   { name: 'FAQ', nameAr: 'الأسئلة الشائعة', href: '/faq' },
   { name: 'Careers', nameAr: 'الوظائف', href: '/careers' },
 ];
@@ -213,13 +216,7 @@ export default function Header() {
 
           {/* Right Side Actions */}
           <div className={`hidden lg:flex items-center gap-3 xl:gap-4 ${isRTL ? 'flex-row-reverse' : ''}`}>
-            <button 
-              onClick={toggleLanguage}
-              className="flex items-center gap-1 text-[#faf9f6]/70 hover:text-[#d4a84b] transition-colors text-sm"
-            >
-              <Globe className="w-4 h-4" />
-              <span>{language === 'ar' ? 'English' : 'العربية'}</span>
-            </button>
+            <LanguageSwitcher variant="toggle" />
             
             <Button 
               onClick={handleClientPortal}
@@ -366,13 +363,7 @@ export default function Header() {
 
                 {/* Mobile Actions */}
                 <div className="flex flex-col gap-4 pt-6 mt-4 border-t border-[#224B40]/30">
-                  <button 
-                    onClick={toggleLanguage}
-                    className={`flex items-center gap-2 text-[#faf9f6]/70 hover:text-[#d4a84b] transition-colors ${isRTL ? 'flex-row-reverse' : ''}`}
-                  >
-                    <Globe className="w-5 h-5" />
-                    <span>{language === 'ar' ? 'English' : 'العربية - Arabic'}</span>
-                  </button>
+                  <LanguageSwitcher variant="toggle" />
                   
                   <Button 
                     onClick={handleClientPortal}
