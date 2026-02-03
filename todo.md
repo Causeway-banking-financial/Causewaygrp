@@ -280,11 +280,24 @@
 - [x] Optimized for Core Web Vitals with preconnect hints
 - [x] Added industry-specific keywords targeting financial institutions and central banks
 
-## Phase 22: GitHub Export & AWS Deployment
-- [ ] Export current code to GitHub repository
-- [ ] Identify Manus-specific dependencies (_core folder, OAuth, etc.)
-- [ ] Create standalone server without Manus dependencies
-- [ ] Create AWS-ready configuration (Dockerfile, docker-compose.yml)
-- [ ] Update environment variables for AWS (DATABASE_URL, JWT_SECRET, etc.)
-- [ ] Create deployment documentation (README for AWS)
-- [ ] Push AWS-ready version to GitHub
+## Phase 22: GitHub Export & AWS Deployment (COMPLETED)
+- [x] Export current code to GitHub repository (Causeway-banking-financial/Causewaygrp)
+- [x] Identify Manus-specific dependencies:
+  - Removed vite-plugin-manus-runtime
+  - Removed Manus debug collector plugin
+  - Removed .manus-logs directory
+  - Cleaned up allowed hosts configuration
+- [x] Create standalone server without Manus dependencies
+- [x] Create AWS-ready configuration:
+  - Dockerfile (multi-stage build with Node 20 Alpine)
+  - docker-compose.yml
+  - .dockerignore
+  - amplify.yml (for AWS Amplify deployment)
+- [x] Create deployment documentation (AWS-DEPLOYMENT.md) with:
+  - AWS Amplify deployment guide
+  - S3 + CloudFront static hosting
+  - ECS with Docker deployment
+  - AWS App Runner deployment
+  - Domain configuration with Route 53
+  - SSL certificate setup with ACM
+- [x] Push AWS-ready version to GitHub (Causewaygrp)
