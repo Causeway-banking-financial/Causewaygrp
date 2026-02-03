@@ -279,3 +279,12 @@
 - [x] Added preload hints for critical resources (fonts, hero image)
 - [x] Optimized for Core Web Vitals with preconnect hints
 - [x] Added industry-specific keywords targeting financial institutions and central banks
+
+## Phase 22: GitHub Export & AWS Deployment
+- [ ] Export current code to GitHub repository
+- [ ] Identify Manus-specific dependencies (_core folder, OAuth, etc.)
+- [ ] Create standalone server without Manus dependencies
+- [ ] Create AWS-ready configuration (Dockerfile, docker-compose.yml)
+- [ ] Update environment variables for AWS (DATABASE_URL, JWT_SECRET, etc.)
+- [ ] Create deployment documentation (README for AWS)
+- [ ] Push AWS-ready version to GitHub
