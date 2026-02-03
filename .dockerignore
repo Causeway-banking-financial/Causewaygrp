@@ -1,0 +1,36 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Build outputs (we rebuild in Docker)
+dist/
+
+# Development files
+.git/
+.gitignore
+*.md
+!README.md
+
+# IDE
+.vscode/
+.idea/
+
+# Logs
+*.log
+.manus-logs/
+
+# Environment files (use Docker secrets or env vars instead)
+.env*
+!.env.example
+
+# Test files
+*.test.ts
+*.spec.ts
+coverage/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Patches (pnpm specific, handled during install)
+patches/
