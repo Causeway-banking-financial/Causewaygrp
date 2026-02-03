@@ -301,3 +301,13 @@
   - Domain configuration with Route 53
   - SSL certificate setup with ACM
 - [x] Push AWS-ready version to GitHub (Causewaygrp)
+
+
+## Phase 23: Custom Domain Configuration (finance.causewaygrp.com) - COMPLETED
+- [x] Create AWS deployment script for S3 bucket (aws/deploy.sh)
+- [x] Create CloudFront distribution configuration (aws/setup-cloudfront.sh)
+- [x] Create ACM SSL certificate request (aws/setup-ssl.sh)
+- [x] Create Route 53 DNS configuration (aws/setup-dns.sh)
+- [x] Create CloudFormation template for IaC (aws/cloudformation.yml)
+- [x] Create step-by-step deployment guide (aws/DEPLOYMENT-GUIDE.md)
+- [x] Push to GitHub
